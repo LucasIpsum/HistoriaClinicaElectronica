@@ -1,17 +1,31 @@
 <template>
   <div id="app">
-    <Navbar />
+    
     <router-view/>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
+import {mapState, mapMutations} from 'vuex'
+
 
 export default {
   name: 'App',
-  components: {
-    Navbar
+  mounted(){
+    if(window.localStorage.getItem('user') === 'true'){
+      this.st_logUser();
+      this.$router.push('/').catch(err => {});
+    }
+    else{
+      window.localStorage.setItem('user','false');
+      this.$router.push('/log').catch(err => {});
+    }
+  },
+  computed: {
+    ...mapState(['st_user'])
+  },
+  methods: {
+    ...mapMutations(['st_logUser'])
   }
 }
 
