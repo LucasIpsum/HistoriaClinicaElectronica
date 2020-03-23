@@ -1,12 +1,9 @@
 <template>
-<div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
+<div id="login" class="container bg-greyl">
           <img src="@/assets/logo.png">
-          <div class="card-header">Logueate</div>
-          <div class="card-body">
-            <form>
+          
+            <form id="formulario" v-on:submit="login">
+              <h2 id="title">Inicia Sesion</h2>
               <div class="form-group row">
                 <div class="col-md-6">
                   <input id="email" type="email" class="form-control" name="email"
@@ -22,16 +19,13 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" v-on:click="login" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary">Iniciar sesion</button>
                 </div>
               </div>
             </form>
-            <p>No tienes una cuenta?<router-link to="/register">Registrate</router-link></p>
-          </div>
-        </div>
-      </div>
+            <p id="link">No tienes una cuenta?<router-link to="/register">Registrate</router-link></p>
+          
     </div>
-  </div>
 </template>
 
 <script>
@@ -52,7 +46,24 @@ import {mapMutations} from 'vuex';
 
 <style scoped>
 img {
+  padding-top: 5vh;
   width: 50vw;
   margin: 0 auto;
 }
+#login{
+    height: 100vh;
+  }
+  .bg-greyl{
+    background-color: rgb(216, 216, 216);
+  }
+  #formulario{
+    padding: 0 2em;
+    padding-top: 5vh;
+  }
+  #title{
+    margin-bottom: 2rem;
+  }
+  #link{
+    margin-top: 2em;
+  }
 </style>

@@ -1,11 +1,7 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Registrate</div>
-          <div class="card-body">
-            <form>
+  <div id="register" class="container bg-greyl">
+            <form id="formulario" v-on:submit.prevent="register">
+              <h2 id="title">Complete sus datos:</h2>
               <div class="form-group row">
                 <div class="col-md-6">
                   <input id="name" type="text" class="form-control" name="name"
@@ -45,15 +41,12 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" v-on:click="register" class="btn btn-primary">Registrarse</button>
+                  <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
               </div>
             </form>
+            <p id="link">Ya tienes una cuenta?<router-link to="/log">Inicia Sesion</router-link></p>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 
@@ -87,5 +80,20 @@ export default {
 }
 </script>
 <style scoped>
-
+  #register{
+    height: 100vh;
+  }
+  .bg-greyl{
+    background-color: rgb(216, 216, 216);
+  }
+  #formulario{
+    padding: 0 2em;
+    padding-top: 15vh;
+  }
+  #title{
+    margin-bottom: 2rem;
+  }
+  #link{
+    margin-top: 2em;
+  }
 </style>
