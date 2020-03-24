@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    st_user: false
+    st_user: false,
+    st_misPacientes: {}
   },
   mutations: {
     st_logUser(state){
       state.user = !state.user
+    },
+    st_cargarMisPacientes(state,database){
+      state.st_misPacientes = database;
     }
   },
   actions: {

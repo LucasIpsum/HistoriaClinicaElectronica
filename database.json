@@ -1,0 +1,18 @@
+{
+  "doctores" : {
+    "AMO123" : {
+      "nombre" : "Perez",
+      "pacientes" : {
+        "3025421" : {
+          "nombre" : "perro"
+        },
+        "39374219" : {
+          "nombre" : "diego"
+        },
+        "40525220" : {
+          "nombre" : "lucas"
+        }
+      }
+    }
+  }
+}
