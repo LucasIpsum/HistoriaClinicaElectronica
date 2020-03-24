@@ -1,12 +1,18 @@
 <template>
   <div id="navbar">
     <div id="button" v-on:click="show">
-      <img src="https://ps.w.org/wpdevart-vertical-menu/assets/icon-128x128.png?rev=1808074" alt="menu_icon">
+      <i class="fas fa-bars fa-2x"></i>
     </div>
     <div id="back" v-on:click="hide"></div>
-    <div id="slide">
-      <router-link to="/">Home</router-link>   |
-      <button v-on:click="logout">DESLOGEAR</button> 
+    <div id="slide" class="d-flex flex-column align-items-start">
+      <div class="row m-0 p-0">
+        <i class="fas fa-users fa-2x col-3"></i>
+        <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
+      </div>
+      <div class="row m-0 p-0">
+        <i class="fas fa-sign-out-alt fa-2x col-3"></i>
+        <button v-on:click="logout" class="menu-item col-9">Salir</button>
+      </div> 
     </div>
      
   </div>
@@ -44,11 +50,16 @@ import {mapMutations} from 'vuex'
 #button{
   position: fixed;
   width: 60px;
+  height: 60px;
   top: 20px;
   left:1em;
+  background-color: rgb(26, 115, 218);
+  padding-top:3.5%;
+  border-radius: 50%;
 }
-img{
+.fa-bars{
   width: 100%;
+  color: white;
 }
 #back{
   display: none;
@@ -68,11 +79,25 @@ img{
   height: 100vh;
   background-color: white;
   box-shadow: 10px 2px 15px -6px rgba(0,0,0,0.75);
-  margin-left: -100vw;
+  margin-left: -100vw !important;
+  padding-top: 5em !important;
   transition: all 0.3s;
   z-index: 150;
 }
 #slide.active{
-  margin-left: 0;
+  margin-left: 0 !important;
+}
+.menu-item{
+  text-decoration: none;
+  border: none;
+  background-color: white;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+.row {
+  width: 100%;
+}
+i {
+  color: rgb(48, 130, 253);
 }
 </style>
