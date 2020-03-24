@@ -8,7 +8,7 @@
           </tbody>
         </table>
     </div>
-    <button class="btn btn-large" type="button">Registros</button>
+    <router-link to="/record" class="btn btn-large">Registros</router-link>
     <button class="btn btn-large" type="button" data-toggle="collapse" data-target="#collapseContact" aria-expanded="false" aria-controls="collapseContact">Contactos de Emergencia</button>
     <div class="collapse box" id="collapseContact">
       <div v-for="(c,k) in contacts" :key="k">

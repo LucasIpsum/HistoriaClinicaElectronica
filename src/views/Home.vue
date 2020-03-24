@@ -3,6 +3,7 @@
     <Navbar/>
     <h1 class="ml-5 pt-4">Mis Pacientes</h1>
     <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/>
+    <router-link to="/addpaciente" class="btn btn-blue">Agregar paciente</router-link>
   </div>
 </template>
 
@@ -35,5 +36,10 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-blue{
+  background-color: rgb(59, 151, 255);
+  color: white;
+  padding: 1em 1.3em;
+  font-size: 1.2em;
+}
 </style>

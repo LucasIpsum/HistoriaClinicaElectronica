@@ -4,8 +4,6 @@ import router from './router'
 import store from './store'
 import 'bootstrap'
 
-const $ = require('jquery')
-window.$ = $
 
 Vue.config.productionTip = false
 
