@@ -2,7 +2,7 @@
 <div>
   <router-link :to="url">
   <div id="patient" class="container">
-    <h2>{{this.nombre}}</h2>
+    <h2 >{{this.nombre}}</h2>
     <p id="dni">dni: {{this.dni}}</p>
   </div>
   </router-link>

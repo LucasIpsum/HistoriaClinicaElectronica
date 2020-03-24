@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar/>
-    <h1>Mis Pacientes</h1>
+    <h1 class="ml-5 pt-4">Mis Pacientes</h1>
     <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :nombre="p.name" :dni="p.dni" :id="p.id"/>
   </div>
 </template>

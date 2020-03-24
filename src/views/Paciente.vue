@@ -1,7 +1,8 @@
 <template>
   <div>
+    <Navbar />
     <div id="header">
-      <h2 id="nameTitle">{{current.name}}</h2>
+      <h2 id="nameTitle" class="ml-5">{{current.name}}</h2>
       <div class="row">
         <div v-on:click="change('history')" class="col-6 text">Historia Clinica</div>
         <div v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
@@ -17,11 +18,12 @@
 import { mapState } from 'vuex'
 import History from '@/components/History.vue'
 import Nurse from '@/components/Nurse.vue'
+import Navbar from '@/components/Navbar.vue'
 
   export default {
     name: 'Paciente',
     components: {
-      History, Nurse
+      History, Nurse, Navbar
     },
     data(){
       return {
@@ -63,14 +65,11 @@ import Nurse from '@/components/Nurse.vue'
   }
   .baja{
     color: green;
-    font-size: 1em;
   }
   .alta{
     color: rgb(255, 208, 0);
-    font-size: 1.5em;
   }
   .confirmado{
     color: red;
-    font-size: 2em;
   }
 </style>
