@@ -2,7 +2,7 @@
   <div class="home">
     <Navbar/>
     <h1 class="ml-5 pt-4">Mis Pacientes</h1>
-    <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :nombre="p.name" :dni="p.dni" :id="p.id"/>
+    <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
   methods: {
     ...mapMutations(['st_cargarMisPacientes']),
     async fetchDataDoc(){
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/users.json')
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
       .then(response => response.json())
       .then(json => this.st_cargarMisPacientes(json))
     }

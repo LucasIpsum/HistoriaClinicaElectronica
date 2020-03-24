@@ -2,8 +2,8 @@
 <div>
   <router-link :to="url">
   <div id="patient" class="container">
-    <h2 >{{this.nombre}}</h2>
-    <p id="dni">dni: {{this.dni}}</p>
+    <div class="text">{{`${paciente.apellido}, ${paciente.nombre}`}}</div>
+    <p class="text">dni: {{paciente.documento}}</p>
   </div>
   </router-link>
 </div>
@@ -13,10 +13,10 @@
 <script>
   export default {
     name: 'Patientbox',
-    props: ['nombre','dni','id'],
+    props: ['paciente'],
     computed: {
       url(){
-        return '/paciente/' + this.id;
+        return '/paciente/' + this.paciente.id;
       }
     }
   }
@@ -32,7 +32,7 @@
   border-radius: 0.5em;
   box-shadow: 0px 8px 19px -5px rgba(0,0,0,0.52);
 }
-#dni{
+.text{
   margin: 0 auto;
   font-size: 1.7em;
 }
