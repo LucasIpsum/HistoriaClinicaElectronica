@@ -8,9 +8,9 @@
         <div v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
       </div> 
     </div>
-    <div id="state">Estado: <span :class="current.state">{{current.state}}</span></div>
-    <History v-if="currtentPage == 'history'"/>
-    <Nurse v-if="currtentPage == 'nurse'" />
+    <div id="state">Estado: <span :class="historia?historia.estado:null">{{historia?historia.estado:null}}</span></div>
+    <History v-if="currtentPage == 'history'" :anam="historia.clinico.anamnesis" :contacts="current.contact"/>
+    <Nurse v-if="currtentPage == 'nurse'" :registro="historia.registro"/>
   </div>
 </template>
 
@@ -27,7 +27,8 @@ import Navbar from '@/components/Navbar.vue'
     },
     data(){
       return {
-        currtentPage: 'history'
+        currtentPage: 'history',
+        historia: null
       }
     },
     computed: {
@@ -39,7 +40,16 @@ import Navbar from '@/components/Navbar.vue'
     methods: {
       change(text){
         this.currtentPage = text;
+      },
+      async cargarRegistro(){
+        await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
+        .then(response => response.json())
+        .then(json => this.historia = json[this.$route.params.id - 1])
+        .catch(error => console.log(error))
       }
+    },
+    created(){
+      this.cargarRegistro();
     }
   }
 </script>

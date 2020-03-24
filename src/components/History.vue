@@ -1,24 +1,24 @@
 <template>
   <div id="history">
     <button class="btn btn-large" type="button" data-toggle="collapse" data-target="#collapseAnanmesis" aria-expanded="false" aria-controls="collapseAnanmesis">Ananmesis</button>
-    <div class="collapse box" id="collapseAnanmesis">
-      
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.   
-      
+    <div class="collapse box" id="collapseAnanmesis">  
+      {{anam}}
     </div>
     <button class="btn btn-large" type="button">Registros</button>
     <button class="btn btn-large" type="button" data-toggle="collapse" data-target="#collapseContact" aria-expanded="false" aria-controls="collapseContact">Contactos de Emergencia</button>
     <div class="collapse box" id="collapseContact">
-      
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.   
-      
+      <div class="row" v-for="(c,k) in contacts" :key="k">
+        <div class="col-5">{{k}}</div>
+        <div class="col-7">{{c}}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'History'
+    name: 'History',
+    props: ['anam','contacts']
   }
 </script>
 
