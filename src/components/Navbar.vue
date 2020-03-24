@@ -1,5 +1,9 @@
 <template>
   <div id="navbar">
+    <div id="relleno"></div>
+    <div id="backbtn" v-on:click="()=>{$router.go(-1)}">
+      <i class="fas fa-undo-alt fa-2x"></i>
+    </div>
     <div id="button" v-on:click="show">
       <i class="fas fa-bars fa-2x"></i>
     </div>
@@ -47,6 +51,20 @@ import {mapMutations} from 'vuex'
 </script>
 
 <style scoped>
+#backbtn{
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  top: 20px;
+  right: 1em;
+  background-color: rgb(26, 115, 218);
+  padding-top:3.5%;
+  border-radius: 50%;
+}
+#relleno{
+  width: 100vw;
+  height: 90px;
+}
 #button{
   position: fixed;
   width: 60px;
@@ -57,7 +75,7 @@ import {mapMutations} from 'vuex'
   padding-top:3.5%;
   border-radius: 50%;
 }
-.fa-bars{
+.fas{
   width: 100%;
   color: white;
 }
@@ -67,6 +85,7 @@ import {mapMutations} from 'vuex'
   height: 100vh;
   background-color: black;
   position: fixed;
+  top: 0;
   opacity: 0.5;
   z-index: 100;
 }
@@ -75,6 +94,7 @@ import {mapMutations} from 'vuex'
 }
 #slide{
   position: absolute;
+  top: 0;
   width: 70vw;
   height: 100vh;
   background-color: white;
