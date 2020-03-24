@@ -10,11 +10,11 @@
     <div id="back" v-on:click="hide"></div>
     <div id="slide" class="d-flex flex-column align-items-start">
       <div class="row m-0 p-0">
-        <i class="fas fa-users fa-2x col-3"></i>
+        <i class="blue fas fa-users fa-2x col-3"></i>
         <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
       </div>
       <div class="row m-0 p-0">
-        <i class="fas fa-sign-out-alt fa-2x col-3"></i>
+        <i class="blue fas fa-sign-out-alt fa-2x col-3"></i>
         <button v-on:click="logout" class="menu-item col-9">Salir</button>
       </div> 
     </div>
@@ -117,7 +117,7 @@ import {mapMutations} from 'vuex'
 .row {
   width: 100%;
 }
-i {
+.blue {
   color: rgb(48, 130, 253);
 }
 </style>
