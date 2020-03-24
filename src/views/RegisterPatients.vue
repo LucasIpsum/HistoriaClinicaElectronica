@@ -1,6 +1,5 @@
 <template>
     <div id="general">
-        <Navbar />
         <div>
             <h2>Registro de pacientes</h2>
         </div>
@@ -41,17 +40,14 @@
             </div>
         </div>
         <button class="cargar" v-on:click="cargar">CARGAR</button>
+        <p id="link">Ya tienes una cuenta?<router-link to="/log">Inicia Sesion</router-link></p>
     </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 
 export default {
   name: "RegisterPatients",
-  components: {
-    Navbar
-  },
   data() {
     return {
       cont:0,
@@ -146,6 +142,9 @@ export default {
 </script>
 
 <style scoped>
+#general{
+    padding-top: 50px;
+}
     .contem{
         margin:1vh;
         border:solid;

@@ -1,8 +1,9 @@
 <template>
   <div id="register">
     <div class="title">Registrate como: </div>
-    <router-link to="/register/doctor" class="btn btn-blue">Agregar paciente</router-link>
-    <router-link to="/register/paciente" class="btn btn-blue">Agregar paciente</router-link>
+    <router-link to="/register/doctor" class="btn btn-blue">DOCTOR</router-link>
+    <br>
+    <router-link to="/register/paciente" class="btn btn-blue">PACIENTE</router-link>
   </div>
 </template>
 
