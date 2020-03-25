@@ -35,10 +35,26 @@ import {mapMutations} from 'vuex';
     name: 'Log',
     methods: {
       ...mapMutations(['st_logUser']),
-      login(){
-        window.localStorage.setItem('user','true');
-        this.st_logUser();
-        this.$router.push('/').catch(err => {});
+      login(event){
+        event.preventDefault()
+        let form = event.target
+        let formData = new FormData(form)
+        fetch("/api/login",{
+          method: 'POST',
+          body:formData
+        }).then(res =>{
+          if(res.ok){
+            console.log(res)
+            window.localStorage.setItem('user','true');
+            this.st_logUser();
+            this.$router.push('/').catch(err => {});
+          }else{
+            return Promise.reject(res)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+        
       }
     },
   }

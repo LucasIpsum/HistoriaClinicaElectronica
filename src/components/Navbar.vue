@@ -30,9 +30,18 @@ import {mapMutations} from 'vuex'
     methods: {
     ...mapMutations(['st_logUser']),
     logout(){
-      window.localStorage.setItem('user','false');
-        this.st_logUser();
-        this.$router.push('/log').catch(err => {});
+      fetch('/api/logout',{
+        method: 'POST',
+      }).then(res => {
+        if(res.ok){
+          window.localStorage.setItem('user','false');
+          this.st_logUser();
+          this.$router.push('/log').catch(err => {});
+        }else{
+          return Promise.reject(res)
+        }
+      }).catch(error => console.log(error))
+      
     },
     show(){
       let element = document.querySelector('#slide');

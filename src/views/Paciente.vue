@@ -8,7 +8,7 @@
         <div v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
       </div> 
     </div>
-    <div id="state">Estado: <span :class="current.estado">{{current.estado}}</span></div>
+    <div id="state">Estado: <span :class="current.estado">{{current.estado.diagnostico}}</span></div>
     <History v-if="currtentPage == 'history'" :anam="current.anamnesis" :contacts="current.contactosEmergencia"/>
     <Nurse v-if="currtentPage == 'nurse'" :registro="historia.registro"/>
   </div>

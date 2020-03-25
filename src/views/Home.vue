@@ -23,9 +23,17 @@ export default {
   methods: {
     ...mapMutations(['st_cargarMisPacientes']),
     async fetchDataDoc(){
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
-      .then(response => response.json())
-      .then(json => this.st_cargarMisPacientes(json))
+      await fetch('/api/pacientes')
+      .then(response => {
+        if(response.ok){
+          return response.json()
+        }else{
+          return Promise.reject(res)
+        }
+      }).then(json => this.st_cargarMisPacientes(json.pacientes))
+      .catch(error => {
+        console.log(error)
+      })
     }
   },
   created(){
