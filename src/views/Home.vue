@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <Navbar/>
-    <h1 class="ml-5 pt-4">Mis Pacientes</h1>
+    <h2 class="">Ultimos Pacientes</h2>
     <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/>
-    <router-link to="/addpaciente" class="btn btn-blue">Agregar paciente</router-link>
+    <router-link to="/searchpaciente" class="btn btn-blue">Buscar paciente</router-link>
   </div>
 </template>
 

@@ -63,6 +63,11 @@ export default {
 </script>
 
 <style scoped>
+#backbtn{
+  position: fixed;
+  top: 20px;
+  right: 1em;
+}
 #dni-input{
   width: 40vw;
 }

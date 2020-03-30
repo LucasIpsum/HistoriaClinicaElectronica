@@ -51,7 +51,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "register" */ '../views/Paciente.vue')
   },
   {
-    path: '/addpaciente',
+    path: '/searchpaciente',
     name: 'PatientSearch',
     // route level code-splitting
     // this generates a separate chunk (register.[hash].js) for this route

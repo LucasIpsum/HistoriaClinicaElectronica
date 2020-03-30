@@ -1,5 +1,8 @@
 <template>
   <div id="register">
+    <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
+      <i class="fas fa-undo-alt fa-2x"></i>
+    </div>
     <div class="title">Registrate como: </div>
     <router-link to="/register/doctor" class="btn btn-blue">DOCTOR</router-link>
     <br>
@@ -14,6 +17,11 @@
 </script>
 
 <style scoped>
+#backbtn{
+  position: fixed;
+  top: 20px;
+  right: 1em;
+}
 #register{
   background-color: rgb(216, 216, 216);
   height: 100vh;

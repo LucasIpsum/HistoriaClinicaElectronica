@@ -1,5 +1,8 @@
 <template>
     <div id="general">
+        <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
+            <i class="fas fa-undo-alt fa-2x"></i>
+        </div>
         <div>
             <h2>Registro de pacientes</h2>
         </div>
@@ -142,6 +145,11 @@ export default {
 </script>
 
 <style scoped>
+#backbtn{
+  position: fixed;
+  top: 20px;
+  right: 1em;
+}
 #general{
     padding-top: 50px;
 }

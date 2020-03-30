@@ -1,5 +1,8 @@
 <template>
   <div id="register" class="container bg-greyl">
+     <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
+      <i class="fas fa-undo-alt fa-2x"></i>
+    </div>
             <form id="formulario" v-on:submit.prevent="register">
               <h2 id="title">Complete sus datos:</h2>
               <div class="form-group row">
@@ -80,6 +83,11 @@ export default {
 }
 </script>
 <style scoped>
+#backbtn{
+  position: fixed;
+  top: 20px;
+  right: 1em;
+}
   #register{
     height: 100vh;
   }
