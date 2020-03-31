@@ -60,10 +60,18 @@ import {mapMutations} from 'vuex'
 </script>
 
 <style scoped>
+#navbar{
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  height: 90px;
+  z-index: 100;
+}
 #backbtn{
   position: fixed;
   top: 20px;
   right: 1em;
+  z-index: 110;
 }
 #relleno{
   width: 100vw;

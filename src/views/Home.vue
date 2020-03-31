@@ -1,21 +1,28 @@
 <template>
   <div class="home">
     <Navbar/>
-    <h2 class="">Ultimos Pacientes</h2>
-    <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/>
-    <router-link to="/searchpaciente" class="btn btn-blue">Buscar paciente</router-link>
+    <PatientSearch />
+    <!-- <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/> -->
+    <LastPatients />
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Patientbox from '@/components/Patientbox.vue';
+import LastPatients from '@/components/LastPatients.vue';
+import PatientSearch from '@/views/PatientSearch.vue'
 import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
-    Navbar, Patientbox
+    Navbar, Patientbox, PatientSearch, LastPatients
+  },
+  data(){
+    return{
+      check: ""
+    }
   },
   computed:{
     ...mapState(['st_misPacientes']),
@@ -23,14 +30,14 @@ export default {
   methods: {
     ...mapMutations(['st_cargarMisPacientes']),
     async fetchDataDoc(){
-      await fetch('/api/pacientes')
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.st_cargarMisPacientes(json.pacientes))
+      }).then(json => this.st_cargarMisPacientes(json))
       .catch(error => {
         console.log(error)
       })

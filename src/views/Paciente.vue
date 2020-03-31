@@ -4,8 +4,8 @@
     <div id="header">
       <h2 id="nameTitle" class="ml-5">{{`${current.apellido}, ${current.nombre}`}}</h2>
       <div class="row">
-        <div v-on:click="change('history')" class="col-6 text">Historia Clinica</div>
-        <div v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
+        <div id="history" v-on:click="change('history')" class="col-6 text active">Historia Clinica</div>
+        <div id="nurse" v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
       </div> 
     </div>
     <div id="state">Estado: <span :class="current.estado">{{current.estado.diagnostico}}</span></div>
@@ -46,6 +46,11 @@ import Navbar from '@/components/Navbar.vue'
       },
       change(text){
         this.currtentPage = text;
+        let links = $('.text')
+        for(let i= 0; i<links.length; i++){
+          if(links[i].id===text){links[i].classList.add('active')}
+          else{links[i].classList.remove('active')}
+        }
       },
       async cargarRegistro(){
         await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
@@ -80,7 +85,7 @@ import Navbar from '@/components/Navbar.vue'
     font-size: 1.5em;
     padding: 0 1em;
   }
-  .row div:hover {
+  .row div:hover, .active {
     background-color: rgba(51, 185, 141, 0.986);
   }
   #state{

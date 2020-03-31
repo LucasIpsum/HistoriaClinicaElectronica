@@ -4,7 +4,7 @@
     <div class="collapse box" id="collapseAnanmesis">
       <table class="table">
           <tbody>
-            <tr v-for="(v,i) in anam" :key="i"><td>{{i}}</td><td>{{v}}</td></tr>
+            <tr v-for="(v,i) in anam" :key="i"><td>{{i}}</td><td>{{stringfy(v)}}</td></tr>
           </tbody>
         </table>
     </div>
@@ -34,7 +34,14 @@
 <script>
   export default {
     name: 'History',
-    props: ['anam','contacts']
+    props: ['anam','contacts'],
+    methods:{
+      stringfy(string){
+        let newString = string;
+        if(string == true){newString = "si"}
+        return newString;
+      }
+    }
   }
 </script>
 
@@ -52,5 +59,8 @@ table{
   width: 90%;
   margin: 0 auto;
   border: 2px solid rgb(29, 143, 219);
+}
+table td{
+  padding: 0.5em;
 }
 </style>
