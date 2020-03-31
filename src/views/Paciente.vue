@@ -1,10 +1,7 @@
 <template>
   <div>
-<<<<<<< HEAD
     <Navbar/>
-=======
-    <Navbar />
->>>>>>> 2948f0c2731e46247439cbbdf58591a2d8593479
+
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
           <div class="nav d-flex justify-content-around align-content-center">
@@ -44,14 +41,13 @@ import Navbar from '@/components/Navbar.vue';
 import HC from '@/components/HC.vue'
 import FM from '@/components/FM.vue'
 import Perfil from '@/components/Perfil.vue'
-import Navbar from '@/components/Navbar.vue'
 export default {
   name: 'Paciente',
   components: {
     Navbar,
     HC,
     FM,
-    Perfil,Navbar
+    Perfil
   },
   data() {
     return{
@@ -65,8 +61,7 @@ export default {
 <style scoped>
   .header{
     height: 30vh;
-    width: 90vw;
-    margin: 0 auto;
+    width: 100vw;
   }
   .miPerfil{
     background-color: #007bff;
@@ -77,7 +72,6 @@ export default {
     align-items: center;
     height: 70%;
     width: 100%;
-    border-radius: 3em;
   }
   label img{
     width: 25 vw;

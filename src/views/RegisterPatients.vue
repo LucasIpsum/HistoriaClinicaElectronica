@@ -15,21 +15,21 @@
 
         <h4>Datos personales:</h4>
         
-          <input class="requiredInput btn" placeholder="Nombre"/>
+          <input name="nombre" class="requiredInput btn" placeholder="Nombre"/>
         
         
-          <input class="requiredInput btn" placeholder="Apellido"/>
+          <input name="apellido" class="requiredInput btn" placeholder="Apellido"/>
         
         
-          <input class="requiredInput btn" placeholder="DNI"/>
+          <input name="documento" type="number" class="requiredInput btn" placeholder="DNI"/>
         
         
-          <input class="requiredInput btn" placeholder="E-mail"/>
+          <input name="email" class="requiredInput btn" placeholder="E-mail"/>
         
-          <input class="requiredInput btn" placeholder="Teléfono"/>
+          <input name="telefono" class="requiredInput btn" placeholder="Teléfono"/>
         
         Fecha de nacimiento:
-          <input class="requiredInput btn" type="date"/>
+          <input name="fecha_nacimiento" class="requiredInput btn" type="date"/>
 
           <input name="direccion" class="requiredInput" type="text" placeholder="Direccion"/>
          
@@ -38,7 +38,7 @@
           <div class="input-group-prepend">
             <label class="btn btn-primary" for="inputGroupSelect01">Sexo</label>
           </div>
-          <select name ="Sexo" class="custom-select" id="inputGroupSelect01">
+          <select name="sexo" class="custom-select" id="inputGroupSelect01">
             <option selected>Elegir...</option>
             <option value="1">Masculino</option>
             <option value="2">Femenino</option>
@@ -61,9 +61,9 @@
             </label>
         </div>
         
-        <label>Fecha de viaje<input id="tripDateInput" disabled type="date" class="btn"></label>
+        <label>Fecha de viaje<input id="tripDateInput" name="fecha_viaje" disabled type="date" class="btn"></label>
         
-        <label>Destino de viaje<input id="tripDestinyInput" disabled type="text" class="btn"></label>
+        <label>Destino de viaje<input id="tripDestinyInput" name="destino_viaje" disabled type="text" class="btn"></label>
         
         <div class="row m-0">
           <p class="col-6">Embarazo</p>
@@ -75,31 +75,31 @@
             </label>
         </div>
 
-        <label>Semanas de gestación<input id="pregnancyTimeInput" disabled type="number" class="btn" /></label>
+        <label>Semanas de gestación<input name="semanas_gestacion" value="0" id="pregnancyTimeInput" disabled type="number" class="btn" /></label>
           
-        <label>Embarazos previos<input id="previousPregnanciesInput" disabled type="number" class="btn" /></label>
+        <label>Embarazos previos<input name="embarazos_previos" value="0" id="previousPregnanciesInput" disabled type="number" class="btn" /></label>
         
-        <label >Antecedentes personales<textarea class="requiredInput btn" rows='4' cols='26' type="text" /></label>
+        <label >Antecedentes personales<textarea name="antecedentes_personales" class="requiredInput btn" rows='4' cols='26' type="text" /></label>
       
-        <label>Antecedentes familiares<textarea class="requiredInput btn" rows='4' cols='26' type="text" /></label>
+        <label>Antecedentes familiares<textarea name="antecendentes_familiares" class="requiredInput btn" rows='4' cols='26' type="text" /></label>
 
-        <label>Medicacion regular<input class="requiredInput btn" type="text" /></label>
+        <label>Medicacion regular<input name="medicacion_regular" class="requiredInput btn" type="text" /></label>
 
-        <label>Trabajo<input class="requiredInput btn" type="text" /></label>
+        <label>Trabajo<input name="trabajo" class="requiredInput btn" type="text" /></label>
 
-        <label>Convivientes<input class="requiredInput btn" type="text" /></label>
+        <label>Convivientes<input name="convivientes" class="requiredInput btn" type="number" /></label>
 
       <div class="row m-0">
           <p class="col-6">Obra social</p>
             <label class="col d-flex align-items-center">
-              <input type="radio" name="obraSocial" value="true" v-on:change="ableIsuranceInput"/>Si
+              <input type="radio" name="obra_social" value="true" v-on:change="ableIsuranceInput"/>Si
             </label>
             <label class="col d-flex align-items-center">
-              <input type="radio" name="obraSocial" value="false" checked v-on:change="ableIsuranceInput"/>No
+              <input type="radio" name="obra_social" value="false" checked v-on:change="ableIsuranceInput"/>No
             </label>
         </div>
 
-        <label>Nombre de obra social<input disabled id="isuranceInput" class="btn"></label>
+        <label>Nombre de obra social<input name="nombre_obra_social" disabled id="isuranceInput" class="btn"></label>
         
         <label>Observaciones<input class="requiredInput btn" type="text" /></label>
         
@@ -107,7 +107,7 @@
           <div class="input-group-prepend">
             <label class="btn btn-primary" for="inputGroupSelect01">Grupo Sanguineo</label>
           </div>
-          <select name ="Sexo" class="custom-select" id="inputGroupSelect01">
+          <select name="grupo_sanguineo" class="custom-select" id="inputGroupSelect01">
             <option selected>Elegir...</option>
             <option value="0-">O negativo</option>
           <option value="0+">O positivo</option>
@@ -254,7 +254,7 @@ export default {
 
     fixStepIndicator(n) {
       var allSteps = document.getElementsByClassName("step");
-      for (i = 0; i < allSteps.length; i++) {
+      for (let i = 0; i < allSteps.length; i++) {
         allSteps[i].className = allSteps[i].className.replace(" active", "");
       }
       allSteps[n].className += " active";
@@ -280,20 +280,22 @@ export default {
     // Carga de datos al back
     async updateForm(e){
       let formElem = document.getElementById("regForm")
+      let formData = new FormData(formElem)
+      console.log(formData.values())
       e.preventDefault();
       await fetch('/api/pacientes', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: new FormData(formElem)
+        body: formData
       })
 
       .then(res => {
         if(res.ok){
           return res.json()
         }else{
-          throw new Promise.reject(res.json())
+          return new Promise.reject(res.json())
         }
       })
 
