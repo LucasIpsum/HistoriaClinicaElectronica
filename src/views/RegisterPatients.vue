@@ -156,7 +156,7 @@
       </div>
       </div>
       
-
+      <!---------- BOTONES DE CAMBIO DE PESTAÑA ------------->
       <div style="overflow:auto;">
         <div style="float:right;">
           <button type="button" id="prevBtn" class="btn btn-primary mr-1" v-on:click="nextPrev(-1)">Atras</button>
@@ -165,7 +165,7 @@
         </div>
       </div>
 
-      <!-- Circles which indicates the steps of the form: -->
+      <!---------- PUNTOS QUE INDICAN EL PROGRESO DEL FORM  ------------>
       <div style="text-align:center;margin-top:40px;">
         <span class="step"></span>
         <span class="step"></span>
