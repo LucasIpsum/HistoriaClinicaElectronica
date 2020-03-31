@@ -11,7 +11,7 @@
 import Navbar from '@/components/Navbar.vue';
 import Patientbox from '@/components/Patientbox.vue';
 import LastPatients from '@/components/LastPatients.vue';
-import PatientSearch from '@/views/PatientSearch.vue'
+import PatientSearch from '@/components/PatientSearch.vue'
 import { mapMutations, mapState } from 'vuex';
 
 export default {

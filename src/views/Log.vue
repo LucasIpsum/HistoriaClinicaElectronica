@@ -34,7 +34,7 @@ import {mapMutations} from 'vuex';
   export default {
     name: 'Log',
     methods: {
-      ...mapMutations(['st_logUser']),
+      ...mapMutations(['st_logUser','st_cargarUser']),
       login(event){
         event.preventDefault()
         let form = event.target
@@ -47,6 +47,7 @@ import {mapMutations} from 'vuex';
             console.log(res)
             window.localStorage.setItem('user','true');
             this.st_logUser();
+            this.st_cargarUser();
             this.$router.push('/').catch(err => {});
           }else{
             return Promise.reject(res)

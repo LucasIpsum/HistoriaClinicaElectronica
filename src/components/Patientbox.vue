@@ -28,7 +28,7 @@
   width: 90vw;
   margin: 1em 1em;
   padding: 0 1em;
-  box-shadow: 0px 8px 19px -5px rgba(0,0,0,0.52);
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.52);
 }
 .text{
   margin: 0 auto;

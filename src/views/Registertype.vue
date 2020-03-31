@@ -1,12 +1,12 @@
 <template>
   <div id="register">
     <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
-      <i class="fas fa-undo-alt fa-2x"></i>
+      <i class="fas fa-angle-double-left fa-2x"></i>
     </div>
     <div class="title">Registrate como: </div>
-    <router-link to="/register/doctor" class="btn btn-blue">DOCTOR</router-link>
+    <router-link to="/register/personal" class="btn btn-blue w-70">PERSONAL DE SALUD</router-link>
     <br>
-    <router-link to="/register/paciente" class="btn btn-blue">PACIENTE</router-link>
+    <router-link to="/register/analyst" class="btn btn-blue w-70">ANALISTA DE DATOS</router-link>
   </div>
 </template>
 
@@ -37,5 +37,11 @@
 .title{
   font-size: 2em;
   margin-bottom: 1em;
+}
+.fas{
+  font-size: 1.5em;
+}
+.w-70{
+  width: 70%;
 }
 </style>

@@ -2,13 +2,14 @@
   <div id="navbar">
     <div id="relleno"></div>
     <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
-      <i class="fas fa-undo-alt fa-2x"></i>
+      <i class="fas fa-angle-double-left fa-2x"></i>
     </div>
-    <div id="button" class="btn btn-primary" v-on:click="show">
+    <div id="button" class="btn btn-primary colour" v-on:click="show">
       <i class="fas fa-bars fa-2x"></i>
     </div>
     <div id="back" v-on:click="hide"></div>
     <div id="slide" class="d-flex flex-column align-items-start">
+      <Userbox />
       <div class="row m-0 p-0">
         <i class="blue fas fa-users fa-2x col-3"></i>
         <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
@@ -24,9 +25,11 @@
 
 <script>
 import {mapMutations} from 'vuex'
+import Userbox from '@/components/Userbox.vue'
 
   export default {
     name: 'Navbar',
+    components:{ Userbox },
     methods: {
     ...mapMutations(['st_logUser']),
     logout(){
@@ -126,5 +129,8 @@ import {mapMutations} from 'vuex'
 }
 .blue {
   color: rgb(48, 130, 253);
+}
+#navbar .fas{
+  font-size: 1.5em;
 }
 </style>

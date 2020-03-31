@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="container bg-greyl">
      <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
-      <i class="fas fa-undo-alt fa-2x"></i>
+      <i class="fas fa-angle-double-left fa-2x"></i>
     </div>
             <form id="formulario" v-on:submit.prevent="register">
               <h2 id="title">Complete sus datos:</h2>
@@ -103,5 +103,8 @@ export default {
   }
   #link{
     margin-top: 2em;
+  }
+  .fas{
+    font-size: 1.5em;
   }
 </style>

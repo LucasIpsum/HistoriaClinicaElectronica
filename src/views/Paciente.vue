@@ -1,9 +1,10 @@
 <template>
   <div>
     <Navbar />
-    <div id="header">
-      <h2 id="nameTitle" class="ml-5">{{`${current.apellido}, ${current.nombre}`}}</h2>
-      <div class="row">
+    <div class="container">
+      <div id="header">
+      <h2 id="nameTitle" class="text-center">{{`${current.apellido}, ${current.nombre}`}}</h2>
+      <div class="row m-0 p-0">
         <div id="history" v-on:click="change('history')" class="col-6 text active">Historia Clinica</div>
         <div id="nurse" v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
       </div> 
@@ -11,6 +12,8 @@
     <div id="state">Estado: <span :class="current.estado">{{current.estado.diagnostico}}</span></div>
     <History v-if="currtentPage == 'history'" :anam="current.anamnesis" :contacts="current.contactosEmergencia"/>
     <Nurse v-if="currtentPage == 'nurse'" :registro="historia.registro"/>
+    </div>
+    
   </div>
 </template>
 
@@ -76,6 +79,7 @@ import Navbar from '@/components/Navbar.vue'
   #header{
     background-color: rgb(57, 158, 252);
     margin-top: 1em;
+    border-radius: 0.3em;
   }
   #nameTitle{
     font-size: 2.3em;
@@ -87,6 +91,12 @@ import Navbar from '@/components/Navbar.vue'
   }
   .row div:hover, .active {
     background-color: rgba(51, 185, 141, 0.986);
+  }
+  #history{
+    border-bottom-left-radius: 0.3em;
+  }
+  #nurse{
+    border-bottom-right-radius: 0.3em;
   }
   #state{
     font-size: 1.5em;

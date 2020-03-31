@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Buscar paciente</h2>
     <form>
-      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="btn bg-secondary"/>
+      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="btn"/>
       <button v-on:click="filterPatients" class="btn btn-primary">Buscar</button>
     </form>
 
@@ -68,5 +68,8 @@ export default {
 }
 #dni-input{
   width: 40vw;
+  background-color: rgb(226, 255, 255);
+  border: #007bff solid 1px;
+  margin-right: 1em;
 }
 </style>
