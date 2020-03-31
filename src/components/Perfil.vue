@@ -1,7 +1,7 @@
-<template>
+<template v-if="st_misPacientes.length > 0">
   <div>
-      <h3 v-if="patients.estado=='COVID-19 confirmado'" style="background-color:red">Estado: {{patients.estado}}</h3>
-      <h3 v-else style="background-color:#2BFF39">Estado: {{patients.estado}}</h3>
+      <h3 v-if="patient.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{patient.estado.diagnostico}}</h3>
+      <h3 v-else style="background-color:#2BFF39">Estado: {{patient.estado.diagnostico}}</h3>
         <button type="button" data-toggle="collapse" data-target="#datos" aria-expanded="false" aria-controls="datos">
             DATOS DEL PACIENTE
         </button>
@@ -9,22 +9,22 @@
             <div>
                 <div class="cardd">
                     <div>
-                         <h3>{{patients.nombre}} {{patients.apellido}} ({{patients.id}})</h3>
+                         <h3>{{patient.nombre}} {{patient.apellido}} ({{patient.id}})</h3>
                     </div>
                     <div>
-                        <b>Documento: </b><p>{{patients.documento}}</p>
+                        <b>Documento: </b><p>{{patient.documento}}</p>
                     </div>
                     <div>
-                        <b>Sexo: </b><p>{{patients.sexo}}</p>
+                        <b>Sexo: </b><p>{{patient.sexo}}</p>
                     </div>
                     <div>
-                        <b>Direccion: </b><p>{{patients.direccion}}</p>
+                        <b>Direccion: </b><p>{{patient.direccion}}</p>
                     </div>
                     <div>
-                        <b>Telefono: </b><p>{{patients.telefono}}</p>
+                        <b>Telefono: </b><p>{{patient.telefono}}</p>
                     </div>
                     <div>
-                        <b>Email: </b><p>{{patients.email}}</p>
+                        <b>Email: </b><p>{{patient.email}}</p>
                     </div>
                     
                 </div>
@@ -32,7 +32,7 @@
         </div>
         <button type="button" data-toggle="collapse" data-target="#anamnesis" aria-expanded="false" aria-controls="anamnesis">Anamnesis</button>
         <div class="collapse" id="anamnesis">
-                <div class="cardd" v-for="(i,index) in patients.anamnesis" :key="index">
+                <div class="cardd" v-for="(i,index) in patient.anamnesis" :key="index">
                     <div v-if="((i!=null) && (i!=0))">
                         <b>{{index}}: </b><p>{{i}}</p>
                     </div>
@@ -40,7 +40,7 @@
         </div>
         <button type="button" data-toggle="collapse" data-target="#CE" aria-expanded="false" aria-controls="CE">Contactos de Emergencia</button>
         <div class="collapse"  id="CE">
-            <div class="cardd" style="border:2px solid black" v-for="(i,index) in patients.contactosEmergencia" :key="index">
+            <div class="cardd" style="border:2px solid black" v-for="(i,index) in patient.contactosEmergencia" :key="index">
                 <div v-for="(ind,inde) in i" :key="inde">
                     <b>{{inde}}: </b><p>{{ind}}</p>
                 </div>
@@ -51,31 +51,30 @@
 
 <script>
 // @ is an alias to /src
+import {mapState} from 'vuex';
 
 export default {
   name: 'Perfil',
-  data() {
+  data(){
     return {
-      patients: [],
-    };
+      patient: {}
+    }
+  },
+  mounted(){
+    this.cargarActual()
   },
   methods: {
-        async fetchDataDoc(){
-        await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
-        .then(response => response.json())
-        .then(json => {
-          json.forEach(r => {
-            if(r.id == 10){
-              this.patients = r;
-            }
-          })
-        })
-        .catch(error => console.log(error))
-      }
-  },
-    created: function() {
-        this.fetchDataDoc();
+    cargarActual(){
+      this.st_misPacientes.forEach(p => {
+        if(p.id == this.$route.params.id){
+          this.patient = p;
+        }
+      });
     }
+  },
+  computed: {
+    ...mapState(['st_misPacientes']),
+  }
 }
 </script>
 

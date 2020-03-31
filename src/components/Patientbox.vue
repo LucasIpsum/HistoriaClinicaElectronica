@@ -16,8 +16,7 @@
     props: ['paciente'],
     computed: {
       url(){
-        return '/paciente/' 
-        // + this.paciente.id;
+        return '/paciente/' + this.paciente.id;
       }
     }
   }

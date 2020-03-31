@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navbar/>
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
           <div class="nav d-flex justify-content-around align-content-center">
@@ -35,12 +36,14 @@
 
 <script>
 // @ is an alias to /src
+import Navbar from '@/components/Navbar.vue';
 import HC from '@/components/HC.vue'
 import FM from '@/components/FM.vue'
 import Perfil from '@/components/Perfil.vue'
 export default {
   name: 'Paciente',
   components: {
+    Navbar,
     HC,
     FM,
     Perfil
@@ -57,7 +60,7 @@ export default {
 <style scoped>
   .header{
     height: 30vh;
-    width: 90vw;
+    width: 100vw;
   }
   .miPerfil{
     background-color: #007bff;

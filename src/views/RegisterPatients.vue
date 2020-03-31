@@ -284,7 +284,7 @@ export default {
     async updateForm(e){
       let formElem = document.getElementById("regForm")
       e.preventDefault();
-      await fetch('api/pacientes', {
+      await fetch('/api/pacientes', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -296,11 +296,11 @@ export default {
         if(res.ok){
           return res.json()
         }else{
-          throw new Error()
+          throw new Promise.reject(res.json())
         }
       })
 
-      .then(json => console.log(json)).catch(error => console.log('fail'))
+      .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
     }
 
   }

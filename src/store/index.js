@@ -19,7 +19,22 @@ export default new Vuex.Store({
       state.user = !state.user
     },
     st_cargarUser(state){
-      //aca se guarda la informacion en st_userInfo
+      fetch("/api/user")
+      .then(res => {
+        if(res.ok){
+          return res.json()
+        }else{
+          return Promise.reject(res.json())
+        }
+      })
+      .then(json => {
+        state.st_userInfo.nombre = json.userData.nombre
+        state.st_userInfo.apellido = json.userData.apellido
+        state.st_userInfo.tipo = json.authorities[0]
+      })
+      .catch(error => {
+        error.then(json => console.log(json))
+      })
     },
     st_cargarMisPacientes(state,database){
       state.st_misPacientes = database;

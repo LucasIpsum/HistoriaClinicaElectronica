@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="cardd" v-for="(i,index) in registros.registro" :key="index">
+      <div class="cardd" v-for="(i,index) in historia" :key="index">
           <div>
             <b>{{index}}: </b><p>{{i}}</p>
           </div>
@@ -10,31 +10,30 @@
 
 <script>
 // @ is an alias to /src
+import {mapState} from 'vuex';
 
 export default {
   name: 'HC',
   data() {
     return {
-      registros: [],
+      historia: {},
     };
   },
-  methods: {
-       async fetchDataDoc(){
-        await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
-        .then(response => response.json())
-        .then(json => {
-          json.forEach(r => {
-            if(r.id == "14"){
-              this.registros = r;
-            }
-          })
-        })
-        .catch(error => console.log(error))
-      }
+  mounted(){
+    this.cargarActual()
   },
-    created: function() {
-        this.fetchDataDoc();
+  methods: {
+    cargarActual(){
+      this.st_misPacientes.forEach(p => {
+        if(p.id == this.$route.params.id){
+          p.estado != null ? this.historia = p.estado : null;
+        }
+      });
     }
+  },
+  computed: {
+    ...mapState(['st_misPacientes']),
+  }
 }
 </script>
 <style scoped>
