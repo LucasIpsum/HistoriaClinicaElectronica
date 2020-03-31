@@ -1,9 +1,9 @@
 <template>
 <div>
   <router-link :to="url">
-  <div id="patient" class="container btn btn-primary">
+  <div id="patient" class="container btn btn-primary pt-2 pb-2">
     <div class="text">{{`${paciente.apellido},${paciente.nombre}`}}</div>
-    <p class="text">dni: {{paciente.documento}}</p>
+    <p class="text">DNI: {{paciente.documento}}</p>
   </div>
   </router-link>
 </div>
@@ -16,7 +16,8 @@
     props: ['paciente'],
     computed: {
       url(){
-        return '/paciente/' + this.paciente.id;
+        return '/paciente/' 
+        // + this.paciente.id;
       }
     }
   }

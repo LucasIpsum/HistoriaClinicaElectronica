@@ -1,11 +1,16 @@
 <template>
-  <div class="mama de mati">
+<!-- FALTA GUARDAR EL FORM EN LOS CAMPOS,
+  BUTTON SUBMIT-->
+  <div class="registerPatient">
     <Navbar />
     <h2>Registro de paciente</h2>
     <form id="regForm" action>
       
       <div id="overflow">
-        <!-- One "tab" for each step in the form: -->
+      
+      <!-- Usamos una clase "tab" para cada pestaña del formulario (son 3) -->
+
+      <!------------ TAB 1 (Datos personales) ----------------->
       <div class="tab">
 
         <h4>Datos personales:</h4>
@@ -22,9 +27,13 @@
           <input class="requiredInput btn" placeholder="E-mail"/>
         
           <input class="requiredInput btn" placeholder="Teléfono"/>
-        Fecha de nacimiento:
         
+        Fecha de nacimiento:
           <input class="requiredInput btn" type="date"/>
+
+          <input name="direccion" class="requiredInput" type="text" placeholder="Direccion"/>
+         
+        
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="btn btn-primary" for="inputGroupSelect01">Sexo</label>
@@ -36,10 +45,12 @@
             <option value="3">Otro</option>
           </select>
         </div>
-          
+        
+        <input name="telefono" class="requiredInput" placeholder="Teléfono" />
 
       </div>
 
+      <!------------- TAB 2 (Anamnesis) --------------->
       <div class="tab">
         <h4>  Anamnesis:</h4>
         
@@ -95,15 +106,55 @@
         
         <label>Observaciones<input class="requiredInput btn" type="text" /></label>
         
-      </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="btn btn-primary" for="inputGroupSelect01">Grupo Sanguineo</label>
+          </div>
+          <select name ="Sexo" class="custom-select" id="inputGroupSelect01">
+            <option selected>Elegir...</option>
+            <option value="0-">O negativo</option>
+          <option value="0+">O positivo</option>
+          <option value="A-">A negativo</option>
+          <option value="A+">A positivo</option>
+          <option value="B-">B negativo</option>
+          <option value="B+">B positivo</option>
+          <option value="AB-">AB negativo</option>
+          <option value="AB+">AB positivo</option>
+          </select>
+        </div>
 
+      </div>
+      <!----------- TAB 3 (Contacto de emergencia)  ------------>
       <div class="tab">
-        <h4>Login Info:</h4>
-        
-          <input class="requiredInput" placeholder="Username..." oninput="this.className = ''" />
-        
-        
-          <input class="requiredInput" type="password" placeholder="Password..." oninput="this.className = ''" />
+        <h2>Contacto de emergencia</h2>
+        <label>
+          Nombre
+          <input name="nombreEmergencia" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Apellido
+          <input name="apellidoEmergencia" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Email
+          <input name="emailEmergencia" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Teléfono fijo
+          <input name="telefonoEmergencia" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Teléfono celular
+          <input name="telefono2Emergencia" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Relación
+          <input name="relacion" class="requiredInput btn" type="text" />
+        </label>
+        <label>
+          Direccion
+          <input name="direccionEmergencia" class="requiredInput btn" type="text" />
+        </label>
         
       </div>
       </div>
@@ -113,6 +164,7 @@
         <div style="float:right;">
           <button type="button" id="prevBtn" class="btn btn-primary mr-1" v-on:click="nextPrev(-1)">Atras</button>
           <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="nextPrev(1)">Siguiente</button>
+          <button id="submit" class="submit btn btn-primary" v-on:click="updateForm">Enviar</button>
         </div>
       </div>
 
@@ -128,136 +180,128 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import { mapMutations } from "vuex";
 
 export default {
-  name: "Home",
+  name: "RegisterPatients",
   components: {
     Navbar
   },
-  name: "Register",
   data() {
     return {
-        currentTab: 0,
-        form: {
-        first_name: "",
-        last_name: "",
-        matrícula: "",
-        telephone: "",
-        email: "",
-        password: ""
-      },
+      currentTab: 0,
       error: null
     };
   },
+  // Al montarse, se muestra la primera pestaña
   mounted: function() {
     this.showTab(this.currentTab);
   },
 
   methods: {
-    ...mapMutations(["st_logUser"]),
-    register() {
-      window.localStorage.setItem("user", "true");
-      this.st_logUser();
-      this.$router.push("/").catch(err => {});
-    },
-
+    // Muestra la pestaña específica
     showTab(n) {
-      // This function will display the specified tab of the form ...
-      var x = document.getElementsByClassName("tab");
-      x[n].style.display = "block";
-      // ... and fix the Previous/Next buttons:
+      var allTabs = document.getElementsByClassName("tab");
+      allTabs[n].style.display = "block";
       if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
       } else {
         document.getElementById("prevBtn").style.display = "inline";
       }
-      if (n == x.length - 1) {
-        document.getElementById("nextBtn").innerHTML = "Enviar";
+      if (n == allTabs.length - 1) {
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("submit").style.display = "inline";
       } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").style.display = "inline";
+        document.getElementById("submit").style.display = "none";
       }
-      // ... and run a function that displays the correct step indicator:
+      // ... Muestra el paso correspondiente
       this.fixStepIndicator(n);
     },
 
     nextPrev(n) {
-      // This function will figure out which tab to display
-      var x = document.getElementsByClassName("tab");
-      // Exit the function if any field in the current tab is invalid:
-      if (n == 1 && !this.validateForm()) return false;
-      // Hide the current tab:
-      x[this.currentTab].style.display = "none";
-      // Increase or decrease the current tab by 1:
+      // Se fija qué pestaña hay que mostrar
+      var allTabs = document.getElementsByClassName("tab");
+      // Oculta la pestaña actual
+      allTabs[this.currentTab].style.display = "none";
+      // Incrementa o disminuye la pestaña actual en 1 o en -1
       this.currentTab = this.currentTab + n;
-      // if you have reached the end of the form... :
-      if (this.currentTab >= x.length) {
-        //...the form gets submitted:
+      // Si llegas al final del form, se hace el submit
+      if (this.currentTab >= allTabs.length) {
         document.getElementById("regForm").submit();
         return false;
       }
-      // Otherwise, display the correct tab:
+      //Si no, muestra la próxima pestaña
       this.showTab(this.currentTab);
     },
 
     validateForm() {
-      // This function deals with validation of the form fields
-      var x,
-        y,
-        i,
-        valid = true;
-      x = document.getElementsByClassName("tab");
-      y = x[this.currentTab].getElementsByClassName("requiredInput");
-      // A loop that checks every input field in the current tab:
-      for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-          // add an "invalid" class to the field:
-          y[i].className += " invalid";
-          // and set the current valid status to false:
+      var allTabs, allInputs, valid = true;
+      allTabs = document.getElementsByClassName("tab");
+      allInputs = x[this.currentTab].getElementsByClassName("requiredInput");
+
+      // Loop que checkea los inputs de la pestaña acuatl
+      for (let i = 0; i < allInputs.length; i++) {
+        if (allInputs[i].value == "") {
+          allInputs[i].className += " invalid";
           valid = false;
         }
       }
-      // If the valid status is true, mark the step as finished and valid:
+      // Si value es true, agrega un paso a los puntos de abajo
       if (valid) {
         document.getElementsByClassName("step")[this.currentTab].className +=
           " finish";
+      } else {
+        alert("Faltan campos por rellenar.");
       }
-      else{
-          // pops up an alert about an empty field
-          alert('Faltan campos por rellenar.')
-      }
-      return valid; // return the valid status
     },
 
     fixStepIndicator(n) {
-      // This function removes the "active" class of all steps...
-      var i,
-        x = document.getElementsByClassName("step");
-      for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+      var allSteps = document.getElementsByClassName("step");
+      for (i = 0; i < allSteps.length; i++) {
+        allSteps[i].className = allSteps[i].className.replace(" active", "");
       }
-      //... and adds the "active" class to the current step:
-      x[n].className += " active";
+      allSteps[n].className += " active";
     },
 
-    ableTripInput(e){
-      var isTrueSet = !(e.target.value == 'true');
-      document.getElementById('tripDestinyInput').disabled = isTrueSet
-      document.getElementById('tripDateInput').disabled = isTrueSet
+    // Funciones que activan o desactivan inputs en caso de no tener que ser completados
+    ableTripInput(e) {
+      var isTrueSet = !(e.target.value == "true");
+      document.getElementById("tripDestinyInput").disabled = isTrueSet;
+      document.getElementById("tripDateInput").disabled = isTrueSet;
     },
-    ablePregnancyInput(e){
-      var isTrueSet = !(e.target.value == 'true');
-      document.getElementById('pregnancyTimeInput').disabled = isTrueSet
-      document.getElementById('previousPregnanciesInput').disabled = isTrueSet
+    ablePregnancyInput(e) {
+      var isTrueSet = !(e.target.value == "true");
+      document.getElementById("pregnancyTimeInput").disabled = isTrueSet;
+      document.getElementById("previousPregnanciesInput").disabled = isTrueSet;
     },
-    ableIsuranceInput(e){
-      var isTrueSet = !(e.target.value == 'true');
-      document.getElementById('isuranceInput').disabled = isTrueSet
+    ableIsuranceInput(e) {
+      var isTrueSet = !(e.target.value == "true");
+      document.getElementById("isuranceInput").disabled = isTrueSet;
     },
-    
-  },
-  computed:{
+
+
+    // Carga de datos al back
+    async updateForm(e){
+      let formElem = document.getElementById("regForm")
+      e.preventDefault();
+      await fetch('api/pacientes', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: new FormData(formElem)
+      })
+
+      .then(res => {
+        if(res.ok){
+          return res.json()
+        }else{
+          throw new Error()
+        }
+      })
+
+      .then(json => console.log(json)).catch(error => console.log('fail'))
+    }
 
   }
 };

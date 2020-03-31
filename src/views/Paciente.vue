@@ -1,113 +1,88 @@
 <template>
   <div>
-    <Navbar />
-    <div class="container">
-      <div id="header">
-      <h2 id="nameTitle" class="text-center">{{`${current.apellido}, ${current.nombre}`}}</h2>
-      <div class="row m-0 p-0">
-        <div id="history" v-on:click="change('history')" class="col-6 text active">Historia Clinica</div>
-        <div id="nurse" v-on:click="change('nurse')" class="col-6 text">Registro de Enfermeria</div>
-      </div> 
-    </div>
-    <div id="state">Estado: <span :class="current.estado">{{current.estado.diagnostico}}</span></div>
-    <History v-if="currtentPage == 'history'" :anam="current.anamnesis" :contacts="current.contactosEmergencia"/>
-    <Nurse v-if="currtentPage == 'nurse'" :registro="historia.registro"/>
-    </div>
-    
+    <div class="header">
+      <div class="miPerfil">Perfil del paciente</div>
+          <div class="nav d-flex justify-content-around align-content-center">
+
+              <label>
+                <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
+                <img src="../assets/HC.svg" alt="RE">
+              </label>
+
+              <label>
+                <input id="p" v-model="inputs" type="radio" name="perfil" value="P">
+                <img src="../assets/PERFIL.svg" alt="Perfil">
+              </label>
+
+              <label>
+                <input id="re" v-model="inputs" type="radio" name="perfil" value="RE">
+                <img src="../assets/RE.svg" alt="RE">
+              </label>
+
+          </div>
+      </div>
+      <div v-if="inputs=='HC'"> 
+        <HC />
+      </div>
+      <div v-else-if="inputs=='RE'">
+        <FM />
+      </div>
+      <div v-else>
+        <Perfil/>
+      </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import History from '@/components/History.vue'
-import Nurse from '@/components/Nurse.vue'
-import Navbar from '@/components/Navbar.vue'
-
-  export default {
-    name: 'Paciente',
-    components: {
-      History, Nurse, Navbar
-    },
-    data(){
-      return {
-        current: null,
-        currtentPage: 'history',
-        historia: null
-      }
-    },
-    computed: {
-      ...mapState(['st_misPacientes']),
-      
-    },
-    methods: {
-      cargarActual(){
-        this.st_misPacientes.forEach(p => {
-          if(p.id == this.$route.params.id){
-            this.current = p;
-          }
-        });
-      },
-      change(text){
-        this.currtentPage = text;
-        let links = $('.text')
-        for(let i= 0; i<links.length; i++){
-          if(links[i].id===text){links[i].classList.add('active')}
-          else{links[i].classList.remove('active')}
-        }
-      },
-      async cargarRegistro(){
-        await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
-        .then(response => response.json())
-        .then(json => {
-          json.forEach(r => {
-            if(r.id == this.$route.params.id){
-              this.historia = r;
-            }
-          })
-        })
-        .catch(error => console.log(error))
-      }
-    },
-    created(){
-      this.cargarRegistro();
-      this.cargarActual();
+// @ is an alias to /src
+import HC from '@/components/HC.vue'
+import FM from '@/components/FM.vue'
+import Perfil from '@/components/Perfil.vue'
+export default {
+  name: 'Paciente',
+  components: {
+    HC,
+    FM,
+    Perfil
+  },
+  data() {
+    return{
+      inputs:"",
     }
-  }
-</script>
+  },
+}
 
+
+</script>
 <style scoped>
-  #header{
-    background-color: rgb(57, 158, 252);
-    margin-top: 1em;
-    border-radius: 0.3em;
+  .header{
+    height: 30vh;
+    width: 90vw;
   }
-  #nameTitle{
-    font-size: 2.3em;
-    padding-top: 0.5em;
+  .miPerfil{
+    background-color: #007bff;
+    color:white;
+    font-size: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 100%;
   }
-  .text{
-    font-size: 1.5em;
-    padding: 0 1em;
+  label img{
+    width: 25 vw;
+    height: 6.5vh;
   }
-  .row div:hover, .active {
-    background-color: rgba(51, 185, 141, 0.986);
+  .nav {
+    background-color: rgb(226, 255, 255);
+    color: #007bff;
+    border:1px solid #007bff;
+    height: 30%;
   }
-  #history{
-    border-bottom-left-radius: 0.3em;
-  }
-  #nurse{
-    border-bottom-right-radius: 0.3em;
-  }
-  #state{
-    font-size: 1.5em;
-  }
-  .baja{
-    color: green;
-  }
-  .alta{
-    color: rgb(255, 208, 0);
-  }
-  .confirmado{
-    color: red;
-  }
+  [type=radio] { 
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
 </style>
