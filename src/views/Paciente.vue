@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navbar />
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
           <div class="nav d-flex justify-content-around align-content-center">
@@ -38,12 +39,13 @@
 import HC from '@/components/HC.vue'
 import FM from '@/components/FM.vue'
 import Perfil from '@/components/Perfil.vue'
+import Navbar from '@/components/Navbar.vue'
 export default {
   name: 'Paciente',
   components: {
     HC,
     FM,
-    Perfil
+    Perfil,Navbar
   },
   data() {
     return{
@@ -58,6 +60,7 @@ export default {
   .header{
     height: 30vh;
     width: 90vw;
+    margin: 0 auto;
   }
   .miPerfil{
     background-color: #007bff;
@@ -68,6 +71,7 @@ export default {
     align-items: center;
     height: 70%;
     width: 100%;
+    border-radius: 3em;
   }
   label img{
     width: 25 vw;

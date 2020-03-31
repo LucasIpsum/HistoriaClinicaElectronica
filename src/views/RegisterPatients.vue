@@ -45,9 +45,6 @@
             <option value="3">Otro</option>
           </select>
         </div>
-        
-        <input name="telefono" class="requiredInput" placeholder="Teléfono" />
-
       </div>
 
       <!------------- TAB 2 (Anamnesis) --------------->
