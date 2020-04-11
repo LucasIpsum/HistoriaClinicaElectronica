@@ -36,7 +36,7 @@
           <div class="row m-0">
             <p class="col-5">Sexo</p>
             <label class="col-3 d-flex align-items-center">
-              <input type="radio" name="sexo" value="H" checked class="requiredInput"/>H
+              <input type="radio" name="sexo" value="F" checked class="requiredInput"/>F
             </label>
             <label class="col-3 d-flex align-items-center">
               <input type="radio" name="sexo" value="M"  class="requiredInput"/>M
@@ -90,7 +90,7 @@
           </div>
           <div class="col-6 p-0 ml-1">
             <label><input type="checkbox" name="condiciones_preexistentes" value="CIRUGIAS">Cirugías</label>
-            <label><input type="checkbox" name="condiciones_preexistentes" value="TRATAMIENT_ONCOLOGICO">Trat. Onco.</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="TRATAMIENTO_ONCOLOGICO">Trat. Onco.</label>
             <label><input type="checkbox" name="condiciones_preexistentes" value="EPOC">Epoc</label>
             <label><input type="checkbox" name="condiciones_preexistentes" value="NEUMOPATIAS">Neumopatías</label>
             <label><input type="checkbox" name="condiciones_preexistentes" value="ASMA">Asma</label>
@@ -135,14 +135,14 @@
           </div>
           <select name="grupo_sanguineo" class="custom-select requiredInput" id="inputGroupSelect01">
             <option selected>Elegir...</option>
-            <option value="0-">O negativo</option>
-            <option value="0+">O positivo</option>
-            <option value="A-">A negativo</option>
-            <option value="A+">A positivo</option>
-            <option value="B-">B negativo</option>
-            <option value="B+">B positivo</option>
-            <option value="AB-">AB negativo</option>
-            <option value="AB+">AB positivo</option>
+            <option value="O_NEGATIVO">O negativo</option>
+            <option value="O_POSITIVO">O positivo</option>
+            <option value="A_NEGATIVO">A negativo</option>
+            <option value="A_POSITIVO">A positivo</option>
+            <option value="B_NEGATIVO">B negativo</option>
+            <option value="B_POSITIVO">B positivo</option>
+            <option value="AB_NEGATIVO">AB negativo</option>
+            <option value="AB_POSITIVO">AB positivo</option>
           </select>
         </div>
       </div>
@@ -312,16 +312,31 @@ export default {
 
     // Carga de datos al back
     async updateForm(e){
+      e.preventDefault();
       let formElem = document.getElementById("regForm")
       let formData = new FormData(formElem)
-      console.log(formData.values())
-      e.preventDefault();
+      
+      let object = {};
+      object["condiciones_preexistentes"] = []
+      formData.forEach((value, key) => {
+
+        if(key == "condiciones_preexistentes"){
+          object["condiciones_preexistentes"].push(value)
+        }else{
+          object[key] = value
+        }
+        
+      });
+      let json = JSON.stringify(object);
+
+      console.log(json)
+      
       await fetch('/api/pacientes', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: formData
+        body: json
       })
 
       .then(res => {
