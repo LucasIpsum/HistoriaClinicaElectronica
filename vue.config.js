@@ -2,7 +2,7 @@ const path = require("path")
 
 module.exports = {
   // sets frontend build to static folder in backend
-  outputDir: path.resolve(__dirname, "../server/src/main/resources/static/web"),
+  outputDir: path.resolve(__dirname, "../server/src/main/resources/static"),
   // assetsDir: "../../static/SPA"
 
   // proxy all webpack dev-server requests starting with /api
@@ -23,6 +23,6 @@ module.exports = {
     devtool: 'source-map'
   },
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/web/'
+    ? '/'
     : '/'
 }
