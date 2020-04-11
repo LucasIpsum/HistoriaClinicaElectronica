@@ -105,7 +105,7 @@ import Userbox from '@/components/Userbox.vue'
 #slide{
   position: absolute;
   top: 0;
-  width: 70vw;
+  width: 30vw;
   height: 100vh;
   background-color: white;
   box-shadow: 10px 2px 15px -6px rgba(0,0,0,0.75);
@@ -114,6 +114,13 @@ import Userbox from '@/components/Userbox.vue'
   transition: all 0.3s;
   z-index: 150;
 }
+
+@media (orientation: portrait) {
+  #slide{
+    width: 70vw;
+  }
+}
+
 #slide.active{
   margin-left: 0 !important;
 }

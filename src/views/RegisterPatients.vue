@@ -28,28 +28,26 @@
         
           <input name="telefono" class="requiredInput btn" placeholder="Teléfono"/>
         
-        Fecha de nacimiento:
-          <input name="fecha_nacimiento" class="requiredInput btn" type="date"/>
+          Fecha de nacimiento:
+          <input name="fecha_nacimiento" class="requiredInput btn" placeholder="Fecha de nacimiento" type="date"/>
 
           <input name="direccion" class="requiredInput" type="text" placeholder="Direccion"/>
          
-        
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="btn btn-primary" for="inputGroupSelect01">Sexo</label>
+          <div class="row m-0">
+            <p class="col-5">Sexo</p>
+            <label class="col-3 d-flex align-items-center">
+              <input type="radio" name="sexo" value="H" checked class="requiredInput"/>H
+            </label>
+            <label class="col-3 d-flex align-items-center">
+              <input type="radio" name="sexo" value="M"  class="requiredInput"/>M
+            </label>
           </div>
-          <select name="sexo" class="custom-select" id="inputGroupSelect01">
-            <option selected>Elegir...</option>
-            <option value="1">Masculino</option>
-            <option value="2">Femenino</option>
-            <option value="3">Otro</option>
-          </select>
-        </div>
+
       </div>
 
       <!------------- TAB 2 (Anamnesis) --------------->
       <div class="tab">
-        <h4>  Anamnesis:</h4>
+        <h4>Anamnesis 1/3</h4>
         
         <div class="row m-0">
           <p class="col-6">¿Viajó?</p>
@@ -66,7 +64,7 @@
         <label>Destino de viaje<input id="tripDestinyInput" name="destino_viaje" disabled type="text" class="btn"></label>
         
         <div class="row m-0">
-          <p class="col-6">Embarazo</p>
+          <p class="col-6">¿Embarazo?</p>
             <label class="col d-flex align-items-center">
               <input type="radio" name="embarazo" value="true" v-on:change="ablePregnancyInput"/>Si
             </label>
@@ -76,50 +74,77 @@
         </div>
 
         <label>Semanas de gestación<input name="semanas_gestacion" value="0" id="pregnancyTimeInput" disabled type="number" class="btn" /></label>
-          
         <label>Embarazos previos<input name="embarazos_previos" value="0" id="previousPregnanciesInput" disabled type="number" class="btn" /></label>
-        
-        <label >Antecedentes personales<textarea name="antecedentes_personales" class="requiredInput btn" rows='4' cols='26' type="text" /></label>
-      
-        <label>Antecedentes familiares<textarea name="antecendentes_familiares" class="requiredInput btn" rows='4' cols='26' type="text" /></label>
 
-        <label>Medicacion regular<input name="medicacion_regular" class="requiredInput btn" type="text" /></label>
+      </div>
+      <div class="tab">
+        <h4>Anamnesis 2/3</h4>
+        Condiciones preexistentes:
+        <div id="preexistantConditions" class="d-flex mb-4">
+          <div class="col-6 p-0 ml-2">
+            <label><input type="checkbox" name="condiciones_preexistentes" value="DIABETES">Diabetes</label>          
+            <label><input type="checkbox" name="condiciones_preexistentes" value="HIPERTENSION">Hipertensión</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="CARDIOPATIAS">Cardiopatías</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="DISLIPIDEMIA">Dislipidemia</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="TABAQUISMO">Tabaquismo</label>
+          </div>
+          <div class="col-6 p-0 ml-1">
+            <label><input type="checkbox" name="condiciones_preexistentes" value="CIRUGIAS">Cirugías</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="TRATAMIENT_ONCOLOGICO">Trat. Onco.</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="EPOC">Epoc</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="NEUMOPATIAS">Neumopatías</label>
+            <label><input type="checkbox" name="condiciones_preexistentes" value="ASMA">Asma</label>
+          </div>
+        </div>
+      </div>
 
-        <label>Trabajo<input name="trabajo" class="requiredInput btn" type="text" /></label>
+      <div class="tab">
+        <h4>Anamnesis 3/3</h4>
+        <label>Medicacion regular<input name="medicacion_regular" class="btn" type="text" /></label>
+        <label>Ocupación<input name="trabajo" class="btn requiredInput" type="text" /></label>
 
-        <label>Convivientes<input name="convivientes" class="requiredInput btn" type="number" /></label>
-
-      <div class="row m-0">
-          <p class="col-6">Obra social</p>
-            <label class="col d-flex align-items-center">
-              <input type="radio" name="obra_social" value="true" v-on:change="ableIsuranceInput"/>Si
-            </label>
-            <label class="col d-flex align-items-center">
-              <input type="radio" name="obra_social" value="false" checked v-on:change="ableIsuranceInput"/>No
-            </label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="btn btn-primary" for="inputGroupSelect01">Convivientes</label>
+          </div>
+          <select name="convivientes" class="custom-select requiredInput">
+            <option selected value="">Elegir...</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="+4">+4</option>
+            
+          </select>
         </div>
 
-        <label>Nombre de obra social<input name="nombre_obra_social" disabled id="isuranceInput" class="btn"></label>
-        
-        <label>Observaciones<input class="requiredInput btn" type="text" /></label>
+        <div class="row m-0">
+          <p class="col-6">¿Vacunado contra la gripe?</p>
+            <label class="col d-flex align-items-center">
+              <input type="radio" name="vacuna_antigripal" value="true" class="requiredInput"/>Si
+            </label>
+            <label class="col d-flex align-items-center">
+              <input type="radio" name="vacuna_antigripal" value="false" checked class="requiredInput"/>No
+            </label>
+        </div>
         
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="btn btn-primary" for="inputGroupSelect01">Grupo Sanguineo</label>
           </div>
-          <select name="grupo_sanguineo" class="custom-select" id="inputGroupSelect01">
+          <select name="grupo_sanguineo" class="custom-select requiredInput" id="inputGroupSelect01">
             <option selected>Elegir...</option>
             <option value="0-">O negativo</option>
-          <option value="0+">O positivo</option>
-          <option value="A-">A negativo</option>
-          <option value="A+">A positivo</option>
-          <option value="B-">B negativo</option>
-          <option value="B+">B positivo</option>
-          <option value="AB-">AB negativo</option>
-          <option value="AB+">AB positivo</option>
+            <option value="0+">O positivo</option>
+            <option value="A-">A negativo</option>
+            <option value="A+">A positivo</option>
+            <option value="B-">B negativo</option>
+            <option value="B+">B positivo</option>
+            <option value="AB-">AB negativo</option>
+            <option value="AB+">AB positivo</option>
           </select>
         </div>
-
       </div>
       <!----------- TAB 3 (Contacto de emergencia)  ------------>
       <div class="tab">
@@ -167,6 +192,8 @@
 
       <!---------- PUNTOS QUE INDICAN EL PROGRESO DEL FORM  ------------>
       <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
@@ -218,6 +245,7 @@ export default {
     nextPrev(n) {
       // Se fija qué pestaña hay que mostrar
       var allTabs = document.getElementsByClassName("tab");
+      if (n == 1 && !this.validateForm()) return false;
       // Oculta la pestaña actual
       allTabs[this.currentTab].style.display = "none";
       // Incrementa o disminuye la pestaña actual en 1 o en -1
@@ -234,7 +262,7 @@ export default {
     validateForm() {
       var allTabs, allInputs, valid = true;
       allTabs = document.getElementsByClassName("tab");
-      allInputs = x[this.currentTab].getElementsByClassName("requiredInput");
+      allInputs = allTabs[this.currentTab].getElementsByClassName("requiredInput");
 
       // Loop que checkea los inputs de la pestaña acuatl
       for (let i = 0; i < allInputs.length; i++) {
@@ -242,13 +270,18 @@ export default {
           allInputs[i].className += " invalid";
           valid = false;
         }
+        else {
+          allInputs[i].classList.remove("invalid");
+        }
       }
       // Si value es true, agrega un paso a los puntos de abajo
       if (valid) {
         document.getElementsByClassName("step")[this.currentTab].className +=
           " finish";
+          return true;
       } else {
         alert("Faltan campos por rellenar.");
+        return false;
       }
     },
 
@@ -265,15 +298,15 @@ export default {
       var isTrueSet = !(e.target.value == "true");
       document.getElementById("tripDestinyInput").disabled = isTrueSet;
       document.getElementById("tripDateInput").disabled = isTrueSet;
+      document.getElementById("tripDestinyInput").value = '';
+      document.getElementById("tripDateInput").value = '';
     },
     ablePregnancyInput(e) {
       var isTrueSet = !(e.target.value == "true");
       document.getElementById("pregnancyTimeInput").disabled = isTrueSet;
       document.getElementById("previousPregnanciesInput").disabled = isTrueSet;
-    },
-    ableIsuranceInput(e) {
-      var isTrueSet = !(e.target.value == "true");
-      document.getElementById("isuranceInput").disabled = isTrueSet;
+      document.getElementById("pregnancyTimeInput").value = '';
+      document.getElementById("previousPregnanciesInput").value = '';
     },
 
 
@@ -343,6 +376,24 @@ input[disabled], textarea[disabled]{
 input.invalid, textarea.invalid {
   background-color: #ffdddd;
   border: 1px solid #fd4d4d;
+}
+
+#preexistantConditions label {
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  align-self: center;
+  font-size: 70%;
+  
+  margin-top: 2rem;
+  font-size: larger;
+}
+
+#preexistantConditions label input{
+  width: auto;
+  align-self: center;
+  margin: 0;
+  margin-right: 0.3rem;
 }
 
 /* Hide all steps by default: */
