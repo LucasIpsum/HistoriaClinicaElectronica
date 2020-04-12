@@ -3,7 +3,7 @@
     <h2>Buscar paciente</h2>
     <form>
       <input type="text" id="dni-input" placeholder="Ingrese DNI" class="btn"/>
-      <button v-on:click="filterPatients" class="btn btn-primary">Buscar</button>
+      <button @click="(event) => { filterPatients(event, this.st_allPacientes) }" class="btn btn-primary">Buscar</button>
     </form>
 
     <div v-if="foundPatient != '' && foundPatient != null" class="d-flex justify-content-center mt-4">
@@ -23,6 +23,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Patientbox from '@/components/Patientbox.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: "Patientsearch",
@@ -36,9 +37,10 @@ export default {
     };
   },
   computed: {
-    url(){
-      return '/paciente/' + this.foundPatient[0].id;
-    }
+    ...mapState(['st_allPacientes']),
+    // url(){
+    //   return '/paciente/' + this.foundPatient[0].id;
+    // }
     },
   methods: {
     async fetchData() {
@@ -47,10 +49,11 @@ export default {
         .then(json => (this.patients = json));
     },
 
-    filterPatients(e) {
+    filterPatients(e, st_allPacientes) {
+      console.log(e);
       e.preventDefault();
-      this.foundPatient = this.patients.filter(
-        e => document.getElementById("dni-input").value == e.documento
+      this.foundPatient = st_allPacientes.filter(
+        el => document.getElementById("dni-input").value == el.id
       );
     }
   },

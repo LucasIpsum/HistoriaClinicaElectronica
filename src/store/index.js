@@ -12,7 +12,8 @@ export default new Vuex.Store({
       tipo: 'medico',
       perfil: 'https://i.ibb.co/Tbt3Cgx/doc.png'
     },
-    st_misPacientes: {}
+    st_misPacientes: [],
+    st_allPacientes: []
   },
   mutations: {
     st_logUser(state){
@@ -38,6 +39,13 @@ export default new Vuex.Store({
     },
     st_cargarMisPacientes(state,database){
       state.st_misPacientes = database;
+    },
+    st_cargarAllPacientes(state, database){
+      state.st_allPacientes = database;
+    },
+    st_agregarMiPaciente(state, database){
+      console.log('AGREGAR PACIENTE A _MIS PACIENTES_ EN DB');
+      
     }
   },
   actions: {

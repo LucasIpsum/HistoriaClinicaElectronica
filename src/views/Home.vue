@@ -25,26 +25,42 @@ export default {
     }
   },
   computed:{
-    ...mapState(['st_misPacientes']),
+    ...mapState(['st_misPacientes', 'st_allPacientes']),
   },
   methods: {
-    ...mapMutations(['st_cargarMisPacientes']),
-    async fetchDataDoc(){
-      await fetch('/api/pacientes')
+    ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
+    async fetchDataMyPatients(){
+      // await fetch('/api/pacientes')
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.st_cargarMisPacientes(json.pacientes))
+      }).then(json => this.st_cargarMisPacientes(json))
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    async fetchDataAllPatients(){
+      // await fetch('/api/pacientes')
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+      .then(response => {
+        if(response.ok){
+          return response.json()
+        }else{
+          return Promise.reject(res)
+        }
+      }).then(json => this.st_cargarAllPacientes(json))
       .catch(error => {
         console.log(error)
       })
     }
   },
   created(){
-    this.fetchDataDoc();
+    this.fetchDataMyPatients();
+    this.fetchDataAllPatients();
   }
   
 }

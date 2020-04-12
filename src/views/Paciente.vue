@@ -4,6 +4,8 @@
 
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
+      <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
+      <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3>
           <div class="nav d-flex justify-content-around align-content-center">
 
               <label>
@@ -30,17 +32,19 @@
         <FM />
       </div>
       <div v-else>
-        <Perfil/>
+        <Perfil :paciente="pacienteActual"/>
       </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import {mapState} from 'vuex';
 import Navbar from '@/components/Navbar.vue';
 import HC from '@/components/HC.vue'
 import FM from '@/components/FM.vue'
 import Perfil from '@/components/Perfil.vue'
+
 export default {
   name: 'Paciente',
   components: {
@@ -51,8 +55,25 @@ export default {
   },
   data() {
     return{
+      pacienteActual: '',
       inputs:"",
     }
+  },
+  methods: {
+    cargarActual(){
+      console.log('cargando')
+      this.st_allPacientes.forEach(p => {
+        if(p.id == this.$route.params.id){
+          this.pacienteActual = p;
+        }
+      });
+    }
+  },
+  computed: {
+    ...mapState(['st_allPacientes']),
+  },
+    created(){
+   this.cargarActual()
   },
 }
 
@@ -76,6 +97,7 @@ export default {
   label img{
     width: 25 vw;
     height: 6.5vh;
+    cursor: pointer;
   }
   .nav {
     background-color: rgb(226, 255, 255);

@@ -16,7 +16,7 @@ export default {
   name: 'HC',
   data() {
     return {
-      historia: {},
+      historia: null,
     };
   },
   mounted(){
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     cargarActual(){
-      this.st_misPacientes.forEach(p => {
+      this.st_allPacientes.forEach(p => {
         if(p.id == this.$route.params.id){
           p.estado != null ? this.historia = p.estado : null;
         }
@@ -32,13 +32,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['st_misPacientes']),
+    ...mapState(['st_allPacientes']),
   }
 }
 </script>
 <style scoped>
       .cardd{
-         background-color: rgb(226, 255, 255);
+        background-color: rgb(226, 255, 255);
         display:flex;
         justify-content: center;
         flex-direction: row;

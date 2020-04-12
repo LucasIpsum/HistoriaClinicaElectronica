@@ -1,7 +1,7 @@
 <template>
 <div id='last' class="mt-5">
   <h2>Ultimos pacientes</h2>
-  <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p" />
+  <Patientbox v-for="(p,k) in lastPatients" :key="k" :paciente="p" />
 </div>
 </template>
 
@@ -17,23 +17,39 @@ data(){
     historias : null
   }
 },
+created(){this.cargarRegistros()},
 components: { Patientbox },
 computed: {
   ...mapState(['st_misPacientes']),
   lastPatients(){
-    this.cargarRegistro();
     let aux = []
+    if(!!this.historias){
+      this.historias.forEach(el => {
+        let paciente = this.st_misPacientes.find( e => e.id === el.id)
+        if( !!paciente && aux.length <= 10){
+          aux.push(paciente);
+        }
+      })
+    }
     
+    return aux;
   },
 },
 methods: {
-  async cargarRegistro(){
+  async cargarRegistros(){
     await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
     .then(response => response.json())
-    .then(json => {this.historias = json})
+    .then(json => {//filtrar historias por los pacientes asociados al doctor
+      this.historias = json.sort(this.ingresocmp)
+      })
     .catch(error => console.log(error))
+  },
+  ingresocmp(a, b){
+    //FORMATO DE FECHA ISO 8601 YYYY-MM-DD
+  return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso)
   }
 }
+
 }
 </script>
 
