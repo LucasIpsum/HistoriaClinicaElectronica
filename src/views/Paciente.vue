@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     cargarActual(){
-      console.log('cargando')
       this.st_allPacientes.forEach(p => {
         if(p.id == this.$route.params.id){
           this.pacienteActual = p;

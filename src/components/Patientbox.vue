@@ -1,7 +1,7 @@
 <template>
 <div>
   <router-link :to="url">
-  <div @click="addMyPatient"  id="patient" class="container btn btn-primary pt-2 pb-2">
+  <div id="patient" class="container btn btn-primary pt-2 pb-2">
     <div class="text">{{`${paciente.apellido},${paciente.nombre}`}}</div>
     <p class="text">DNI: {{paciente.documento}}</p>
   </div>
@@ -17,10 +17,6 @@ import { mapMutations, mapState } from 'vuex';
     name: 'Patientbox',
     props: ['paciente'],
     methods: {
-      ...mapMutations(['st_agregarMiPaciente']),
-      addMyPatient(){
-        this.st_agregarMiPaciente(this.paciente);
-      }
     },
     computed: {
       // ...mapState(['st_misPacientes']),
