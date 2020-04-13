@@ -79,13 +79,8 @@ export default {
             })
         },
         async aprobarMedico(medico){
-            // let json = JSON.stringify(medico)
             // await fetch(`/api/alta/medicos/${medico.id}`,{
-            //     method: 'POST',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: json
+            //     method: 'POST'
             // })
             // .then(res => {
             //     if(res.ok){
@@ -99,13 +94,8 @@ export default {
         this.cargarPendientes()
         },
         async aprobarEnfermero(enfermero){
-            // let json = JSON.stringify(enfermero)
             // await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
-            //     method: 'POST',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: json
+            //     method: 'POST'
             // })
             // .then(res => {
             //     if(res.ok){

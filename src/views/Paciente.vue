@@ -8,7 +8,7 @@
       <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3> -->
           <div class="nav d-flex justify-content-around align-content-center">
 
-              <label v-if="st_userInfo.tipo == 'medico'">
+              <label v-if="st_userInfo.tipo == 'MEDICO'">
                 <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
                 <img v-if="this.inputs=='HC'" class="current" src="../assets/HC.svg" alt="RE">
                 <img v-else src="../assets/HC.svg" alt="RE">
