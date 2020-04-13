@@ -35,29 +35,29 @@ export default {
   methods: {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
     async fetchDataMyPatients(){
-      // await fetch('/api/pacientes')
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
+      await fetch('/api/pacientes')
+      //await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.st_cargarMisPacientes(json))
+      }).then(json => this.st_cargarMisPacientes(json.pacientes))
       .catch(error => {
         console.log(error)
       })
     },
     async fetchDataAllPatients(){
-      // await fetch('/api/pacientes')
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+      await fetch('/api/all/pacientes')
+      //await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.st_cargarAllPacientes(json))
+      }).then(json => this.st_cargarAllPacientes(json.pacientes))
       .catch(error => {
         console.log(error)
       })

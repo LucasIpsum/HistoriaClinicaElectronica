@@ -32,7 +32,6 @@ export default {
   },
   data() {
     return {
-      patients: [],
       foundPatient: null
     };
   },
@@ -43,23 +42,14 @@ export default {
     // }
     },
   methods: {
-    async fetchData() {
-      await fetch("https://raw.githubusercontent.com/21diego/database/master/pacientes.json")
-        .then(response => response.json())
-        .then(json => (this.patients = json));
-    },
-
     filterPatients(e, st_allPacientes) {
       console.log(e);
       e.preventDefault();
       this.foundPatient = st_allPacientes.filter(
-        el => document.getElementById("dni-input").value == el.id
+        el => document.getElementById("dni-input").value == el.documento
       );
     }
   },
-  created: function() {
-    this.fetchData();
-  }
 }
 </script>
 

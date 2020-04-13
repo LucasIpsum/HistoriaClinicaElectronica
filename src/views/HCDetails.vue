@@ -2,7 +2,12 @@
     <div>
         <Navbar/>
         <div class="miPerfil">Perfil del paciente</div>
-        {{this.st_HCActual.ingreso}}
+        {{this.st_HCActual.fechaHora}}
+        {{this.st_HCActual.motivoConsulta}}
+        {{this.st_HCActual.diagnostico}}
+        {{this.st_HCActual.temperatura}}
+        {{this.st_HCActual.sintomas}}
+        {{this.st_HCActual.tratamiento}}
         {{this.st_HCActual.observaciones}}
     </div>
 </template>
@@ -17,9 +22,6 @@ export default {
     computed: {
   ...mapState(['st_HCActual']),
     },
-    created(){
-        console.log(st_allPacientes)
-    }
 }
 </script>
 

@@ -4,7 +4,7 @@
       <div class="cardd" v-for="(i,index) in registros" :key="index">
             <router-link to="/detalleHC">
             
-              <li @click="st_cargarHCActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</li>
+              <li @click="st_cargarHCActual(i)">{{i.fechaHora}}: {{i.diagnostico}}</li>
             
             </router-link>
       </div>
@@ -30,21 +30,21 @@ export default {
   methods: {
     ...mapMutations(['st_cargarHCActual']),
     async cargarActual(){
-      // await fetch(`/api/pacientes/${this.paciente.id}/hc`)
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
+      await fetch(`/api/pacientes/${this.paciente.id}/hc`)
+      //await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.registros= json.sort(this.sortByDate))
+      }).then(json => this.registros= json.historiasClinicas.sort(this.sortByDate))
       .catch(error => {
         console.log(error)
       })
     },
     sortByDate(a, b){
-      return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
+      return Date.parse(b.fechaHora) - Date.parse(a.fechaHora);
     }
   },
 }

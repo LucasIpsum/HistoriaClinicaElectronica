@@ -9,7 +9,7 @@ export default new Vuex.Store({
     st_userInfo:{
       nombre: 'name',
       apellido: 'lastname',
-      tipo: 'ADMIN',
+      tipo: '',
       perfil: 'https://i.ibb.co/Tbt3Cgx/doc.png'
     },
     st_misPacientes: [],
@@ -41,9 +41,11 @@ export default new Vuex.Store({
     },
     st_cargarMisPacientes(state,database){
       state.st_misPacientes = database;
+      console.log(state.st_misPacientes)
     },
     st_cargarAllPacientes(state, database){
       state.st_allPacientes = database;
+      console.log(state.st_allPacientes)
     },
     st_cargarHCActual(state, database){
       state.st_HCActual = database;

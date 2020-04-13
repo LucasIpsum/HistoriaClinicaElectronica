@@ -52,8 +52,8 @@ export default {
     },
     methods: {
         async cargarPendientes(){
-        //    await fetch ('/api/alta/medicos')
-           await fetch('https://raw.githubusercontent.com/21diego/database/master/autorizarMedico.json')
+            await fetch ('/api/alta/medicos')
+           //await fetch('https://raw.githubusercontent.com/21diego/database/master/autorizarMedico.json')
            .then(response => {
                 if(response.ok){
                     return response.json()
@@ -65,8 +65,8 @@ export default {
                 console.log(error)
             })
 
-        //    await fetch ('/api/alta/enfermeros')
-           await fetch('https://raw.githubusercontent.com/21diego/database/master/autorizarEnfermeria.json')
+            await fetch ('/api/alta/enfermeros')
+           ///await fetch('https://raw.githubusercontent.com/21diego/database/master/autorizarEnfermeria.json')
            .then(response => {
                 if(response.ok){
                     return response.json()
@@ -79,32 +79,32 @@ export default {
             })
         },
         async aprobarMedico(medico){
-            // await fetch(`/api/alta/medicos/${medico.id}`,{
-            //     method: 'POST'
-            // })
-            // .then(res => {
-            //     if(res.ok){
-            //     return res.json()
-            //     }else{
-            //     return new Promise.reject(res.json())
-            //     }
-            // })
-            // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+            await fetch(`/api/alta/medicos/${medico.id}`,{
+                method: 'POST'
+            })
+            .then(res => {
+                if(res.ok){
+                return res.json()
+                }else{
+                return new Promise.reject(res.json())
+                }
+            })
+            .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
         console.log(`Se aprueba al medico de ID ${medico.id}`)
         this.cargarPendientes()
         },
         async aprobarEnfermero(enfermero){
-            // await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
-            //     method: 'POST'
-            // })
-            // .then(res => {
-            //     if(res.ok){
-            //     return res.json()
-            //     }else{
-            //     return new Promise.reject(res.json())
-            //     }
-            // })
-            // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+            await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
+                method: 'POST'
+            })
+            .then(res => {
+                if(res.ok){
+                return res.json()
+                }else{
+                return new Promise.reject(res.json())
+                }
+            })
+            .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
         console.log(`Se aprueba al enfermero de ID ${enfermero.id}`)
         this.cargarPendientes()
         }
