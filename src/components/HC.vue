@@ -4,7 +4,7 @@
       <div class="cardd" v-for="(i,index) in registros" :key="index">
             <router-link to="/detalleHC">
             
-              <li @click="st_cargarRegistroActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</li>
+              <li @click="st_cargarHCActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</li>
             
             </router-link>
       </div>
@@ -18,6 +18,7 @@ import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'HC',
+  props: ['paciente'],
   data() {
     return {
       registros: []
@@ -27,8 +28,9 @@ export default {
     this.cargarActual()
   },
   methods: {
-    ...mapMutations(['st_cargarRegistroActual']),
+    ...mapMutations(['st_cargarHCActual']),
     async cargarActual(){
+      // await fetch(`/api/pacientes/${this.paciente.id}/hc`)
       await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
       .then(response => {
         if(response.ok){
@@ -41,13 +43,10 @@ export default {
         console.log(error)
       })
     },
-  sortByDate(a, b){
-    return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
-  }
+    sortByDate(a, b){
+      return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
+    }
   },
-  computed: {
-    ...mapState(['st_allPacientes']),
-  }
 }
 </script>
 <style scoped>

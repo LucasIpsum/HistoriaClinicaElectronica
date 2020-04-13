@@ -9,12 +9,13 @@ export default new Vuex.Store({
     st_userInfo:{
       nombre: 'name',
       apellido: 'lastname',
-      tipo: 'medico',
+      tipo: 'ADMIN',
       perfil: 'https://i.ibb.co/Tbt3Cgx/doc.png'
     },
     st_misPacientes: [],
     st_allPacientes: [],
-    st_registroActual: {}
+    st_HCActual: {},
+    st_REActual: {},
   },
   mutations: {
     st_logUser(state){
@@ -44,9 +45,11 @@ export default new Vuex.Store({
     st_cargarAllPacientes(state, database){
       state.st_allPacientes = database;
     },
-    st_cargarRegistroActual(state, database){
-      state.st_registroActual = database;
-      console.log(database);
+    st_cargarHCActual(state, database){
+      state.st_HCActual = database;
+    },
+    st_cargarREActual(state, database){
+      state.st_REActual = database;
     }
   },
   actions: {

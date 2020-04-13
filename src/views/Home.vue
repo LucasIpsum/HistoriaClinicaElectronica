@@ -1,23 +1,28 @@
 <template>
   <div class="home">
     <Navbar/>
-    <PatientSearch />
-    <!-- <Patientbox v-for="(p,k) in st_misPacientes" :key="k" :paciente="p"/> -->
-    <LastPatients />
+    <template v-if="st_userInfo.tipo == 'MEDICO'">
+      <PatientSearch />
+      <LastPatients />
+    </template>
+
+    <template v-if="st_userInfo.tipo == 'ADMIN'">
+      <CuentasPendientes />
+    </template>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue';
-import Patientbox from '@/components/Patientbox.vue';
 import LastPatients from '@/components/LastPatients.vue';
-import PatientSearch from '@/components/PatientSearch.vue'
+import PatientSearch from '@/components/PatientSearch.vue';
+import CuentasPendientes from '@/components/CuentasPendientes.vue';
 import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
-    Navbar, Patientbox, PatientSearch, LastPatients
+    Navbar, PatientSearch, LastPatients, CuentasPendientes
   },
   data(){
     return{
@@ -25,7 +30,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['st_misPacientes', 'st_allPacientes']),
+    ...mapState(['st_userInfo', 'st_misPacientes', 'st_allPacientes']),
   },
   methods: {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),

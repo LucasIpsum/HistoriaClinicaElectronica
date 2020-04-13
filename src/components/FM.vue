@@ -1,39 +1,52 @@
 <template>
   <div>
-      <div class="cardd" v-for="(i,index) in registro" :key="index">
-          <div>
-            <b>{{index}}: </b><p>{{i}}</p>
-          </div>
+      <ul>
+      <div class="cardd" v-for="(i,index) in registros" :key="index">
+            <router-link to="/detalleRE">
+            
+              <li @click="st_cargarREActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</li>
+            
+            </router-link>
       </div>
+    </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import {mapState} from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'FM',
+  props: ['paciente'],
   data() {
     return {
-      registro: [],
+      registros: []
     };
   },
-  mounted(){
+  created(){
     this.cargarActual()
   },
   methods: {
-    cargarActual(){
-      this.st_misPacientes.forEach(p => {
-        if(p.id == this.$route.params.id){
-          p.registro != null ? this.registro = p.registro : null;
+    ...mapMutations(['st_cargarREActual']),
+    async cargarActual(){
+      // await fetch(`/api/pacientes/${this.paciente.id}/registros`)
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/enfermeria.json.json')
+      .then(response => {
+        if(response.ok){
+          return response.json()
+        }else{
+          return Promise.reject(res)
         }
-      });
+      }).then(json => this.registros= json.sort(this.sortByDate))
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    sortByDate(a, b){
+      return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
     }
   },
-  computed: {
-    ...mapState(['st_misPacientes']),
-  }
 }
 </script>
 <style scoped>

@@ -2,8 +2,8 @@
     <div>
         <Navbar/>
         <div class="miPerfil">Perfil del paciente</div>
-        {{this.st_HCActual.ingreso}}
-        {{this.st_HCActual.observaciones}}
+        {{this.st_REActual.ingreso}}
+        {{this.st_REActual.observaciones}}
     </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     components: { Navbar },
 
     computed: {
-  ...mapState(['st_HCActual']),
+  ...mapState(['st_REActual']),
     },
     created(){
         console.log(st_allPacientes)

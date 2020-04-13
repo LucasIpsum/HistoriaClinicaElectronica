@@ -4,32 +4,35 @@
 
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
-      <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
-      <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3>
+      <!-- <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
+      <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3> -->
           <div class="nav d-flex justify-content-around align-content-center">
 
-              <label>
+              <label v-if="st_userInfo.tipo == 'medico'">
                 <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
-                <img src="../assets/HC.svg" alt="RE">
+                <img v-if="this.inputs=='HC'" class="current" src="../assets/HC.svg" alt="RE">
+                <img v-else src="../assets/HC.svg" alt="RE">
               </label>
 
               <label>
                 <input id="p" v-model="inputs" type="radio" name="perfil" value="P">
-                <img src="../assets/PERFIL.svg" alt="Perfil">
+                <img v-if="this.inputs=='P'" class="current" src="../assets/PERFIL.svg" alt="Perfil">
+                <img v-else src="../assets/PERFIL.svg" alt="Perfil">
               </label>
 
               <label>
                 <input id="re" v-model="inputs" type="radio" name="perfil" value="RE">
-                <img src="../assets/RE.svg" alt="RE">
+                <img v-if="this.inputs=='RE'" class="current" src="../assets/RE.svg" alt="RE">
+                <img v-else src="../assets/RE.svg" alt="RE">
               </label>
 
           </div>
       </div>
       <div v-if="inputs=='HC'"> 
-        <HC />
+        <HC :paciente="pacienteActual"/>
       </div>
       <div v-else-if="inputs=='RE'">
-        <FM />
+        <FM :paciente="pacienteActual"/>
       </div>
       <div v-else>
         <Perfil :paciente="pacienteActual"/>
@@ -56,7 +59,7 @@ export default {
   data() {
     return{
       pacienteActual: '',
-      inputs:"",
+      inputs:"P",
     }
   },
   methods: {
@@ -69,13 +72,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['st_allPacientes']),
+    ...mapState(['st_userInfo', 'st_allPacientes']),
   },
     created(){
    this.cargarActual()
   },
 }
-
 
 </script>
 <style scoped>
@@ -110,4 +112,8 @@ export default {
 	width: 0;
 	height: 0;
 }
+  .current{
+    filter: invert(50%);
+    -webkit-filter: invert(50%);
+  }
 </style>
