@@ -1,19 +1,26 @@
 <template>
-  <div class="container">
-    <h2>Buscar paciente</h2>
-    <form>
-      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="btn"/>
-      <button @click="(event) => { filterPatients(event, this.st_allPacientes) }" class="btn btn-primary">Buscar</button>
+  <div id="search" class="container">
+    <form id="searchbox" class="d-flex align-items-center">
+      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="pl-3 pt-1 pb-1"/>
+      <div id="searchbtn" @click="(event) => { filterPatients(event, this.st_allPacientes) }">
+        <i class="fas fa-search"></i>
+      </div>
     </form>
-
-    <div v-if="foundPatient != '' && foundPatient != null" class="d-flex justify-content-center mt-4">
+    
+    <div v-if="foundPatient != '' && foundPatient != null" class="mt-1 searchresultbox">
+      <div id="exit" @click="hide">
+        <i class="fas fa-times-circle fa-2x mb-2"></i>
+      </div>
       <Patientbox :paciente="foundPatient[0]"/>
     </div>
 
-    <div v-else-if="foundPatient != null" class="mt-4">
-      <div class="btn border border-danger text-danger">No se encontro ningun paciente</div>
+    <div v-else-if="foundPatient != null" class="mt-1 searchresultbox">
+      <div id="exit" @click="hide">
+        <i class="fas fa-times-circle fa-2x mb-2"></i>
+      </div>
+      <div class="btn border border-danger text-danger mr-1">No se encontro ningun paciente</div>
       <router-link to="/addpaciente">
-        <div class="btn btn-primary mt-2">Agregar paciente</div>
+        <div class="btn btn-primary">Agregar</div>
       </router-link>
       
     </div>
@@ -43,26 +50,44 @@ export default {
     },
   methods: {
     filterPatients(e, st_allPacientes) {
-      console.log(e);
       e.preventDefault();
       this.foundPatient = st_allPacientes.filter(
         el => document.getElementById("dni-input").value == el.documento
       );
+    },
+    hide(){
+      this.foundPatient = null;
     }
   },
 }
 </script>
 
 <style scoped>
-#backbtn{
-  position: fixed;
-  top: 20px;
+#searchbox{
+  position: absolute;
+  top: 25px;
   right: 1em;
+  z-index: 100;
 }
+
 #dni-input{
-  width: 40vw;
-  background-color: rgb(226, 255, 255);
+  width: 10em;
   border: #007bff solid 1px;
-  margin-right: 1em;
+  margin-right: 0.3em;
+  border-radius: 2em;
+  color: #007bff;
+}
+#dni-input:focus{
+  outline: none;
+}
+#searchbtn{
+  font-size: 1.3em;
+  color: rgb(48, 130, 253);
+}
+.searchresultbox{
+  border: 2px rgb(48, 130, 253,0.5) solid;
+  border-radius: 0.3em;
+  padding: 0.5em 0;
+  margin-bottom: 1em;
 }
 </style>

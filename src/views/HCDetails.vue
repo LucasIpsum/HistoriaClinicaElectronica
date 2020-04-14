@@ -1,6 +1,7 @@
 <template>
     <div>
         <Navbar/>
+        <BackBtn />
         <div class="miPerfil">Perfil del paciente</div>
         {{this.st_HCActual.fechaHora}}
         {{this.st_HCActual.motivoConsulta}}
@@ -15,9 +16,10 @@
 <script>
 import {mapState} from 'vuex';
 import Navbar from '@/components/Navbar.vue';
+import BackBtn from '@/components/BackBtn.vue';
 
 export default {
-    components: { Navbar },
+    components: { Navbar, BackBtn },
 
     computed: {
   ...mapState(['st_HCActual']),

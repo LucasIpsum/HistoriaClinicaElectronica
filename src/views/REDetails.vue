@@ -1,6 +1,7 @@
 <template>
     <div>
         <Navbar/>
+        <BackBtn />
         <div class="miPerfil">Perfil del paciente</div>
         {{this.st_REActual.ingreso}}
         {{this.st_REActual.observaciones}}
@@ -10,9 +11,10 @@
 <script>
 import {mapState} from 'vuex';
 import Navbar from '@/components/Navbar.vue';
+import BackBtn from '@/components/BackBtn.vue';
 
 export default {
-    components: { Navbar },
+    components: { Navbar, BackBtn },
 
     computed: {
   ...mapState(['st_REActual']),

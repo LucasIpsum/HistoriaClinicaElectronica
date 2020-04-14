@@ -3,6 +3,7 @@
   BUTTON SUBMIT-->
   <div class="registerPatient">
     <Navbar />
+    <BackBtn />
     <h2>Registro de paciente</h2>
     <form id="regForm" action>
       
@@ -45,7 +46,7 @@
 
       </div>
 
-      <!------------- TAB 2 (Anamnesis) --------------->
+      <!------------- TAB 2 (Anamnesis 1/3) --------------->
       <div class="tab">
         <h4>Anamnesis 1/3</h4>
         
@@ -76,6 +77,7 @@
         <label>Semanas de gestación<input name="semanas_gestacion" value="0" id="pregnancyTimeInput" disabled type="number" class="btn" /></label>
         <label>Embarazos previos<input name="embarazos_previos" value="0" id="previousPregnanciesInput" disabled type="number" class="btn" /></label>
 
+      <!------------- TAB 3 (Anamnesis 2/3) --------------->
       </div>
       <div class="tab">
         <h4>Anamnesis 2/3</h4>
@@ -98,6 +100,7 @@
         </div>
       </div>
 
+      <!------------- TAB 4 (Anamnesis 3/3) --------------->
       <div class="tab">
         <h4>Anamnesis 3/3</h4>
         <label>Medicacion regular<input name="medicacion_regular" class="btn" type="text" /></label>
@@ -146,7 +149,7 @@
           </select>
         </div>
       </div>
-      <!----------- TAB 3 (Contacto de emergencia)  ------------>
+      <!----------- TAB 5 (Contacto de emergencia)  ------------>
       <div class="tab">
         <h2>Contacto de emergencia</h2>
         <label>
@@ -204,12 +207,11 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import BackBtn from '@/components/BackBtn.vue';
 
 export default {
   name: "RegisterPatients",
-  components: {
-    Navbar
-  },
+  components: { Navbar, BackBtn },
   data() {
     return {
       currentTab: 0,

@@ -1,8 +1,6 @@
 <template>
   <div id="register">
-    <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
-      <i class="fas fa-angle-double-left fa-2x"></i>
-    </div>
+    <BackBtn />
     <div class="title">Registrate como: </div>
     <router-link to="/register/personal" class="btn btn-blue w-70">PERSONAL DE SALUD</router-link>
     <br>
@@ -11,8 +9,9 @@
 </template>
 
 <script>
+  import BackBtn from '@/components/BackBtn.vue'
   export default {
-    
+    components: { BackBtn }
   }
 </script>
 

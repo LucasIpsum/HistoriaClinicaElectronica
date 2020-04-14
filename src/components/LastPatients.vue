@@ -1,13 +1,13 @@
 <template>
-<div id='last' class="mt-5">
-  <h2>Ultimos pacientes</h2>
+<div id='last'>
+  <p class="ml-2">Pacientes atendidos recientemente</p>
   <Patientbox v-for="(p,k) in lastPatients" :key="k" :paciente="p" />
 </div>
 </template>
 
 <script>
-import Patientbox from '@/components/Patientbox.vue'
-import { mapState } from 'vuex'
+import Patientbox from '@/components/Patientbox.vue';
+import { mapState } from 'vuex';
 
 
 export default {
@@ -35,5 +35,11 @@ methods: {
 </script>
 
 <style scoped>
-
+#last{
+  text-align: left;
+}
+#last p{
+  color: #007bff;
+  font-weight: bold;
+}
 </style>

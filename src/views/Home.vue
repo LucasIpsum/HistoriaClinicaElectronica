@@ -36,7 +36,7 @@ export default {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
     async fetchDataMyPatients(){
       await fetch('/api/pacientes')
-      //await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
+      // await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()
@@ -50,7 +50,7 @@ export default {
     },
     async fetchDataAllPatients(){
       await fetch('/api/all/pacientes')
-      //await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+      // await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
       .then(response => {
         if(response.ok){
           return response.json()

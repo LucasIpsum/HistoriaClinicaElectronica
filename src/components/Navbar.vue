@@ -1,10 +1,7 @@
 <template>
   <div id="navbar">
     <div id="relleno"></div>
-    <div id="backbtn" class="btn btn-primary" v-on:click="()=>{$router.go(-1)}">
-      <i class="fas fa-angle-double-left fa-2x"></i>
-    </div>
-    <div id="button" class="btn btn-primary colour" v-on:click="show">
+    <div id="button" v-on:click="show">
       <i class="fas fa-bars fa-2x"></i>
     </div>
     <div id="back" v-on:click="hide"></div>
@@ -51,12 +48,16 @@ import Userbox from '@/components/Userbox.vue'
       element.classList.toggle('active');
       let back = document.querySelector('#back');
       back.classList.toggle('active');
+      let search = document.querySelector('#searchbox');
+      if(!!search) {search.style.zIndex = "0";}
     },
     hide(){
       let element = document.querySelector('#slide');
       element.classList.toggle('active');
       let back = document.querySelector('#back');
       back.classList.toggle('active');
+      let search = document.querySelector('#searchbox');
+      if(!!search) {search.style.zIndex = "100";}
     }
   }
   }
@@ -70,12 +71,6 @@ import Userbox from '@/components/Userbox.vue'
   height: 90px;
   z-index: 100;
 }
-#backbtn{
-  position: fixed;
-  top: 20px;
-  right: 1em;
-  z-index: 110;
-}
 #relleno{
   width: 100vw;
   height: 90px;
@@ -84,10 +79,8 @@ import Userbox from '@/components/Userbox.vue'
   position: fixed;
   top: 20px;
   left:1em;
-}
-.fas{
-  width: 100%;
-  color: white;
+  color:rgb(48, 130, 253);
+  font-size: 1.5em;
 }
 #back{
   display: none;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar/>
-
+    <BackBtn />
     <div class="header">
       <div class="miPerfil">Perfil del paciente</div>
       <!-- <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
@@ -44,18 +44,14 @@
 // @ is an alias to /src
 import {mapState} from 'vuex';
 import Navbar from '@/components/Navbar.vue';
+import BackBtn from '@/components/BackBtn.vue';
 import HC from '@/components/HC.vue'
 import FM from '@/components/FM.vue'
 import Perfil from '@/components/Perfil.vue'
 
 export default {
   name: 'Paciente',
-  components: {
-    Navbar,
-    HC,
-    FM,
-    Perfil
-  },
+  components: { Navbar, BackBtn, HC, FM, Perfil },
   data() {
     return{
       pacienteActual: '',
