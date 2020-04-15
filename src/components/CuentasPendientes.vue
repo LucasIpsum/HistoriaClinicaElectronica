@@ -28,15 +28,17 @@
       </label>
       <button @click="filtrarUsuario(medicosPendientes)">Buscar médico</button>
 
-      <div v-if="usuarioBuscado" class="cardd bg-danger">
+      <div v-if="usuarioBuscado" class="cardd bg-info">
         <h2>Medico Encontrado</h2>
         <p>{{usuarioBuscado.nombre}} - {{usuarioBuscado.dni}}</p>
-        <img @click="aprobarMedico(usuarioBuscado)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(true, usuarioBuscado)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(false, usuarioBuscado)" class="check" src="@/assets/cancel.png" />
       </div>
 
       <div class="cardd" v-for="(i,index) in medicosPendientes" :key="index">
         <p>{{i.nombre}} - {{i.dni}}</p>
-        <img @click="aprobarMedico(i)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(true, i)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(false, i)" class="check" src="@/assets/cancel.png" />
       </div>
     </template>
 
@@ -47,17 +49,40 @@
       </label>
       <button @click="filtrarUsuario(enfermerosPendientes)">Buscar enfermero</button>
 
-      <div v-if="usuarioBuscado" class="cardd bg-danger">
+      <div v-if="usuarioBuscado" class="cardd bg-info">
         <h2>Enfermero Encontrado</h2>
         <p>{{usuarioBuscado.nombre}} - {{usuarioBuscado.dni}}</p>
-        <img @click="aprobarEnfermero(usuarioBuscado)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(true, usuarioBuscado)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(false, usuarioBuscado)" class="check" src="@/assets/cancel.png" />
       </div>
 
       <div class="cardd" v-for="(i,index) in enfermerosPendientes" :key="-(index+1)">
         <p>{{i.nombre}} - {{i.dni}}</p>
-        <img @click="aprobarEnfermero(i)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(true, i)" class="check" src="@/assets/check.png" />
+        <img @click="mostrarVistaConfirmacion(false, i)" class="check" src="@/assets/cancel.png" />
       </div>
     </template>
+
+    <div v-if="confirmacion!=null" id="vistaConfirmacion">
+      <div class="cardd">
+        <p>¿Está seguro de que desea {{confirmacion ? 'dar de alta' : 'rechazar el alta' }} al usuario {{usuarioPorConfirmar.nombre}}? </p>
+        <!-- BOTON SI(APROBAR & RECHAZAR) Y NO MEDICOS -->
+        <template v-if="seccion=='M'">
+          <button v-if="confirmacion" @click="aprobarMedico(usuarioPorConfirmar)" >Sí</button>
+          <button v-else @click="rechazarMedico(usuarioPorConfirmar)" >Sí</button>
+          <button @click="esconderVistaConfirmacion">No</button>
+        </template>
+          <!-- BOTON SI (APROBAR & RECHAZAR) Y NO ENFERMEROS -->
+        <template v-else>
+          <button v-if="confirmacion" @click="aprobarEnfermero(usuarioPorConfirmar)">Sí</button>
+          <button v-else @click="rechazarEnfermero(usuarioPorConfirmar)">Sí</button>
+
+          <button @click="esconderVistaConfirmacion">No</button>
+        </template>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -73,6 +98,8 @@ export default {
       enfermerosPendientes: [],
       seccion: "M",
       usuarioBuscado: false,
+      confirmacion: null,
+      usuarioPorConfirmar: null
     };
   },
   methods: {
@@ -122,6 +149,25 @@ export default {
       // })
       // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
       console.log(`Se aprueba al medico de ID ${medico.id}`);
+      alert(`Se dio de alta al usuario ${medico.nombre} ${medico.id} con éxito.`)
+      this.esconderVistaConfirmacion()
+      this.cargarPendientes();
+    },
+    async rechazarMedico(medico) {
+            // await fetch(`/api/alta/medicos/${medico.id}`,{
+      //     method: 'POST'
+      // })
+      // .then(res => {
+      //     if(res.ok){
+      //     return res.json()
+      //     }else{
+      //     return new Promise.reject(res.json())
+      //     }
+      // })
+      // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+      console.log(`Se rechaza al medico de ID ${medico.id}`);
+      alert(`Se dio de baja al usuario ${medico.nombre} ${medico.id} con éxito.`)
+      this.esconderVistaConfirmacion()
       this.cargarPendientes();
     },
     async aprobarEnfermero(enfermero) {
@@ -137,6 +183,25 @@ export default {
       //     })
       //     .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
       console.log(`Se aprueba al enfermero de ID ${enfermero.id}`);
+      alert(`Se dio de alta al usuario ${enfermero.nombre} ${enfermero.id} con éxito.`)
+      this.esconderVistaConfirmacion()
+      this.cargarPendientes();
+    },
+    async rechazarEnfermero(enfermero) {
+      //     await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
+      //         method: 'POST'
+      //     })
+      //     .then(res => {
+      //         if(res.ok){
+      //         return res.json()
+      //         }else{
+      //         return new Promise.reject(res.json())
+      //         }
+      //     })
+      //     .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+            this.esconderVistaConfirmacion()
+      alert(`Se dio de baja al usuario ${enfermero.nombre} ${enfermero.id} con éxito.`)
+      console.log(`Se rechaza al enfermero de ID ${enfermero.id}`);
       this.cargarPendientes();
     },
     filtrarUsuario(usuario) {
@@ -152,9 +217,16 @@ export default {
       });
       console.log(buscarDNI)
       if(!this.usuarioBuscado){
-            alert('Ponelo bien salamin')
+            alert('No se ha encontrado el DNI ingresado.')
             buscarDNI.value = ''
       }
+    },
+    mostrarVistaConfirmacion(aprobar, usuario){
+      this.confirmacion = aprobar;
+      this.usuarioPorConfirmar = usuario;
+    },
+    esconderVistaConfirmacion(){
+      this.confirmacion=null;
     }
     
   },
@@ -215,5 +287,15 @@ label img {
 .current {
   filter: invert(50%);
   -webkit-filter: invert(50%);
+}
+
+#vistaConfirmacion{
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background: #0000005d;
+  
 }
 </style>

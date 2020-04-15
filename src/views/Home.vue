@@ -41,7 +41,7 @@ export default {
         if(response.ok){
           return response.json()
         }else{
-          return Promise.reject(res)
+          return Promise.reject(response)
         }
       }).then(json => this.st_cargarMisPacientes(json.pacientes))
       .catch(error => {
@@ -55,7 +55,7 @@ export default {
         if(response.ok){
           return response.json()
         }else{
-          return Promise.reject(res)
+          return Promise.reject(response)
         }
       }).then(json => this.st_cargarAllPacientes(json.pacientes))
       .catch(error => {
