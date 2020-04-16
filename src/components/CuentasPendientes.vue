@@ -1,27 +1,25 @@
 <template>
   <div>
     <Navbar />
-
+    <!-- MENU PARA VER ENTRE MEDICO/ENFERMERO -->                            
     <div class="header">
       <div class="miPerfil">Cuentas para autorizar</div>
 
-      <!-- <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
-      <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3>-->
       <div class="nav d-flex justify-content-around align-content-center">
         <label>
-          <input id="p" v-model="seccion" type="radio" name="perfil" value="M" @click="usuarioBuscado = false"/>
+          <input id="M" v-model="seccion" type="radio" name="perfil" value="M"/>
           <img v-if="this.seccion=='M'" class="current" src="../assets/PERFIL.svg" alt="Perfil" />
           <img v-else src="../assets/PERFIL.svg" alt="Perfil" />
         </label>
 
         <label>
-          <input id="E" v-model="seccion" type="radio" name="perfil" value="E" @click="usuarioBuscado = false"/>
+          <input id="E" v-model="seccion" type="radio" name="perfil" value="E"/>
           <img v-if="this.seccion=='E'" class="current" src="../assets/HC.svg" alt="E" />
           <img v-else src="../assets/HC.svg" alt="E" />
         </label>
       </div>
     </div>
-    <!-- Del medico -->
+    <!-- MENU MEDICO -->
     <template v-if="seccion=='M'">
       <label>
         <input type="number" name="dniInput" id="dniMedico" />
@@ -34,7 +32,7 @@
         <img @click="mostrarVistaConfirmacion(true, usuarioBuscado)" class="check" src="@/assets/check.png" />
         <img @click="mostrarVistaConfirmacion(false, usuarioBuscado)" class="check" src="@/assets/cancel.png" />
       </div>
-
+      <div class="bg-danger"><h3 v-if="medicosPendientes == ''">No hay solicitudes pendientes</h3></div>
       <div class="cardd" v-for="(i,index) in medicosPendientes" :key="index">
         <p>{{i.nombre}} - {{i.dni}}</p>
         <img @click="mostrarVistaConfirmacion(true, i)" class="check" src="@/assets/check.png" />
@@ -42,7 +40,7 @@
       </div>
     </template>
 
-    <!-- Del enfermero -->
+    <!-- MENU ENFERMERO -->
     <template v-if="seccion=='E'">
         <label>
           <input type="number" name="dniInput" id="dniEnfermero" />
@@ -55,7 +53,7 @@
         <img @click="mostrarVistaConfirmacion(true, usuarioBuscado)" class="check" src="@/assets/check.png" />
         <img @click="mostrarVistaConfirmacion(false, usuarioBuscado)" class="check" src="@/assets/cancel.png" />
       </div>
-
+      <div class="bg-danger"><h3 v-if="enfermerosPendientes == ''">No hay solicitudes pendientes</h3></div>
       <div class="cardd" v-for="(i,index) in enfermerosPendientes" :key="-(index+1)">
         <p>{{i.nombre}} - {{i.dni}}</p>
         <img @click="mostrarVistaConfirmacion(true, i)" class="check" src="@/assets/check.png" />
@@ -104,10 +102,7 @@ export default {
   },
   methods: {
     async cargarPendientes() {
-      // await fetch ('/api/alta/medicos')
-      await fetch(
-        "https://raw.githubusercontent.com/21diego/database/master/autorizarMedico.json"
-      )
+      await fetch ('/admin/alta/medicos')
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -120,10 +115,7 @@ export default {
           console.log(error);
         });
 
-      // await fetch ('/api/alta/enfermeros')
-      await fetch(
-        "https://raw.githubusercontent.com/21diego/database/master/autorizarEnfermeria.json"
-      )
+      await fetch ('/admin/alta/enfermeros')
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -131,74 +123,74 @@ export default {
             return Promise.reject(res);
           }
         })
-        .then(json => (this.enfermerosPendientes = json.medicos))
+        .then(json => (this.enfermerosPendientes = json.enfermeros))
         .catch(error => {
           console.log(error);
         });
     },
     async aprobarMedico(medico) {
-      // await fetch(`/api/alta/medicos/${medico.id}`,{
-      //     method: 'POST'
-      // })
-      // .then(res => {
-      //     if(res.ok){
-      //     return res.json()
-      //     }else{
-      //     return new Promise.reject(res.json())
-      //     }
-      // })
-      // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+      await fetch(`/admin/alta/medicos/${medico.id}`,{
+          method: 'PATCH'
+      })
+      .then(res => {
+          if(res.ok){
+          return res.json()
+          }else{
+          return new Promise.reject(res.json())
+          }
+      })
+      .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
       console.log(`Se aprueba al medico de ID ${medico.id}`);
       alert(`Se dio de alta al usuario ${medico.nombre} ${medico.id} con éxito.`)
       this.esconderVistaConfirmacion()
       this.cargarPendientes();
     },
     async rechazarMedico(medico) {
-            // await fetch(`/api/alta/medicos/${medico.id}`,{
-      //     method: 'POST'
-      // })
-      // .then(res => {
-      //     if(res.ok){
-      //     return res.json()
-      //     }else{
-      //     return new Promise.reject(res.json())
-      //     }
-      // })
-      // .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+      await fetch(`/admin/eliminar/medicos/${medico.id}`,{
+          method: 'DELETE'
+      })
+      .then(res => {
+          if(res.ok){
+          return res.json()
+          }else{
+          return new Promise.reject(res.json())
+          }
+      })
+      .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
       console.log(`Se rechaza al medico de ID ${medico.id}`);
       alert(`Se dio de baja al usuario ${medico.nombre} ${medico.id} con éxito.`)
       this.esconderVistaConfirmacion()
       this.cargarPendientes();
     },
     async aprobarEnfermero(enfermero) {
-      //     await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
-      //         method: 'POST'
-      //     })
-      //     .then(res => {
-      //         if(res.ok){
-      //         return res.json()
-      //         }else{
-      //         return new Promise.reject(res.json())
-      //         }
-      //     })
-      //     .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+      await fetch(`/admin/alta/enfermeros/${enfermero.id}`,{
+              method: 'PATCH'
+          })
+          .then(res => {
+              if(res.ok){
+              return res.json()
+              }else{
+              return new Promise.reject(res.json())
+              }
+          })
+          .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
       console.log(`Se aprueba al enfermero de ID ${enfermero.id}`);
       alert(`Se dio de alta al usuario ${enfermero.nombre} ${enfermero.id} con éxito.`)
       this.esconderVistaConfirmacion()
       this.cargarPendientes();
     },
     async rechazarEnfermero(enfermero) {
-      //     await fetch(`/api/alta/enfermeros/${enfermero.id}`,{
-      //         method: 'POST'
-      //     })
-      //     .then(res => {
-      //         if(res.ok){
-      //         return res.json()
-      //         }else{
-      //         return new Promise.reject(res.json())
-      //         }
-      //     })
-      //     .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+      await fetch(`/admin/eliminar/enfermeros/${enfermero.id}`,{
+              method: 'DELETE'
+          })
+          .then(res => {
+              if(res.ok){
+              return res.json()
+              }else{
+              return new Promise.reject(res.json())
+              }
+          })
+          .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
             this.esconderVistaConfirmacion()
       alert(`Se dio de baja al usuario ${enfermero.nombre} ${enfermero.id} con éxito.`)
       console.log(`Se rechaza al enfermero de ID ${enfermero.id}`);
@@ -212,10 +204,7 @@ export default {
         if (buscarDNI.value == e.dni) {
           this.usuarioBuscado = e;
         }
-        // console.log(buscarDNI.value, e.dni)
-
       });
-      console.log(buscarDNI)
       if(!this.usuarioBuscado){
             alert('No se ha encontrado el DNI ingresado.')
             buscarDNI.value = ''
@@ -296,6 +285,5 @@ label img {
   width: 100vw;
   height: 100vh;
   background: #0000005d;
-  
 }
 </style>

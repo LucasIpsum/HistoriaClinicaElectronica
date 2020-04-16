@@ -6,14 +6,15 @@
               <h2 id="title">Inicia Sesion</h2>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <input id="email" type="email" class="form-control" name="email"
-                    value required autofocus placeholder="Email"/>
+                  <!-- <input id="email" type="email" class="form-control" name="email" -->
+                  <input id="email" type="text" class="form-control" name="email" value=""
+                     required autofocus placeholder="Email"/>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <input id="password" type="password" class="form-control" name="password"
-                    value required autofocus placeholder="Contraseña"/>
+                  <input id="password" type="password" class="form-control" name="password" value=""
+                    required autofocus placeholder="Contraseña"/>
                 </div>
               </div>
 

@@ -8,8 +8,18 @@
     <div id="slide" class="d-flex flex-column align-items-start">
       <Userbox />
       <div class="row m-0 p-0">
-        <i class="blue fas fa-users fa-2x col-3"></i>
-        <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
+        
+        <template v-if="st_userInfo.tipo == 'MEDICO' || st_userInfo.tipo == 'ENFERMERO'">
+          <i class="blue fas fa-users fa-2x col-3"></i>
+          <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
+        </template>
+
+        <template v-if="st_userInfo.tipo == 'ADMIN'">
+          <i class="blue fas fa-users fa-2x col-3"></i>
+          <router-link to="/" class="menu-item col-9">Autorizar cuentas</router-link>
+          <i class="blue fas fa-users fa-2x col-3"></i>
+          <router-link to="/activeUsers" class="menu-item col-9">Todas las cuentas</router-link>
+        </template>
       </div>
       <div class="row m-0 p-0">
         <i class="blue fas fa-sign-out-alt fa-2x col-3"></i>
@@ -21,12 +31,15 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 import Userbox from '@/components/Userbox.vue'
 
   export default {
     name: 'Navbar',
     components:{ Userbox },
+    computed: {
+      ...mapState(['st_userInfo']),
+    },
     methods: {
     ...mapMutations(['st_logUser']),
     logout(){

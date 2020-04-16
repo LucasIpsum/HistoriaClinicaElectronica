@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar/>
-    <template v-if="st_userInfo.tipo == 'MEDICO'">
+    <template v-if="st_userInfo.tipo == 'MEDICO' || st_userInfo.tipo == 'ENFERMERO'">
       <PatientSearch />
       <LastPatients />
     </template>
@@ -35,32 +35,38 @@ export default {
   methods: {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
     async fetchDataMyPatients(){
-      await fetch('/api/pacientes')
+      // if(this.st_userInfo.tipo == 'MEDICO' || this.st_userInfo.tipo == 'ENFERMERO')
+      {
+        await fetch('/api/pacientes')
       // await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
-      .then(response => {
-        if(response.ok){
-          return response.json()
-        }else{
-          return Promise.reject(response)
-        }
-      }).then(json => this.st_cargarMisPacientes(json.pacientes))
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          if(response.ok){
+            return response.json()
+          }else{
+            return Promise.reject(response)
+          }
+        }).then(json => this.st_cargarMisPacientes(json.pacientes))
+        .catch(error => {
+          console.log(error)
+        })
+      }
     },
     async fetchDataAllPatients(){
-      await fetch('/api/all/pacientes')
-      // await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
-      .then(response => {
-        if(response.ok){
-          return response.json()
-        }else{
-          return Promise.reject(response)
-        }
-      }).then(json => this.st_cargarAllPacientes(json.pacientes))
-      .catch(error => {
-        console.log(error)
-      })
+      // if(this.st_userInfo.tipo == 'MEDICO' || this.st_userInfo.tipo == 'ENFERMERO')
+      {
+        await fetch('/api/all/pacientes')
+        // await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+        .then(response => {
+          if(response.ok){
+            return response.json()
+          }else{
+            return Promise.reject(response)
+          }
+        }).then(json => this.st_cargarAllPacientes(json.pacientes))
+        .catch(error => {
+          console.log(error)
+        })
+      }
     }
   },
   created(){
