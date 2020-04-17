@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    
-    <router-view/>
+    <transition name="slide-fade">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -54,5 +55,16 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.slide-fade-enter-active {
+  transition: all .3s linear;
+}
+.slide-fade-leave-active {
+  transition: all .3s linear;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(-100%);
+  opacity: 0;
 }
 </style>

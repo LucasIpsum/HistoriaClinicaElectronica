@@ -1,10 +1,9 @@
 <template>
   <div id="register">
-    <BackBtn />
+    <BackBtn class="white"/>
     <div class="title">Registrate como: </div>
-    <router-link to="/register/personal" class="btn btn-blue w-70">PERSONAL DE SALUD</router-link>
-    <br>
-    <router-link to="/register/analyst" class="btn btn-blue w-70">ANALISTA DE DATOS</router-link>
+    <router-link to="/register/personal" class="option">PERSONAL DE SALUD</router-link>
+    <router-link to="/register/analyst" class="option">ANALISTA DE DATOS</router-link>
   </div>
 </template>
 
@@ -16,31 +15,28 @@
 </script>
 
 <style scoped>
-#backbtn{
-  position: fixed;
-  top: 20px;
-  right: 1em;
-}
 #register{
-  background-color: rgb(216, 216, 216);
+  background-color: white;
   height: 100vh;
   padding-top: 25vh;
-}
-.btn-blue{
-  background-color: rgb(59, 151, 255);
-  color: white;
-  padding: 1em 1.3em;
-  font-size: 1.2em;
-  margin: 1em 0;
 }
 .title{
   font-size: 2em;
   margin-bottom: 1em;
+  color: rgb(13, 123, 202);
 }
-.fas{
+.option{
+  display: inline-block;
+  background: rgb(13, 123, 202);
+  border-radius: 1em;
+  border: 2px rgb(13, 123, 202) solid;
+  cursor: pointer;
+  color: white;
+  width: 90%;
   font-size: 1.5em;
+  font-weight: bold;
+  padding: 0.5em;
+  margin: 1em 0;
 }
-.w-70{
-  width: 70%;
-}
+
 </style>
