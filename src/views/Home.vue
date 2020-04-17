@@ -46,13 +46,14 @@ export default {
             return Promise.reject(response)
           }
         }).then(json => this.st_cargarMisPacientes(json.pacientes))
+        // }).then(json => this.st_cargarMisPacientes(json))
         .catch(error => {
           console.log(error)
         })
       }
     },
     async fetchDataAllPatients(){
-      // if(this.st_userInfo.tipo == 'MEDICO' || this.st_userInfo.tipo == 'ENFERMERO')
+      if(this.st_userInfo.tipo == 'MEDICO' || this.st_userInfo.tipo == 'ENFERMERO')
       {
         await fetch('/api/all/pacientes')
         // await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
@@ -63,6 +64,7 @@ export default {
             return Promise.reject(response)
           }
         }).then(json => this.st_cargarAllPacientes(json.pacientes))
+        // }).then(json => this.st_cargarAllPacientes(json))
         .catch(error => {
           console.log(error)
         })
