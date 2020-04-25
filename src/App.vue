@@ -15,11 +15,11 @@ export default {
   mounted(){
     if(window.localStorage.getItem('user') === 'true'){
       this.st_logUser();
-      this.$router.push('/').catch(err => {});
+      this.$router.push('/dashboard').catch(err => {});
     }
     else{
       window.localStorage.setItem('user','false');
-      this.$router.push('/log').catch(err => {});
+      this.$router.push('/').catch(err => {});
     }
   },
   computed: {

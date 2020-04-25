@@ -9,14 +9,14 @@
       <Userbox />
       <div class="row m-0 p-0">
         
-        <template v-if="st_userInfo.tipo == 'MEDICO' || st_userInfo.tipo == 'ENFERMERO'">
+        <template v-if="st_authority == 'MEDICO' || st_authority == 'ENFERMERO'">
           <i class="blue fas fa-users fa-2x col-3"></i>
-          <router-link to="/" class="menu-item col-9">Mis Pacientes</router-link>
+          <router-link to="/dashboard" class="menu-item col-9">Mis Pacientes</router-link>
         </template>
 
-        <template v-if="st_userInfo.tipo == 'ADMIN'">
+        <template v-if="st_authority == 'ADMIN'">
           <i class="blue fas fa-users fa-2x col-3"></i>
-          <router-link to="/" class="menu-item col-9">Autorizar cuentas</router-link>
+          <router-link to="/dashboard" class="menu-item col-9">Autorizar cuentas</router-link>
           <i class="blue fas fa-users fa-2x col-3"></i>
           <router-link to="/activeUsers" class="menu-item col-9">Todas las cuentas</router-link>
         </template>
@@ -38,7 +38,7 @@ import Userbox from '@/components/Userbox.vue'
     name: 'Navbar',
     components:{ Userbox },
     computed: {
-      ...mapState(['st_userInfo']),
+      ...mapState(['st_userInfo', 'st_authority']),
     },
     methods: {
     ...mapMutations(['st_logUser']),
@@ -49,7 +49,7 @@ import Userbox from '@/components/Userbox.vue'
         if(res.ok){
           window.localStorage.setItem('user','false');
           this.st_logUser();
-          this.$router.push('/log').catch(err => {});
+          this.$router.push('/').catch(err => {});
         }else{
           return Promise.reject(res)
         }

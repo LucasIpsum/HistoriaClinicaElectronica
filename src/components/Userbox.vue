@@ -1,9 +1,9 @@
 <template>
 <div id='userbox'>
-  <img class="perfil" :src="st_userInfo.perfil" alt="foto del user">
+  <img class="perfil" src="https://i.ibb.co/Tbt3Cgx/doc.png" alt="foto del user">
   <div class="mt-3 ml-2">
     <div class="nombre">{{`${st_userInfo.apellido}, ${st_userInfo.nombre}`}}</div>
-    <div class="tipo">{{st_userInfo.tipo}}</div>
+    <div class="tipo">{{st_authority}}</div>
   </div>
   
 </div>
@@ -14,7 +14,7 @@ import { mapState } from 'vuex'
 export default {
 name: 'Userbox',
 computed:{
-  ...mapState(['st_userInfo'])
+  ...mapState(['st_userInfo', 'st_authority'])
 }
 }
 </script>
