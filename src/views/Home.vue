@@ -26,19 +26,16 @@ export default {
   },
   data(){
     return{
-      // check: ""
     }
   },
   computed:{
     ...mapState(['st_userInfo', 'st_misPacientes', 'st_allPacientes', 'st_authority']),
-    ...mapGetters(['getTipo'])
   },
   methods: {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
-    async fetchDataMyPatients(){
+    fetchDataMyPatients(){
       if(this.st_authority == 'MEDICO' || this.st_authority == 'ENFERMERO'){
-        await fetch('/api/pacientes')
-      // await fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
+        fetch('/api/pacientes')
         .then(response => {
           if(response.ok){
             return response.json()
@@ -46,21 +43,14 @@ export default {
             return Promise.reject(response)
           }
         }).then(json => this.st_cargarMisPacientes(json.pacientes))
-        // }).then(json => this.st_cargarMisPacientes(json))
         .catch(error => {
           console.log(error)
         })
       }
     },
-    async fetchDataAllPatients(){
-      console.log(this.st_authority)
-      console.log(this.st_userInfo.tipo)
-      // console.log(this.st_userInfo)
-
-      if(this.st_authority == 'MEDICO' || this.st_authority == 'ENFERMERO')
-      {
-        await fetch('/api/all/pacientes')
-        // await fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+    fetchDataAllPatients(){
+      if(this.st_authority == 'MEDICO' || this.st_authority == 'ENFERMERO'){
+        fetch('/api/all/pacientes')
         .then(response => {
           if(response.ok){
             return response.json()
@@ -68,23 +58,16 @@ export default {
             return Promise.reject(response)
           }
         }).then(json => this.st_cargarAllPacientes(json.pacientes))
-        // }).then(json => this.st_cargarAllPacientes(json))
         .catch(error => {
           console.log(error)
         })
       }
     }
   },
-  created(){
+  updated(){
     this.fetchDataMyPatients();
     this.fetchDataAllPatients();
-    console.log(this.st_userInfo.nombre)
-  },
-  mounted(){
-
-    console.log('el tipo es:' + this.st_userInfo.tipo)
   }
-  
 }
 </script>
 
