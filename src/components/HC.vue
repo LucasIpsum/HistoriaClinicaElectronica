@@ -30,6 +30,7 @@ export default {
   methods: {
     ...mapMutations(['st_cargarHCActual']),
     async cargarActual(){
+      console.log('id cargado' + this.paciente.id)
       await fetch(`/api/pacientes/${this.paciente.id}/hc`)
       //await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
       .then(response => {

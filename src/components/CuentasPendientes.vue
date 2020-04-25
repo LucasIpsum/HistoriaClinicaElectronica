@@ -161,6 +161,7 @@ export default {
       alert(`Se dio de baja al usuario ${medico.nombre} ${medico.id} con éxito.`)
       this.esconderVistaConfirmacion()
       this.cargarPendientes();
+      this.usuarioBuscado = false;
     },
     async aprobarEnfermero(enfermero) {
       await fetch(`/admin/alta/enfermeros/${enfermero.id}`,{
@@ -178,6 +179,7 @@ export default {
       alert(`Se dio de alta al usuario ${enfermero.nombre} ${enfermero.id} con éxito.`)
       this.esconderVistaConfirmacion()
       this.cargarPendientes();
+      this.usuarioBuscado = false;
     },
     async rechazarEnfermero(enfermero) {
       await fetch(`/admin/eliminar/enfermeros/${enfermero.id}`,{
@@ -198,17 +200,17 @@ export default {
     },
     filtrarUsuario(usuario) {
         let buscarDNI;
-      this.seccion == 'M' ? buscarDNI = document.getElementById("dniMedico"): buscarDNI = document.getElementById("dniEnfermero");  
-      console.log(buscarDNI.value)
+        this.usuarioBuscado = false;
+      this.seccion == 'M' ? buscarDNI = document.getElementById("dniMedico"): buscarDNI = document.getElementById("dniEnfermero");
       usuario.forEach(e => {
-        if (buscarDNI.value == e.dni) {
+        if (buscarDNI.value == e.documento) {
           this.usuarioBuscado = e;
         }
       });
       if(!this.usuarioBuscado){
             alert('No se ha encontrado el DNI ingresado.')
-            buscarDNI.value = ''
       }
+      buscarDNI.value = '';
     },
     mostrarVistaConfirmacion(aprobar, usuario){
       this.confirmacion = aprobar;

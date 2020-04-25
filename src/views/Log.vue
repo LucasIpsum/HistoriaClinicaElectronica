@@ -5,7 +5,7 @@
     <form id="formulario" v-on:submit="login">
       <div class="form-group d-flex flex-nowrap">
         <label for="email"><i class="fas fa-envelope"></i></label>
-        <input id="email" type="email" class="form-control" name="email" value="" required autofocus placeholder="Email"/>
+        <input id="email" type="text" class="form-control" name="email" value="" required autofocus placeholder="Email"/>
       </div>
       <div class="form-group d-flex flex-nowrap">
         <label for="password"><i class="fas fa-lock"></i></label>
@@ -18,12 +18,13 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex';
+import {mapMutations, mapActions} from 'vuex';
 
   export default {
     name: 'Log',
     methods: {
-      ...mapMutations(['st_logUser','st_cargarUser']),
+      ...mapMutations(['st_logUser']),
+      ...mapActions(['st_loadUser']),
       login(event){
         event.preventDefault()
         let form = event.target
@@ -36,8 +37,8 @@ import {mapMutations} from 'vuex';
             console.log(res)
             window.localStorage.setItem('user','true');
             this.st_logUser();
-            this.st_cargarUser();
-            this.$router.push('/').catch(err => {});
+            this.st_loadUser();
+            this.$router.push('/dashboard').catch(err => {});
           }else{
             return Promise.reject(res)
           }

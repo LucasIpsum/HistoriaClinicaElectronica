@@ -71,7 +71,10 @@ export default {
     ...mapState(['st_userInfo', 'st_allPacientes']),
   },
     created(){
+      console.log('aidi bre o' + this.$route.params.id)
    this.cargarActual()
+   console.log(this.st_allPacientes)
+   console.log(this.pacienteActual)
   },
 }
 

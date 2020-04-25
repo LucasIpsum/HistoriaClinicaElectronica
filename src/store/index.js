@@ -6,38 +6,27 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     st_user: false,
-    st_userInfo:{
-      nombre: 'name',
-      apellido: 'lastname',
-      tipo: '',
-      perfil: 'https://i.ibb.co/Tbt3Cgx/doc.png'
-    },
+    st_userInfo: {},
+    st_authority: '',
     st_misPacientes: [],
     st_allPacientes: [],
     st_HCActual: {},
     st_REActual: {},
   },
+  getters:{
+    getTipo: state => {
+      return state.st_userInfo.tipo
+    }
+  },
   mutations: {
     st_logUser(state){
       state.user = !state.user
     },
-    st_cargarUser(state){
-      fetch("/api/user")
-      .then(res => {
-        if(res.ok){
-          return res.json()
-        }else{
-          return Promise.reject(res.json())
-        }
-      })
-      .then(json => {
-        state.st_userInfo.nombre = json.userData.nombre
-        state.st_userInfo.apellido = json.userData.apellido
-        state.st_userInfo.tipo = json.authorities[0]
-      })
-      .catch(error => {
-        error.then(json => console.log(json))
-      })
+    st_cargarUserInfo(state, info){
+      state.st_userInfo = info
+    },
+    st_cargarAutoridad(state, info){
+      state.st_authority = info
     },
     st_cargarMisPacientes(state,database){
       state.st_misPacientes = database;
@@ -55,6 +44,24 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    st_loadUser({ commit }) {
+       fetch("/api/user")
+      .then(res => {
+        if(res.ok){
+          return res.json()
+        }else{
+          return Promise.reject(res.json())
+        }
+      })
+      .then(json => {
+        commit('st_cargarUserInfo', json.userData)
+        commit('st_cargarAutoridad', json.authorities[0])
+      })
+      .catch(error => {
+        error.then(json => console.log(json))
+      })
+      
+    }
   },
   modules: {
   }

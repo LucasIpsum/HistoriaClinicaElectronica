@@ -125,6 +125,7 @@ export default {
         },
         filtrarUsuario(usuarios) {
             let buscarDNI;
+            this.usuarioBuscado = false; //
             this.seccion == 'M' ? buscarDNI = document.getElementById("dniMedico"): buscarDNI = document.getElementById("dniEnfermero");
             usuarios.forEach(e => {
                 if (buscarDNI.value == e.documento) {
