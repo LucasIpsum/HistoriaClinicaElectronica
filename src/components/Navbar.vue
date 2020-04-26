@@ -49,7 +49,7 @@ import Userbox from '@/components/Userbox.vue'
         if(res.ok){
           window.localStorage.setItem('user','false');
           this.st_logUser();
-          this.$router.push('/log').catch(err => {});
+          this.$router.push('/').catch(err => {});
         }else{
           return Promise.reject(res)
         }

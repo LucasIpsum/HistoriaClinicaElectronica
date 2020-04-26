@@ -8,7 +8,7 @@
       <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3> -->
           <div class="nav d-flex justify-content-around align-content-center">
 
-              <label v-if="st_userInfo.tipo == 'MEDICO'">
+              <label v-if="st_authority == 'MEDICO'">
                 <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
                 <img v-if="this.inputs=='HC'" class="current" src="../assets/HC.svg" alt="RE">
                 <img v-else src="../assets/HC.svg" alt="RE">
@@ -68,7 +68,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['st_userInfo', 'st_allPacientes']),
+    ...mapState(['st_userInfo', 'st_allPacientes','st_authority']),
   },
     created(){
       console.log('aidi bre o' + this.$route.params.id)

@@ -19,7 +19,7 @@ export default {
     }
     else{
       window.localStorage.setItem('user','false');
-      this.$router.push('/log').catch(err => {});
+      this.$router.push('/').catch(err => {});
     }
   },
   computed: {
