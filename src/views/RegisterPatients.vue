@@ -348,8 +348,9 @@ export default {
 
 
     // Carga de datos al back
-    async updateForm(e){
+   updateForm(e){
       e.preventDefault();
+      let self = this
       if(this.validateForm()){
         let formElem = document.getElementById("formulario")
         let formData = new FormData(formElem)
@@ -367,7 +368,7 @@ export default {
         });
         let json = JSON.stringify(object);
         
-        await fetch('/api/pacientes', {
+        fetch('/api/pacientes', {
           method: 'POST',
           headers: {
             "Content-Type": "application/json"
@@ -383,28 +384,27 @@ export default {
           }
         })
 
-        .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+        .then( jsonPaciente => {
+        fetch('/api/all/pacientes')
+          .then(response => {
+            if(response.ok){
+              return response.json()
+            }else{
+              return Promise.reject(response)
+            }
+          }).then(json => {
+            this.st_cargarAllPacientes(json.pacientes);
+            this.$router.push(`/paciente/${jsonPaciente.pacienteId}`).catch(err => {});
+            })
+        
+          .catch(error => {
+            console.log(error)
+          })
 
-        await fetch('/api/all/pacientes')
-        .then(response => {
-          if(response.ok){
-            return response.json()
-          }else{
-            return Promise.reject(response)
-          }
-        }).then(json => this.st_cargarAllPacientes(json.pacientes))
-        .then( function() {
-          let patient
-        patient = this.st_allPacientes.filter(
-          el => document.getElementById("dni-input").value == el.documento
-        )
-        this.patientId = patient[0].id;
-        console.log(this.patientId)
-        this.$router.push(`/pacientes/${this.patientId}`).catch(err => {});
+        
         })
-        .catch(error => {
-          console.log(error)
-        })
+
+        
       }
       else {
         return;
