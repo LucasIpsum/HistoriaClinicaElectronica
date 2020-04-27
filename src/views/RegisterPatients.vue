@@ -24,7 +24,7 @@
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="documento" class="d-flex align-items-center justify-content-center"><i class="fas fa-address-card"></i></label>
-          <input name="documento" type="number" class="requiredInput form-control" placeholder="DNI"/>
+          <input id="dni-input" name="documento" type="number" class="requiredInput form-control" placeholder="DNI"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="email" class="d-flex align-items-center justify-content-center"><i class="fas fa-envelope"></i></label>
@@ -60,10 +60,10 @@
         <div class="d-flex justify-content-between">
           <p><i class="fas fa-plane"></i>¿Viajó?</p>
           <label class="d-flex align-items-center">
-            <input type="radio" name="viaje" value="true" v-on:change="ableTripInput"/>Si
+            <input type="radio" name="viaje" value="true" class="requiredInput" v-on:change="ableTripInput"/>Si
           </label>
           <label class="d-flex align-items-center">
-            <input type="radio" name="viaje" value="false" checked v-on:change="ableTripInput"/>No
+            <input type="radio" name="viaje" value="false" class="requiredInput" checked v-on:change="ableTripInput"/>No
           </label>
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
@@ -77,10 +77,10 @@
         <div class="d-flex justify-content-between">
           <p><i class="fas fa-baby"></i>¿Embarazo?</p>
           <label class="d-flex align-items-center">
-            <input type="radio" name="embarazo" value="true" v-on:change="ablePregnancyInput"/>Si
+            <input type="radio" name="embarazo" value="true" class="requiredInput" v-on:change="ablePregnancyInput"/>Si
           </label>
           <label class="d-flex align-items-center">
-            <input type="radio" name="embarazo" value="false" checked v-on:change="ablePregnancyInput"/>No
+            <input type="radio" name="embarazo" value="false" class="requiredInput" checked v-on:change="ablePregnancyInput"/>No
           </label>
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
@@ -133,7 +133,7 @@
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
           <label for="convivientes" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Convivientes: </label>
-          <input name="convivientes" value="" id="convivientes" type="number" class="requiredInput form-control w-50" placeholder="0"/>
+          <input name="convivientes" value="" id="convivientes" type="number" class="requiredInput form-control w-50" placeholder="Cant. de conv."/>
         </div>
 
         <div class="row m-0">
@@ -212,12 +212,14 @@
         <span class="step"></span>
       </div>
     </form>
+    <router-link :to="url"></router-link>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
 import BackBtn from '@/components/BackBtn.vue';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: "RegisterPatients",
@@ -225,15 +227,22 @@ export default {
   data() {
     return {
       currentTab: 0,
-      error: null
+      patientId: ''
     };
   },
   // Al montarse, se muestra la primera pestaña
   mounted: function() {
     this.showTab(this.currentTab);
+    this.markRequired();
   },
-
+  computed: {
+    ...mapState(['st_allPacientes']),
+    url(){
+        return '/paciente/' + this.patientId;
+      }
+  },
   methods: {
+    ...mapMutations(['st_cargarAllPacientes']),
     // Muestra la pestaña específica
     showTab(n) {
       var allTabs = document.getElementsByClassName("tab");
@@ -269,6 +278,7 @@ export default {
       }
       //Si no, muestra la próxima pestaña
       this.showTab(this.currentTab);
+      this.markRequired();
     },
 
     validateForm() {
@@ -376,8 +386,43 @@ export default {
       })
 
       .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
-    }
 
+      await fetch('/api/all/pacientes')
+      .then(response => {
+        if(response.ok){
+          return response.json()
+        }else{
+          return Promise.reject(response)
+        }
+      }).then(json => this.st_cargarAllPacientes(json.pacientes))
+      .then( function() {
+        let patient
+      patient = this.st_allPacientes.filter(
+        el => document.getElementById("dni-input").value == el.documento
+      )
+      this.patientId = patient[0].id;
+      console.log(this.patientId)
+      this.$router.push(`/pacientes/${this.patientId}`).catch(err => {});
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      
+      
+    },
+    markRequired(){
+      let inputs = document.getElementsByClassName('requiredInput')
+      inputs.forEach( input => {
+        if(input.type == 'radio'){
+          input.parentNode.previousSibling.previousSibling && input.parentNode.previousSibling.previousSibling.childNodes[0] ? input.parentNode.previousSibling.previousSibling.childNodes[0].style.border = 'solid red' : null
+          
+        }
+        
+        else{
+          input.previousSibling.childNodes[0].style.border = 'solid red';
+        }
+      })
+    }
   }
 };
 </script>
