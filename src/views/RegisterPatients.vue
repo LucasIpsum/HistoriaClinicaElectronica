@@ -35,7 +35,7 @@
           <input name="telefono" class="requiredInput form-control" placeholder="Teléfono"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="fecha_nacimiento" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Fecha de Nac:</label>
+          <label for="fecha_nacimiento" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Nacimiento:</label>
           <input name="fecha_nacimiento" class="requiredInput form-control w-50" type="date"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
@@ -172,15 +172,15 @@
           <input name="apellidoEmergencia" class="requiredInput form-control" placeholder="Apellido"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="emailEmergencia"><i class="fas fa-envelope"></i></label>
+          <label for="emailEmergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-envelope"></i></label>
           <input id="email" type="email" class="requiredInput form-control" name="emailEmergencia" placeholder="Email"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="telefonoEmergencia"><i class="fas fa-phone"></i></label>
+          <label for="telefonoEmergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-phone"></i></label>
           <input id="teléfonoEm" type="number" class="requiredInput form-control" name="teléfonoEmergencia" placeholder="Telefono Fijo"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="telefono2Emergencia"><i class="fas fa-phone"></i></label>
+          <label for="telefono2Emergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-phone"></i></label>
           <input id="teléfonoEm2" type="number" class="requiredInput form-control" name="teléfono2Emergencia" placeholder="Telefono Celular"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
@@ -195,7 +195,7 @@
       </div>
       
       <!---------- BOTONES DE CAMBIO DE PESTAÑA ------------->
-      <div style="overflow:auto;">
+      <div style="overflow:scroll;">
         <div style="float:right;">
           <button type="button" id="prevBtn" class="btn btn-primary mr-1" v-on:click="nextPrev(-1)">Atras</button>
           <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="nextPrev(1)">Siguiente</button>
@@ -278,14 +278,13 @@ export default {
       }
       //Si no, muestra la próxima pestaña
       this.showTab(this.currentTab);
-      this.markRequired();
+      
     },
 
     validateForm() {
       var allTabs, allInputs, valid = true;
       allTabs = document.getElementsByClassName("tab");
       allInputs = allTabs[this.currentTab].getElementsByClassName("requiredInput");
-      console.log(allInputs)
       // Loop que checkea los inputs de la pestaña acuatl
       for (let i = 0; i < allInputs.length; i++) {
         if (allInputs[i].value == "") {
@@ -351,75 +350,76 @@ export default {
     // Carga de datos al back
     async updateForm(e){
       e.preventDefault();
-      let formElem = document.getElementById("formulario")
-      let formData = new FormData(formElem)
-      
-      let object = {};
-      object["condiciones_preexistentes"] = []
-      formData.forEach((value, key) => {
-
-        if(key == "condiciones_preexistentes"){
-          object["condiciones_preexistentes"].push(value)
-        }else{
-          object[key] = value
-        }
+      if(this.validateForm()){
+        let formElem = document.getElementById("formulario")
+        let formData = new FormData(formElem)
         
-      });
-      let json = JSON.stringify(object);
+        let object = {};
+        object["condiciones_preexistentes"] = []
+        formData.forEach((value, key) => {
 
-      console.log(json)
-      
-      await fetch('/api/pacientes', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: json
-      })
+          if(key == "condiciones_preexistentes"){
+            object["condiciones_preexistentes"].push(value)
+          }else{
+            object[key] = value
+          }
+          
+        });
+        let json = JSON.stringify(object);
+        
+        await fetch('/api/pacientes', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: json
+        })
 
-      .then(res => {
-        if(res.ok){
-          return res.json()
-        }else{
-          return new Promise.reject(res.json())
-        }
-      })
+        .then(res => {
+          if(res.ok){
+            return res.json()
+          }else{
+            return new Promise.reject(res.json())
+          }
+        })
 
-      .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
+        .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
 
-      await fetch('/api/all/pacientes')
-      .then(response => {
-        if(response.ok){
-          return response.json()
-        }else{
-          return Promise.reject(response)
-        }
-      }).then(json => this.st_cargarAllPacientes(json.pacientes))
-      .then( function() {
-        let patient
-      patient = this.st_allPacientes.filter(
-        el => document.getElementById("dni-input").value == el.documento
-      )
-      this.patientId = patient[0].id;
-      console.log(this.patientId)
-      this.$router.push(`/pacientes/${this.patientId}`).catch(err => {});
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      
-      
+        await fetch('/api/all/pacientes')
+        .then(response => {
+          if(response.ok){
+            return response.json()
+          }else{
+            return Promise.reject(response)
+          }
+        }).then(json => this.st_cargarAllPacientes(json.pacientes))
+        .then( function() {
+          let patient
+        patient = this.st_allPacientes.filter(
+          el => document.getElementById("dni-input").value == el.documento
+        )
+        this.patientId = patient[0].id;
+        console.log(this.patientId)
+        this.$router.push(`/pacientes/${this.patientId}`).catch(err => {});
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
+      else {
+        return;
+      }
     },
     markRequired(){
       let inputs = document.getElementsByClassName('requiredInput')
       inputs.forEach( input => {
         if(input.type == 'radio'){
-          input.parentNode.previousSibling.previousSibling && input.parentNode.previousSibling.previousSibling.childNodes[0] ? input.parentNode.previousSibling.previousSibling.childNodes[0].style.border = 'solid red' : null
+          input.parentNode.previousSibling.previousSibling && input.parentNode.previousSibling.previousSibling.childNodes[0] ? input.parentNode.previousSibling.previousSibling.innerHTML += '<span class="markedRequired">* </span>' : null
           
         }
         
         else{
-          input.previousSibling.childNodes[0].style.border = 'solid red';
+          input.previousSibling.innerHTML += '<span class="markedRequired">* </span>';
         }
       })
     }
@@ -429,6 +429,28 @@ export default {
 
 
 <style scoped>
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 6px;  
+    background-color: #ffffff; 
+}
 #formulario {
   margin: 0 auto;
   padding: 0 2em;
@@ -479,6 +501,11 @@ export default {
 }
 .w-5em{
   width: 5em;
+}
+
+.markedRequired  {
+  font-weight: bold;
+  color: red;
 }
 #formulario input.disable{
   border-bottom: 2px solid grey;
