@@ -6,7 +6,7 @@
       <LastPatients />
     </template>
 
-    <template v-if="st_userInfo.tipo == 'ADMIN'">
+    <template v-if="st_authority == 'ADMIN'">
       <CuentasPendientes />
     </template>
   </div>

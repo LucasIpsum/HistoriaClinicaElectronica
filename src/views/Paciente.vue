@@ -68,7 +68,11 @@ export default {
     }
   },
   computed: {
+<<<<<<< HEAD
     ...mapState(['st_userInfo', 'st_allPacientes','st_authority']),
+=======
+    ...mapState(['st_userInfo', 'st_allPacientes', 'st_authority']),
+>>>>>>> 8fb1323d20f5bbffe537ca4eb8c75259aeec4655
   },
     created(){
       console.log('aidi bre o' + this.$route.params.id)

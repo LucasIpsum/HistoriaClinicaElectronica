@@ -1,6 +1,6 @@
 <template>
 <div id='userbox'>
-  <img class="perfil" :src="st_userInfo.perfil" alt="foto del user">
+  <img class="perfil" src="https://i.ibb.co/Tbt3Cgx/doc.png" alt="foto del user">
   <div class="mt-3 ml-2">
     <div class="nombre">{{`${st_userInfo.apellido}, ${st_userInfo.nombre}`}}</div>
     <div class="tipo">{{st_authority}}</div>
@@ -14,7 +14,11 @@ import { mapState } from 'vuex'
 export default {
 name: 'Userbox',
 computed:{
+<<<<<<< HEAD
   ...mapState(['st_userInfo','st_authority'])
+=======
+  ...mapState(['st_userInfo', 'st_authority'])
+>>>>>>> 8fb1323d20f5bbffe537ca4eb8c75259aeec4655
 }
 }
 </script>
