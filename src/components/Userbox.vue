@@ -10,16 +10,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 export default {
-name: 'Userbox',
-computed:{
-<<<<<<< HEAD
-  ...mapState(['st_userInfo','st_authority'])
-=======
-  ...mapState(['st_userInfo', 'st_authority'])
->>>>>>> 8fb1323d20f5bbffe537ca4eb8c75259aeec4655
-}
+  name: 'Userbox',
+  computed: {
+    ...mapState(['st_userInfo', 'st_authority'])
+  }
 }
 </script>
 

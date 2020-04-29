@@ -62,7 +62,7 @@ export default {
     ...mapMutations(['st_cargarAllPacientes']),
     cargarActual(){
       this.st_allPacientes.forEach(p => {
-        if(p.id == this.$route.params.id){
+        if(p.id === this.$route.params.id){
           console.log(p)
           this.pacienteActual = p;
         }
@@ -70,11 +70,7 @@ export default {
     },
   },
   computed: {
-<<<<<<< HEAD
-    ...mapState(['st_userInfo', 'st_allPacientes','st_authority']),
-=======
-    ...mapState(['st_userInfo', 'st_allPacientes', 'st_authority']),
->>>>>>> 8fb1323d20f5bbffe537ca4eb8c75259aeec4655
+    ...mapState(['st_userInfo', 'st_allPacientes','st_authority'])
   },
     created(){
       this.cargarActual();
@@ -99,7 +95,7 @@ export default {
     width: 100%;
   }
   label img{
-    width: 25 vw;
+    width: 25vw;
     height: 6.5vh;
     cursor: pointer;
   }

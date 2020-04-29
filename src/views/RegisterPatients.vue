@@ -181,7 +181,7 @@
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="telefono2Emergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-phone"></i></label>
-          <input id="teléfonoEm2" type="number" class="requiredInput form-control" name="teléfono2Emergencia" placeholder="Telefono Celular"/>
+          <input id="teléfonoEm2" type="number" class="requiredInput form-control" name="telefono2Emergencia" placeholder="Telefono Celular"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="direccionEmergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-map-marker-alt"></i></label>
@@ -487,7 +487,7 @@ export default {
   font-weight: bold;
 }
 #formulario input::placeholder{
-  color: rgb(16, 123, 199, 0.7);
+  color: rgba(16, 123, 199, 0.7);
 }
 #formulario input:focus{
   outline:none !important;
