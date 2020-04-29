@@ -1,7 +1,11 @@
 <template>
 <div id="login">
-  <img src="@/assets/logo.png">
-  
+  <div id="logobox">
+    <img src="@/assets/logo.png">
+    <h2>S.A.U.H.C.E</h2>
+  </div>
+  <div id="separator"></div>
+  <div id="formbox">
     <form id="formulario" v-on:submit="login">
       <div class="form-group d-flex flex-nowrap">
         <label for="email"><i class="fas fa-envelope"></i></label>
@@ -14,7 +18,9 @@
       <button type="submit" class="btn-sesion">Iniciar sesion</button>
       <router-link to="/register"><button type="submit" class="btn-reg">Registrate</button></router-link>
     </form>
-    </div>
+  </div>
+
+  </div>
 </template>
 
 <script>
@@ -52,10 +58,16 @@ import {mapMutations, mapActions} from 'vuex';
 </script>
 
 <style scoped>
+  #separator{
+    display: none;
+  }
 img {
   padding-top: 5vh;
   width: 200px;
   margin: 0 auto;
+}
+#logobox h2{
+  color: white;
 }
 #login{
   height: 100vh;
@@ -107,4 +119,27 @@ img {
   background: rgb(13, 123, 202);
   color: white;
 }
+  @media screen and (min-width: 1000px) {
+    #login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #login>*{
+      height: 400px;
+      width: 30%;
+    }
+    #separator{
+      display: inline;
+      border: white 1px solid;
+      width: 2px;
+      margin: 0 2em;
+    }
+    #formbox{
+      padding: 5% 0;
+    }
+    #formulario{
+      padding: 10% 2em;
+    }
+  }
 </style>

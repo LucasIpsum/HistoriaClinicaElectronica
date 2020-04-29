@@ -4,37 +4,58 @@
     <form id="formulario" v-on:submit.prevent="register">
       <h2 id="title">Complete sus datos:</h2>
       <div class="form-group d-flex flex-nowrap">
-        <label for="nombre" class="d-flex align-items-center justify-content-center"><i class="fas fa-user"></i></label>
+        <label for="nombre" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-user"></i>
+          <div class="name-input">Nombre: </div>
+        </label>
         <input id="nombre" type="text" class="form-control" name="nombre" value="" required autofocus placeholder="Nombre"/>
       </div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="apellido"><i class="fas fa-user"></i></label>
+        <label for="apellido" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-user"></i>
+          <div class="name-input">Apellido: </div>
+        </label>
         <input id="apellido" type="text" class="form-control" name="apellido" value="" required autofocus placeholder="Apellido"/>
       </div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="documento"><i class="fas fa-address-card"></i></label>
+        <label for="documento" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-address-card"></i>
+          <div class="name-input">Documento: </div>
+        </label>
         <input id="documento" type="text" class="form-control" name="documento" value="" required autofocus placeholder="Documento"/>
       </div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="telefono"><i class="fas fa-phone"></i></label>
-        <input id="teléfono" type="number" class="form-control" name="teléfono" value="" required autofocus placeholder="Telefono"/>
+        <label for="telefono" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-phone"></i>
+          <div class="name-input">Telefono: </div>
+        </label>
+        <input id="telefono" type="number" class="form-control" name="telefono" value="" required autofocus placeholder="Telefono"/>
       </div>
       <div class="separador"></div>
-        <div id="pregunta" class="d-flex">
-        <label for="doctor">¿Sos medico?</label>
+      <div id="pregunta" class="d-flex">
+        <label for="doctor" class="d-flex align-items-center justify-content-start">¿Sos medico?</label>
         <input id="doctor" type="checkbox" value="" v-on:change="ableDoctorInput" class="form-control" name="doctor" autofocus/>
       </div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="matricula"><i id="icon-matricula" class="fas fa-id-card-alt disable"></i></label>
+        <label for="matricula" class="d-flex align-items-center justify-content-start">
+          <i id="icon-matricula" class="fas fa-id-card-alt disable"></i>
+          <div class="name-input">Matricula: </div>
+        </label>
         <input id="matricula" type="text" class="form-control disable" name="matricula" value="" autofocus placeholder="Matricula" disabled/>
       </div>
       <div class="separador"></div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="email"><i class="fas fa-envelope"></i></label>
+        <label for="email" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-envelope"></i>
+          <div class="name-input">Email: </div>
+        </label>
         <input id="email" type="email" class="form-control" name="email" value="" required autofocus placeholder="Email"/>
       </div>
       <div class="form-group d-flex flex-nowrap">
-        <label for="password"><i class="fas fa-lock"></i></label>
+        <label for="password" class="d-flex align-items-center justify-content-start">
+          <i class="fas fa-lock"></i>
+          <div class="name-input">Contraseña: </div>
+        </label>
         <input id="password" type="password" class="form-control" name="password" value="" required autofocus placeholder="Contraseña"/>
       </div>
       <button type="submit" class="btn-reg">Registrarse</button>
@@ -89,6 +110,9 @@ export default {
   padding: 0 2em;
   padding-top: 75px;
 }
+.name-input{
+  display: none;
+}
 #formulario label{
   margin: 0;
 }
@@ -125,7 +149,7 @@ export default {
   font-weight: bold;
 }
 #formulario input::placeholder{
-  color: rgb(16, 123, 199, 0.7);
+  color: rgba(16, 123, 199, 0.7);
 }
 #formulario input.disable{
   border-bottom: 2px solid grey;
@@ -161,4 +185,32 @@ export default {
   padding: 0.2em 0;
   margin: 0.5em 0;
 }
+@media screen and (min-width: 1000px){
+  #formulario{
+    width: 550px;
+    margin: 0 auto;
+  }
+  .name-input{
+    display: inline;
+    margin: 0 1em;
+    font-size: 1.3em;
+  }
+  #formulario input::placeholder{
+    color: white;
+  }
+  #formulario input.disable::placeholder{
+    color: white!important;
+  }
+  .form-group{
+    justify-content: space-between;
+  }
+  .form-group>label{
+    width: 35%;
+  }
+  .form-group>input{
+    width: 60%;
+  }
+
+}
+
 </style>

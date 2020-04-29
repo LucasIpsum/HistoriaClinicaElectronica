@@ -6,17 +6,16 @@
         <i class="fas fa-search"></i>
       </div>
     </form>
-    
     <div v-if="foundPatient != '' && foundPatient != null" class="mt-1 searchresultbox">
       <div id="exit" @click="hide">
-        <i class="fas fa-times-circle fa-2x mb-2"></i>
+        <i class="fas fa-times-circle fa-2x mb-2 close"></i>
       </div>
       <Patientbox :paciente="foundPatient[0]"/>
     </div>
 
     <div v-else-if="foundPatient != null" class="mt-1 searchresultbox">
       <div id="exit" @click="hide">
-        <i class="fas fa-times-circle fa-2x mb-2"></i>
+        <i class="fas fa-times-circle fa-2x mb-2 close"></i>
       </div>
       <div class="btn border border-danger text-danger mr-1">No se encontro ningun paciente</div>
       <router-link to="/addpaciente">
@@ -85,9 +84,28 @@ export default {
   color: rgb(48, 130, 253);
 }
 .searchresultbox{
-  border: 2px rgb(48, 130, 253,0.5) solid;
+  position: absolute;
+  border: 2px rgba(48, 130, 253,0.5) solid;
   border-radius: 0.3em;
   padding: 0.5em 0;
-  margin-bottom: 1em;
+  background-color: white;
+  -webkit-box-shadow: 3px 15px 20px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 15px 20px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 7px 25px -8px  rgba(0,0,0,0.75);
+  top: 15vh;
+  right: 1em;
+  width: 90%;
+
+}
+.close{
+  color: #007bff;
+  margin-right: 0.5em;
+}
+@media screen and (min-width: 1000px){
+  .searchresultbox{
+    max-width: 500px;
+    top: 4em;
+    right: 2em;
+  }
 }
 </style>

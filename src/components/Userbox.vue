@@ -1,7 +1,7 @@
 <template>
 <div id='userbox'>
   <img class="perfil" src="https://i.ibb.co/Tbt3Cgx/doc.png" alt="foto del user">
-  <div class="mt-3 ml-2">
+  <div id="datos" class="mt-3 ml-2">
     <div class="nombre">{{`${st_userInfo.apellido}, ${st_userInfo.nombre}`}}</div>
     <div class="tipo">{{st_authority}}</div>
   </div>
@@ -41,4 +41,35 @@ export default {
   text-transform: capitalize;
   color: rgb(15, 165, 252);
 }
+  @media screen and (min-width: 1000px){
+    #userbox {
+      height: 70px;
+      width: 30vw!important;
+      background-color: #007bff;
+      padding: 0;
+      margin: 0;
+    }
+    #datos{
+      display: flex;
+      width: 70%;
+      justify-content: space-between;
+      color: white;
+      margin: 0!important;
+      margin-top: 1em!important;
+    }
+    .tipo::before{
+      content: "[ "
+    }
+    .tipo::after{
+      content: " ]";
+    }
+    .tipo{
+      color: white;
+    }
+    .perfil{
+      width: auto;
+      height: 60px;
+      border-color: white;
+    }
+  }
 </style>

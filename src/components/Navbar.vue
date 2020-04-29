@@ -1,6 +1,7 @@
 <template>
   <div id="navbar">
     <div id="relleno"></div>
+    <PatientSearch v-if="this.$route.path == '/dashboard' && st_authority != 'ADMIN'"/>
     <div id="button" v-on:click="show">
       <i class="fas fa-bars fa-2x"></i>
     </div>
@@ -31,12 +32,15 @@
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
-import Userbox from '@/components/Userbox.vue'
+import {mapMutations, mapState} from 'vuex';
+import Userbox from '@/components/Userbox.vue';
+import PatientSearch from '@/components/PatientSearch.vue';
+
+
 
   export default {
     name: 'Navbar',
-    components:{ Userbox },
+    components:{ Userbox , PatientSearch},
     computed: {
       ...mapState(['st_userInfo', 'st_authority']),
     },
@@ -146,4 +150,32 @@ import Userbox from '@/components/Userbox.vue'
 #navbar .fas{
   font-size: 1.5em;
 }
+  @media screen and (min-width: 1000px){
+    #navbar{
+      position: static;
+      background-color: #007bff;
+      height: auto;
+    }
+    #relleno, #button, #back{
+      display: none;
+    }
+    #slide{
+      position: static;
+      margin: 0!important;
+      width: 70vw;
+      flex-direction: row!important;
+      justify-content: start;
+      align-items: center!important;
+      height: 70px;
+      padding: 0!important;
+      box-shadow: none;
+      background-color: #007bff;
+    }
+    #slide>*{
+      border: 2px solid black;
+      width: auto;
+    }
+    
+
+  }
 </style>

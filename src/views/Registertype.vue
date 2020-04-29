@@ -2,8 +2,11 @@
   <div id="register">
     <BackBtn class="white"/>
     <div class="title">Registrate como: </div>
-    <router-link to="/register/personal" class="option">PERSONAL DE SALUD</router-link>
-    <router-link to="/register/analyst" class="option">ANALISTA DE DATOS</router-link>
+    <div id="option">
+      <router-link to="/register/personal" class="option">PERSONAL DE SALUD</router-link>
+      <router-link to="/register/analyst" class="option">ANALISTA DE DATOS</router-link>
+    </div>
+
   </div>
 </template>
 
@@ -38,5 +41,14 @@
   padding: 0.5em;
   margin: 1em 0;
 }
-
+@media screen and (min-width: 1000px){
+  #option{
+    display: flex;
+    justify-content: center;
+  }
+  #option>*{
+    width: 20%;
+    margin: 1em 2em;
+  }
+}
 </style>
