@@ -17,7 +17,7 @@ import Navbar from '@/components/Navbar.vue';
 import LastPatients from '@/components/LastPatients.vue';
 import PatientSearch from '@/components/PatientSearch.vue';
 import CuentasPendientes from '@/components/CuentasPendientes.vue';
-import { mapMutations, mapState, mapGetters } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Home',

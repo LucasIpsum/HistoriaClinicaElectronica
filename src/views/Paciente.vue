@@ -42,7 +42,7 @@
 
 <script>
 // @ is an alias to /src
-import {mapState} from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import Navbar from '@/components/Navbar.vue';
 import BackBtn from '@/components/BackBtn.vue';
 import HC from '@/components/HC.vue'
@@ -59,13 +59,15 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['st_cargarAllPacientes']),
     cargarActual(){
       this.st_allPacientes.forEach(p => {
         if(p.id == this.$route.params.id){
+          console.log(p)
           this.pacienteActual = p;
         }
       });
-    }
+    },
   },
   computed: {
 <<<<<<< HEAD
@@ -75,10 +77,8 @@ export default {
 >>>>>>> 8fb1323d20f5bbffe537ca4eb8c75259aeec4655
   },
     created(){
-      console.log('aidi bre o' + this.$route.params.id)
-   this.cargarActual()
-   console.log(this.st_allPacientes)
-   console.log(this.pacienteActual)
+      this.cargarActual();
+    // this.fetchDataAllPatients()
   },
 }
 

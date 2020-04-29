@@ -24,7 +24,7 @@
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="documento" class="d-flex align-items-center justify-content-center"><i class="fas fa-address-card"></i></label>
-          <input name="documento" type="number" class="requiredInput form-control" placeholder="DNI"/>
+          <input id="dni-input" name="documento" type="number" class="requiredInput form-control" placeholder="DNI"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
           <label for="email" class="d-flex align-items-center justify-content-center"><i class="fas fa-envelope"></i></label>
@@ -35,7 +35,7 @@
           <input name="telefono" class="requiredInput form-control" placeholder="Teléfono"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="fecha_nacimiento" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Fecha de Nac:</label>
+          <label for="fecha_nacimiento" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Nacimiento:</label>
           <input name="fecha_nacimiento" class="requiredInput form-control w-50" type="date"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
@@ -60,10 +60,10 @@
         <div class="d-flex justify-content-between">
           <p><i class="fas fa-plane"></i>¿Viajó?</p>
           <label class="d-flex align-items-center">
-            <input type="radio" name="viaje" value="true" v-on:change="ableTripInput"/>Si
+            <input type="radio" name="viaje" value="true" class="requiredInput" v-on:change="ableTripInput"/>Si
           </label>
           <label class="d-flex align-items-center">
-            <input type="radio" name="viaje" value="false" checked v-on:change="ableTripInput"/>No
+            <input type="radio" name="viaje" value="false" class="requiredInput" checked v-on:change="ableTripInput"/>No
           </label>
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
@@ -77,10 +77,10 @@
         <div class="d-flex justify-content-between">
           <p><i class="fas fa-baby"></i>¿Embarazo?</p>
           <label class="d-flex align-items-center">
-            <input type="radio" name="embarazo" value="true" v-on:change="ablePregnancyInput"/>Si
+            <input type="radio" name="embarazo" value="true" class="requiredInput" v-on:change="ablePregnancyInput"/>Si
           </label>
           <label class="d-flex align-items-center">
-            <input type="radio" name="embarazo" value="false" checked v-on:change="ablePregnancyInput"/>No
+            <input type="radio" name="embarazo" value="false" class="requiredInput" checked v-on:change="ablePregnancyInput"/>No
           </label>
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
@@ -133,7 +133,7 @@
         </div>
         <div class="form-group d-flex flex-nowrap justify-content-between">
           <label for="convivientes" class="d-flex align-items-center justify-content-center"><i class="fas fa-calendar-alt"></i>Convivientes: </label>
-          <input name="convivientes" value="" id="convivientes" type="number" class="requiredInput form-control w-50" placeholder="0"/>
+          <input name="convivientes" value="" id="convivientes" type="number" class="requiredInput form-control w-50" placeholder="Cant. de conv."/>
         </div>
 
         <div class="row m-0">
@@ -172,15 +172,15 @@
           <input name="apellidoEmergencia" class="requiredInput form-control" placeholder="Apellido"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="emailEmergencia"><i class="fas fa-envelope"></i></label>
+          <label for="emailEmergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-envelope"></i></label>
           <input id="email" type="email" class="requiredInput form-control" name="emailEmergencia" placeholder="Email"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="telefonoEmergencia"><i class="fas fa-phone"></i></label>
+          <label for="telefonoEmergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-phone"></i></label>
           <input id="teléfonoEm" type="number" class="requiredInput form-control" name="teléfonoEmergencia" placeholder="Telefono Fijo"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
-          <label for="telefono2Emergencia"><i class="fas fa-phone"></i></label>
+          <label for="telefono2Emergencia" class="d-flex align-items-center justify-content-center"><i class="fas fa-phone"></i></label>
           <input id="teléfonoEm2" type="number" class="requiredInput form-control" name="teléfono2Emergencia" placeholder="Telefono Celular"/>
         </div>
         <div class="form-group d-flex flex-nowrap">
@@ -195,7 +195,7 @@
       </div>
       
       <!---------- BOTONES DE CAMBIO DE PESTAÑA ------------->
-      <div style="overflow:auto;">
+      <div style="overflow:scroll;">
         <div style="float:right;">
           <button type="button" id="prevBtn" class="btn btn-primary mr-1" v-on:click="nextPrev(-1)">Atras</button>
           <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="nextPrev(1)">Siguiente</button>
@@ -212,12 +212,14 @@
         <span class="step"></span>
       </div>
     </form>
+    <router-link :to="url"></router-link>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
 import BackBtn from '@/components/BackBtn.vue';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: "RegisterPatients",
@@ -225,15 +227,22 @@ export default {
   data() {
     return {
       currentTab: 0,
-      error: null
+      patientId: ''
     };
   },
   // Al montarse, se muestra la primera pestaña
   mounted: function() {
     this.showTab(this.currentTab);
+    this.markRequired();
   },
-
+  computed: {
+    ...mapState(['st_allPacientes']),
+    url(){
+        return '/paciente/' + this.patientId;
+      }
+  },
   methods: {
+    ...mapMutations(['st_cargarAllPacientes']),
     // Muestra la pestaña específica
     showTab(n) {
       var allTabs = document.getElementsByClassName("tab");
@@ -269,13 +278,13 @@ export default {
       }
       //Si no, muestra la próxima pestaña
       this.showTab(this.currentTab);
+      
     },
 
     validateForm() {
       var allTabs, allInputs, valid = true;
       allTabs = document.getElementsByClassName("tab");
       allInputs = allTabs[this.currentTab].getElementsByClassName("requiredInput");
-      console.log(allInputs)
       // Loop que checkea los inputs de la pestaña acuatl
       for (let i = 0; i < allInputs.length; i++) {
         if (allInputs[i].value == "") {
@@ -339,51 +348,109 @@ export default {
 
 
     // Carga de datos al back
-    async updateForm(e){
+   updateForm(e){
       e.preventDefault();
-      let formElem = document.getElementById("formulario")
-      let formData = new FormData(formElem)
-      
-      let object = {};
-      object["condiciones_preexistentes"] = []
-      formData.forEach((value, key) => {
+      let self = this
+      if(this.validateForm()){
+        let formElem = document.getElementById("formulario")
+        let formData = new FormData(formElem)
+        
+        let object = {};
+        object["condiciones_preexistentes"] = []
+        formData.forEach((value, key) => {
 
-        if(key == "condiciones_preexistentes"){
-          object["condiciones_preexistentes"].push(value)
-        }else{
-          object[key] = value
+          if(key == "condiciones_preexistentes"){
+            object["condiciones_preexistentes"].push(value)
+          }else{
+            object[key] = value
+          }
+          
+        });
+        let json = JSON.stringify(object);
+        
+        fetch('/api/pacientes', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: json
+        })
+
+        .then(res => {
+          if(res.ok){
+            return res.json()
+          }else{
+            return new Promise.reject(res.json())
+          }
+        })
+
+        .then( jsonPaciente => {
+        fetch('/api/all/pacientes')
+          .then(response => {
+            if(response.ok){
+              return response.json()
+            }else{
+              return Promise.reject(response)
+            }
+          }).then(json => {
+            this.st_cargarAllPacientes(json.pacientes);
+            this.$router.push(`/paciente/${jsonPaciente.pacienteId}`).catch(err => {});
+            })
+        
+          .catch(error => {
+            console.log(error)
+          })
+
+        
+        })
+
+        
+      }
+      else {
+        return;
+      }
+    },
+    markRequired(){
+      let inputs = document.getElementsByClassName('requiredInput')
+      inputs.forEach( input => {
+        if(input.type == 'radio'){
+          input.parentNode.previousSibling.previousSibling && input.parentNode.previousSibling.previousSibling.childNodes[0] ? input.parentNode.previousSibling.previousSibling.innerHTML += '<span class="markedRequired">* </span>' : null
+          
         }
         
-      });
-      let json = JSON.stringify(object);
-
-      console.log(json)
-      
-      await fetch('/api/pacientes', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: json
-      })
-
-      .then(res => {
-        if(res.ok){
-          return res.json()
-        }else{
-          return new Promise.reject(res.json())
+        else{
+          input.previousSibling.innerHTML += '<span class="markedRequired">* </span>';
         }
       })
-
-      .then(json => console.log(json)).catch(error => error.then(json => console.log(json)))
     }
-
   }
 };
 </script>
 
 
 <style scoped>
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 6px;  
+    background-color: #ffffff; 
+}
 #formulario {
   margin: 0 auto;
   padding: 0 2em;
@@ -434,6 +501,11 @@ export default {
 }
 .w-5em{
   width: 5em;
+}
+
+.markedRequired  {
+  font-weight: bold;
+  color: red;
 }
 #formulario input.disable{
   border-bottom: 2px solid grey;

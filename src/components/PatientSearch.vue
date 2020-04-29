@@ -1,7 +1,7 @@
 <template>
   <div id="search" class="container">
     <form id="searchbox" class="d-flex align-items-center">
-      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="pl-3 pt-1 pb-1"/>
+      <input type="text" id="dni-input" placeholder="Ingrese DNI" class="pl-3 pt-1 pb-1" @keyup.enter="(event) => { filterPatients(event, this.st_allPacientes) }"/>
       <div id="searchbtn" @click="(event) => { filterPatients(event, this.st_allPacientes) }">
         <i class="fas fa-search"></i>
       </div>
