@@ -1,7 +1,10 @@
 <template>
 <div id='last'>
   <p class="ml-2">Pacientes atendidos recientemente</p>
-  <Patientbox v-for="(p,k) in lastPatients" :key="k" :paciente="p" />
+  <div id="lastbox">
+    <Patientbox v-for="(p,k) in lastPatients" :key="k" :paciente="p" />
+  </div>
+
 </div>
 </template>
 
@@ -41,5 +44,20 @@ methods: {
 #last p{
   color: #007bff;
   font-weight: bold;
+}
+
+@media screen and (min-width: 1000px){
+  #last{
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  #lastbox{
+    display: flex;
+    justify-content: space-between;
+  }
+  #lastbox>*{
+    width: 33%;
+  }
+
 }
 </style>

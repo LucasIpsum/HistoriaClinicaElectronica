@@ -3,8 +3,14 @@
     <BackBtn class="white"/>
     <div class="title">Registrate como: </div>
     <div id="option">
-      <router-link to="/register/personal" class="option">PERSONAL DE SALUD</router-link>
-      <router-link to="/register/analyst" class="option">ANALISTA DE DATOS</router-link>
+      <router-link to="/register/personal" class="option">
+        <img class="icono" src="@/assets/salud.png" alt="simbolo de salud">
+        PERSONAL DE SALUD
+      </router-link>
+      <router-link to="/register/analyst" class="option">
+        <img class="icono" src="@/assets/data.png" alt="simbolo de salud">
+        ANALISTA DE DATOS
+      </router-link>
     </div>
 
   </div>
@@ -22,6 +28,9 @@
   background-color: white;
   height: 100vh;
   padding-top: 25vh;
+}
+.icono{
+  display: none;
 }
 .title{
   font-size: 2em;
@@ -49,6 +58,12 @@
   #option>*{
     width: 20%;
     margin: 1em 2em;
+  }
+  .icono{
+    display: block;
+    width: 100%;
+    background-color: white;
+    border-radius: 1em;
   }
 }
 </style>

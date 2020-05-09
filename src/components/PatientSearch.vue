@@ -75,6 +75,7 @@ export default {
   margin-right: 0.3em;
   border-radius: 2em;
   color: #007bff;
+  transition: all 0.4s ease;
 }
 #dni-input:focus{
   outline: none;
@@ -82,6 +83,7 @@ export default {
 #searchbtn{
   font-size: 1.3em;
   color: rgb(48, 130, 253);
+  cursor: pointer;
 }
 .searchresultbox{
   position: absolute;
@@ -106,6 +108,14 @@ export default {
     max-width: 500px;
     top: 4em;
     right: 2em;
+  }
+  #searchbtn{
+    color: white;
+  }
+  #dni-input:focus{
+    outline: none;
+    width: 15em;
+    transition: all 0.4s ease;
   }
 }
 </style>

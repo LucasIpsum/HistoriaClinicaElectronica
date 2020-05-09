@@ -11,19 +11,19 @@
       <div class="row m-0 p-0">
         
         <template v-if="st_authority == 'MEDICO' || st_authority == 'ENFERMERO'">
-          <i class="blue fas fa-users fa-2x col-3"></i>
+          <i class="color fas fa-users fa-2x col-3"></i>
           <router-link to="/dashboard" class="menu-item col-9">Mis Pacientes</router-link>
         </template>
 
         <template v-if="st_authority == 'ADMIN'">
-          <i class="blue fas fa-users fa-2x col-3"></i>
+          <i class="color fas fa-users fa-2x col-3"></i>
           <router-link to="/dashboard" class="menu-item col-9">Autorizar cuentas</router-link>
-          <i class="blue fas fa-users fa-2x col-3"></i>
+          <i class="color fas fa-users fa-2x col-3"></i>
           <router-link to="/activeUsers" class="menu-item col-9">Todas las cuentas</router-link>
         </template>
       </div>
       <div class="row m-0 p-0">
-        <i class="blue fas fa-sign-out-alt fa-2x col-3"></i>
+        <i class="color fas fa-sign-out-alt fa-2x col-3"></i>
         <button v-on:click="logout" class="menu-item col-9">Salir</button>
       </div> 
     </div>
@@ -144,7 +144,7 @@ import PatientSearch from '@/components/PatientSearch.vue';
 .row {
   width: 100%;
 }
-.blue {
+.color {
   color: rgb(48, 130, 253);
 }
 #navbar .fas{
@@ -155,6 +155,7 @@ import PatientSearch from '@/components/PatientSearch.vue';
       position: static;
       background-color: #007bff;
       height: auto;
+      margin-bottom: 2em;
     }
     #relleno, #button, #back{
       display: none;
@@ -166,16 +167,27 @@ import PatientSearch from '@/components/PatientSearch.vue';
       flex-direction: row!important;
       justify-content: start;
       align-items: center!important;
-      height: 70px;
-      padding: 0!important;
+      height: 90px;
+      padding: 0.5em 0!important;
       box-shadow: none;
       background-color: #007bff;
     }
     #slide>*{
-      border: 2px solid black;
+      min-width: 200px;
       width: auto;
+      height: 100%;
+      padding: 0 1em;
     }
-    
+    .color{
+      color: white;
+    }
+    .menu-item{
+      text-decoration: none;
+      border: none;
+      background-color: #007bff;
+      font-size: 1.5em;
+      color: white;
+    }
 
   }
 </style>

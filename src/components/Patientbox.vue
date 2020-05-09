@@ -59,4 +59,10 @@ import { mapMutations, mapState } from 'vuex';
 .sub-text{
   margin-bottom: 0;
 }
+@media screen and (min-width: 1000px){
+  #patient{
+    border: 3px solid rgba(8, 127, 238, 0.30);
+    border-radius: 0.3em;
+  }
+}
 </style>
