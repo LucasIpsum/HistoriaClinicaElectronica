@@ -1,13 +1,12 @@
 <template>
   <div>
       <ul>
-      <div class="cardd" v-for="(i,index) in registros" :key="index">
-            <router-link to="/detalleRE">
-            
-              <li @click="st_cargarREActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</li>
-            
-            </router-link>
-      </div>
+      <li class="cardd" v-for="(i,index) in registros" :key="index">
+        <router-link to="/detalleRE">
+          <div @click="st_cargarREActual(i.registro)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</div>
+        </router-link>
+        <i class="fas fa-caret-right"></i>
+      </li>
     </ul>
   </div>
 </template>
@@ -51,10 +50,25 @@ export default {
 </script>
 <style scoped>
       .cardd{
-         background-color: rgb(226, 255, 255);
-        display:flex;
-        justify-content: center;
-        flex-direction: row;
         border:1px solid #007bff;
-    }
+        border-radius: 0.3em;
+        margin: 0.3em 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+      }
+      ul{
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+      }
+      li{
+        cursor: pointer;
+        list-style: none;
+        text-transform: capitalize;
+      }
+      li i{
+        color: #007bff;
+        font-size: 1.5em;
+      }
 </style>

@@ -3,29 +3,31 @@
     <Navbar/>
     <BackBtn />
     <div class="header">
-      <div class="miPerfil">Perfil del paciente</div>
-      <!-- <h3 v-if="pacienteActual.estado.diagnostico =='Covid-19'" style="background-color:red">Estado: {{pacienteActual.estado.diagnostico}}</h3>
-      <h3 v-else style="background-color:#2BFF39">Estado: {{pacienteActual.estado.diagnostico}}</h3> -->
-          <div class="nav d-flex justify-content-around align-content-center">
-
-              <label v-if="st_authority == 'MEDICO'">
+      <div class="miPerfil">
+        <div id="perfilph"></div>
+        <div id="information">
+          <div id="estado">{{pacienteActual.estado}}</div>
+          <div id="id">{{pacienteActual.apellido}}, {{pacienteActual.nombre}}</div>
+        </div>
+      </div>
+          <div id="btn-perfil" class="nav d-flex justify-content-around align-content-center">
+              <label id="labelHC" v-if="st_authority == 'MEDICO'">
                 <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
-                <img v-if="this.inputs=='HC'" class="current" src="../assets/HC.svg" alt="RE">
-                <img v-else src="../assets/HC.svg" alt="RE">
+                <i v-if="this.inputs=='HC'" class="current fas fa-notes-medical"></i>
+                <i v-else class="fas fa-notes-medical"></i>
               </label>
 
-              <label>
+              <label id="labelP">
                 <input id="p" v-model="inputs" type="radio" name="perfil" value="P">
-                <img v-if="this.inputs=='P'" class="current" src="../assets/PERFIL.svg" alt="Perfil">
-                <img v-else src="../assets/PERFIL.svg" alt="Perfil">
+                <i v-if="this.inputs=='P'" class="current fas fa-user"></i>
+                <i v-else class="fas fa-user"></i>
               </label>
 
-              <label>
+              <label id="labelRE">
                 <input id="re" v-model="inputs" type="radio" name="perfil" value="RE">
-                <img v-if="this.inputs=='RE'" class="current" src="../assets/RE.svg" alt="RE">
-                <img v-else src="../assets/RE.svg" alt="RE">
+                <i v-if="this.inputs=='RE'" class="current fas fa-file-medical-alt"></i>
+                <i v-else class="fas fa-file-medical-alt"></i>
               </label>
-
           </div>
       </div>
       <div v-if="inputs=='HC'"> 
@@ -42,11 +44,11 @@
 
 <script>
 // @ is an alias to /src
-import { mapMutations, mapState } from 'vuex';
+import {  mapState } from 'vuex';
 import Navbar from '@/components/Navbar.vue';
 import BackBtn from '@/components/BackBtn.vue';
 import HC from '@/components/HC.vue'
-import FM from '@/components/FM.vue'
+import FM from '@/components/RE.vue'
 import Perfil from '@/components/Perfil.vue'
 
 export default {
@@ -59,51 +61,90 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['st_cargarAllPacientes']),
     cargarActual(){
       this.st_allPacientes.forEach(p => {
-        if(p.id === this.$route.params.id){
-          console.log(p)
+        if(p.id == this.$route.params.id){
+          console.log("se carga" + p)
           this.pacienteActual = p;
         }
       });
     },
+      labelCurrent(){
+        let labels = document.querySelectorAll('label');
+        labels.forEach(label => {label.classList.remove('current')})
+        let i = document.querySelector('.current');
+        i.parentElement.classList.add('current');
+      }
   },
   computed: {
     ...mapState(['st_userInfo', 'st_allPacientes','st_authority'])
   },
     created(){
       this.cargarActual();
+      console.log("paciente se crea");
     // this.fetchDataAllPatients()
   },
+    mounted(){
+      this.labelCurrent();
+    },
+    updated(){
+      this.labelCurrent();
+    }
 }
 
 </script>
 <style scoped>
   .header{
-    height: 30vh;
-    width: 100vw;
+    height: 160px;
+    width: 100%;
+    margin-bottom: 0.5em;
   }
   .miPerfil{
-    background-color: #007bff;
-    color:white;
-    font-size: 4vh;
+    background-color: white;
+    color:black;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    height: 70%;
+    height: 100px;
     width: 100%;
   }
-  label img{
-    width: 25vw;
-    height: 6.5vh;
-    cursor: pointer;
+  .miPerfil>*{
+    text-align: left;
+  }
+  #perfilph{
+    width: 80px;
+    height: 80px;
+    border: 3px solid #007bff;
+    border-radius: 50%;
+    background-color: #65acf8;
+  }
+  #information{
+    height: 80px;
+    width: 70%;
+  }
+  #estado{
+    color: red;
+    border: 2px red solid;
+    border-radius: 1em;
+    padding: 0.2em 1em;
+  }
+  #id{
+    font-size: 1.5em;
+    padding: 0.2em 0.5em;
   }
   .nav {
-    background-color: rgb(226, 255, 255);
-    color: #007bff;
-    border:1px solid #007bff;
-    height: 30%;
+    background-color: #007bff;
+    color: white;
+    height: 60px;
+    font-size: 2em;
+  }
+  label{
+    width: 30%;
+    margin: 0;
+  }
+  label.current{
+    background-color: #005abf;
+    border-bottom: 10px solid white;
   }
   [type=radio] { 
 	position: absolute;
@@ -111,8 +152,5 @@ export default {
 	width: 0;
 	height: 0;
 }
-  .current{
-    filter: invert(50%);
-    -webkit-filter: invert(50%);
-  }
+
 </style>

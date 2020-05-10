@@ -2,7 +2,7 @@
   <div id="register">
     <BackBtn class="white"/>
     <div class="title">Registrate como: </div>
-    <div id="option">
+    <div id="options">
       <router-link to="/register/personal" class="option">
         <img class="icono" src="@/assets/salud.png" alt="simbolo de salud">
         PERSONAL DE SALUD
@@ -51,19 +51,26 @@
   margin: 1em 0;
 }
 @media screen and (min-width: 1000px){
-  #option{
+  #register{
+    border-radius: 0.5em;
+  }
+  #options{
     display: flex;
     justify-content: center;
+
   }
-  #option>*{
+  #options>*{
     width: 20%;
     margin: 1em 2em;
+  }
+  .option{
+    border-radius: 0.5em;
   }
   .icono{
     display: block;
     width: 100%;
     background-color: white;
-    border-radius: 1em;
+    border-radius: 0.2em;
   }
 }
 </style>

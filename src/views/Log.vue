@@ -71,7 +71,7 @@ img {
 }
 #login{
   height: 100vh;
-  background-color: rgb(13, 123, 202);
+  background: linear-gradient(to bottom, rgba(11,97,189,1) 0%, rgba(73,155,234,1) 25%, rgba(73,155,234,1) 50%, rgba(73,155,234,1) 75%, rgba(11,97,189,1) 100%);;
 }
 #formulario{
   padding: 0 2em;

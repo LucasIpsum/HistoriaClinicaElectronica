@@ -1,13 +1,12 @@
 <template>
   <div>
     <ul>
-      <div class="cardd" v-for="(i,index) in registros" :key="index">
-            <router-link to="/detalleHC">
-            
-              <li @click="st_cargarHCActual(i)">{{i.fechaHora}}: {{i.diagnostico}}</li>
-            
-            </router-link>
-      </div>
+      <li class="cardd" v-for="(i,index) in registro" :key="index">
+        <router-link to="/detalleHC">
+          <div @click="st_cargarHCActual(i)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</div>
+        </router-link>
+        <i class="fas fa-caret-right"></i>
+      </li>
     </ul>
   </div>
 </template>
@@ -21,7 +20,7 @@ export default {
   props: ['paciente'],
   data() {
     return {
-      registros: []
+      registro: []
     };
   },
   created(){
@@ -30,16 +29,16 @@ export default {
   methods: {
     ...mapMutations(['st_cargarHCActual']),
     async cargarActual(){
-      console.log('id cargado' + this.paciente.id)
-      await fetch(`/api/pacientes/${this.paciente.id}/hc`)
-      //await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
+      // await fetch(`/api/pacientes/${this.paciente.id}/hc`)
+      await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.registros= json.historiasClinicas.sort(this.sortByDate))
+      // }).then(json => this.registros = json.historiasClinicas.sort(this.sortByDate))
+      }).then(json => this.registro = json)
       .catch(error => {
         console.log(error)
       })
@@ -51,14 +50,26 @@ export default {
 }
 </script>
 <style scoped>
-      .cardd{
-        background-color: rgb(226, 255, 255);
-        display:flex;
-        justify-content: center;
-        flex-direction: row;
-        border:1px solid #007bff;
-    }
-    li{
-      cursor: pointer;
-    }
+  .cardd{
+    border:1px solid #007bff;
+    border-radius: 0.3em;
+    margin: 0.3em 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+  }
+  ul{
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+  }
+  li{
+    cursor: pointer;
+    list-style: none;
+    text-transform: capitalize;
+  }
+  li i{
+    color: #007bff;
+    font-size: 1.5em;
+  }
 </style>

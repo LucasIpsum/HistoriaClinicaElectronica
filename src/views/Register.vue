@@ -186,6 +186,9 @@ export default {
   margin: 0.5em 0;
 }
 @media screen and (min-width: 1000px){
+  #register{
+    border-radius: 0.5em;
+  }
   #formulario{
     width: 550px;
     margin: 0 auto;
