@@ -8,7 +8,7 @@
     <div id="back" v-on:click="hide"></div>
     <div id="slide" class="d-flex flex-column align-items-start">
       <Userbox />
-      <div class="row m-0 p-0">
+      <div class="item row m-0 p-0">
         
         <template v-if="st_authority == 'MEDICO' || st_authority == 'ENFERMERO'">
           <i class="color fas fa-users fa-2x col-3"></i>
@@ -22,7 +22,7 @@
           <router-link to="/activeUsers" class="menu-item col-9">Todas las cuentas</router-link>
         </template>
       </div>
-      <div class="row m-0 p-0">
+      <div class="row m-0 p-0 item">
         <i class="color fas fa-sign-out-alt fa-2x col-3"></i>
         <button v-on:click="logout" class="menu-item col-9">Salir</button>
       </div> 
@@ -187,6 +187,13 @@ import PatientSearch from '@/components/PatientSearch.vue';
       background-color: #007bff;
       font-size: 1.5em;
       color: white;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
+    .item{
+      display: flex;
+      align-items: center;
     }
 
   }

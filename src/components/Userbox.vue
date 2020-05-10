@@ -51,6 +51,7 @@ export default {
     }
     #datos{
       display: flex;
+      flex-direction: column;
       width: 70%;
       justify-content: space-between;
       color: white;

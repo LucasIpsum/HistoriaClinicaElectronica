@@ -196,21 +196,23 @@
       
       <!---------- BOTONES DE CAMBIO DE PESTAÑA ------------->
       <div style="overflow:scroll;">
-        <div style="float:right;">
+        <div id="stepNav">
           <button type="button" id="prevBtn" class="btn btn-primary mr-1" v-on:click="nextPrev(-1)">Atras</button>
+          <!---------- PUNTOS QUE INDICAN EL PROGRESO DEL FORM  ------------>
+          <div id="steps">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+          </div>
           <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="nextPrev(1)">Siguiente</button>
           <button id="submit" class="submit btn btn-primary" v-on:click="updateForm">Enviar</button>
         </div>
       </div>
 
       <!---------- PUNTOS QUE INDICAN EL PROGRESO DEL FORM  ------------>
-      <div style="text-align:center;margin-top:40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-      </div>
+
     </form>
     <router-link :to="url"></router-link>
   </div>
@@ -248,9 +250,9 @@ export default {
       var allTabs = document.getElementsByClassName("tab");
       allTabs[n].style.display = "block";
       if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("prevBtn").style.opacity = "0";
       } else {
-        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").style.opacity = "1";
       }
       if (n == allTabs.length - 1) {
         document.getElementById("nextBtn").style.display = "none";
@@ -546,6 +548,19 @@ input.invalid {
 .tab {
   display: none;
 }
+button{
+  width: 30%;
+  padding: 0.5em 0;
+  margin: 0;
+}
+#stepNav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#steps{
+  width: 40%;
+}
 .step {
   height: 15px;
   width: 15px;
@@ -558,8 +573,10 @@ input.invalid {
 }
 .step.active {
   opacity: 0.7;
+  border: rgba(44, 62, 80, 0.85) solid 3px;
 }
 .step.finish {
   background-color: #007bff;
+  opacity: 1;
 }
 </style>
