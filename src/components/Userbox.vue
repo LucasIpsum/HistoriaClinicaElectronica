@@ -44,7 +44,7 @@ export default {
   @media screen and (min-width: 1000px){
     #userbox {
       height: 70px;
-      width: 30vw!important;
+      width: 25vw!important;
       background-color: #007bff;
       padding: 0;
       margin: 0;

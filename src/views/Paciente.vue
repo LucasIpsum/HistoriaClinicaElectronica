@@ -15,18 +15,21 @@
                 <input id="hc" v-model="inputs" type="radio" name="perfil" value="HC">
                 <i v-if="this.inputs=='HC'" class="current fas fa-notes-medical"></i>
                 <i v-else class="fas fa-notes-medical"></i>
+                <span class="leyenda">Historias Clinicas</span>
               </label>
 
               <label id="labelP">
                 <input id="p" v-model="inputs" type="radio" name="perfil" value="P">
                 <i v-if="this.inputs=='P'" class="current fas fa-user"></i>
                 <i v-else class="fas fa-user"></i>
+                <span class="leyenda">Perfil del Paciente</span>
               </label>
 
               <label id="labelRE">
                 <input id="re" v-model="inputs" type="radio" name="perfil" value="RE">
                 <i v-if="this.inputs=='RE'" class="current fas fa-file-medical-alt"></i>
                 <i v-else class="fas fa-file-medical-alt"></i>
+                <span class="leyenda">Registros de Enfermeria</span>
               </label>
           </div>
       </div>
@@ -141,10 +144,20 @@ export default {
   label{
     width: 30%;
     margin: 0;
+    height: 60px;
+    cursor: pointer;
   }
   label.current{
     background-color: #005abf;
     border-bottom: 10px solid white;
+    border-top-right-radius: 0.2em;
+    border-top-left-radius: 0.2em;
+  }
+  label:hover{
+    background-color: #005abf;
+    border-bottom: 10px solid white;
+    border-top-right-radius: 0.2em;
+    border-top-left-radius: 0.2em;
   }
   [type=radio] { 
 	position: absolute;
@@ -152,5 +165,14 @@ export default {
 	width: 0;
 	height: 0;
 }
-
+  .leyenda{
+    display: none;
+  }
+@media screen and (min-width: 1000px){
+  .leyenda{
+    display: inline;
+    font-size: 0.7em;
+    padding-left: 0.5em;
+  }
+}
 </style>

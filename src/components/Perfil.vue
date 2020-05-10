@@ -1,7 +1,7 @@
 <template v-if="st_misPacientes.length > 0">
   <div>
         <button type="button" data-toggle="collapse" data-target="#datos" aria-expanded="false" aria-controls="datos">
-          <div>Perfil del Paciente</div>
+          <div>Datos Personales</div>
           <i class="fas fa-caret-down"></i>
         </button>
         <div class="collapse show" id="datos">
