@@ -29,15 +29,14 @@ export default {
   methods: {
     ...mapMutations(['st_cargarREActual']),
     async cargarActual(){
-      // await fetch(`/api/pacientes/${this.paciente.id}/registros`)
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/enfermeria.json.json')
+      await fetch(`/api/pacientes/${this.paciente.id}/registros`)
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.registros= json.sort(this.sortByDate))
+      }).then(json => this.registros= json.registros.sort(this.sortByDate))
       .catch(error => {
         console.log(error)
       })

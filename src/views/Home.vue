@@ -34,15 +34,15 @@ export default {
     ...mapMutations(['st_cargarMisPacientes', 'st_cargarAllPacientes']),
     fetchDataMyPatients(){
       if(this.st_authority == 'MEDICO' || this.st_authority == 'ENFERMERO'){
-        /*fetch('/api/pacientes')*/
-        fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
+        fetch('/api/pacientes')
+        //fetch('https://raw.githubusercontent.com/21diego/database/master/misPacientes.json')
         .then(response => {
           if(response.ok){
             return response.json()
           }else{
             return Promise.reject(response)
           }
-        }).then(json => this.st_cargarMisPacientes(json))
+        }).then(json => this.st_cargarMisPacientes(json.pacientes))
         .catch(error => {
           console.log(error)
         })
@@ -50,22 +50,22 @@ export default {
     },
     fetchDataAllPatients(){
       if(this.st_authority == 'MEDICO' || this.st_authority == 'ENFERMERO'){
-        /*fetch('/api/all/pacientes')*/
-        fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
+        fetch('/api/all/pacientes')
+        //fetch('https://raw.githubusercontent.com/21diego/database/master/pacientes.json')
         .then(response => {
           if(response.ok){
             return response.json()
           }else{
             return Promise.reject(response)
           }
-        }).then(json => this.st_cargarAllPacientes(json))
+        }).then(json => this.st_cargarAllPacientes(json.pacientes))
         .catch(error => {
           console.log(error)
         })
       }
     }
   },
-  /*updated(){*/
+  
   created(){
     this.fetchDataMyPatients();
     this.fetchDataAllPatients();

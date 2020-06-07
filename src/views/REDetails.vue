@@ -11,8 +11,7 @@
 <script>
 import {mapState} from 'vuex';
 import Navbar from '@/components/Navbar.vue';
-import BackBtn from '@/components/BackBtn.vue';
-
+import BackBtn from '@/components/BackBtn.vue';   
 export default {
     components: { Navbar, BackBtn },
 

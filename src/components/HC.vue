@@ -1,13 +1,14 @@
 <template>
   <div>
     <ul>
-      <li class="cardd" v-for="(i,index) in registro" :key="index">
+      <li class="cardd" v-for="(registro,index) in registros" :key="index">
         <router-link to="/detalleHC">
-          <div @click="st_cargarHCActual(i)">{{i.registro.ingreso}}: {{i.registro.observaciones}}</div>
+          <div @click="st_cargarHCActual(registro)">{{registro.fechaHora}}: {{registro.observaciones}}</div>
         </router-link>
         <i class="fas fa-caret-right"></i>
       </li>
     </ul>
+    <router-link :to="'/registerhc/'+paciente.id" class="btn btn-large">+Nueva Historia</router-link>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
   props: ['paciente'],
   data() {
     return {
-      registro: []
+      registros: [],
     };
   },
   created(){
@@ -29,17 +30,19 @@ export default {
   methods: {
     ...mapMutations(['st_cargarHCActual']),
     async cargarActual(){
-      // await fetch(`/api/pacientes/${this.paciente.id}/hc`)
-      await fetch('https://raw.githubusercontent.com/21diego/database/master/history.json')
+     await fetch(`/api/pacientes/${this.paciente.id}/hc`)
       .then(response => {
         if(response.ok){
           return response.json()
         }else{
           return Promise.reject(res)
         }
-      // }).then(json => this.registros = json.historiasClinicas.sort(this.sortByDate))
-      }).then(json => this.registro = json)
-      .catch(error => {
+       }).then(json =>{
+         this.registros = json.historiasClinicas
+          console.log(this.registros)
+       }
+        )
+            .catch(error => {
         console.log(error)
       })
     },

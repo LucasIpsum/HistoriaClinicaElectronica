@@ -6,7 +6,7 @@
       <div class="miPerfil">
         <div id="perfilph"></div>
         <div id="information">
-          <div id="estado">{{pacienteActual.estado}}</div>
+          <div id="estado">{{pacienteActual.estadodiagnostico}}</div>
           <div id="id">{{pacienteActual.apellido}}, {{pacienteActual.nombre}}</div>
         </div>
       </div>
@@ -56,7 +56,7 @@ import Perfil from '@/components/Perfil.vue'
 
 export default {
   name: 'Paciente',
-  components: { Navbar, BackBtn, HC, FM, Perfil },
+  components: { Navbar, BackBtn, HC, Perfil },
   data() {
     return{
       pacienteActual: '',

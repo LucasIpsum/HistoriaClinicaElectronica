@@ -10,6 +10,9 @@
         {{this.st_HCActual.sintomas}}
         {{this.st_HCActual.tratamiento}}
         {{this.st_HCActual.observaciones}}
+        {{this.st_HCActual.medicamentos}}
+        {{this.st_HCActual.hemograma}}
+        {{this.st_HCActual.eritrosedimentacion}}
     </div>
 </template>
 
