@@ -5,7 +5,6 @@
     <div class="nombre">{{`${st_userInfo.apellido}, ${st_userInfo.nombre}`}}</div>
     <div class="tipo">{{st_authority}}</div>
   </div>
-  
 </div>
 </template>
 

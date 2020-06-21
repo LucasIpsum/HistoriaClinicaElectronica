@@ -27,6 +27,9 @@ export default {
     computed: {
   ...mapState(['st_HCActual']),
     },
+    created(){
+        console.log(st_allPacientes)
+    }
 }
 </script>
 

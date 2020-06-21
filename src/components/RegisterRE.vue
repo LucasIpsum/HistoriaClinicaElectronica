@@ -9,10 +9,7 @@
           <!------------- TAB 1 (Datos) ------------>
           <div class="tab">
             <h4>Información regular</h4>
-            <div class="form-group d-flex flex-nowrap">
-              <label for="id" class="d-flex align-items-center justify-content-center">DNI:</label>
-              <input name="id" type="number" class="requiredInput form-control" placeholder="DNI" />
-            </div>
+        
 
             <div class="form-group d-flex flex-nowrap">
               <label for="fechaHora" class="d-flex align-items-center justify-content-center">Fecha y hora:</label>
@@ -25,7 +22,7 @@
           <div class="tab">
             <div class="form-group d-flex flex-nowrap">
               <label for="tensionArterial" class="d-flex align-items-center justify-content-center">Tensión arterial:</label>
-              <inpup name="tensionArterial" type="number" class="requiredInput form-control" placeholder="Tenseión arterial"/>
+              <input name="tensionArterial" type="number" class="requiredInput form-control" placeholder="Tensión arterial"/>
             </div>
 
             <div class="form-group d-flex flex-nowrap">
@@ -174,15 +171,15 @@ export default {
     },
 
     postRE() {
-        fetch("/api/pacientes/" + this.$route.params.id + "/re", {
+        fetch("/api/pacientes/" + this.$route.params.id + "/registros", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
             },
             body: JSON.stringify()
-        });
+          });
         },
-        updateForm(e) {
+      updateForm(e) {
         e.preventDefault();
         let self = this;
         if (this.validateForm()) {
@@ -194,8 +191,10 @@ export default {
                 object[key] = value;
             });
             let json = JSON.stringify(object);
+            console.log(json);
+         
 
-            fetch("/api/pacientes/" + this.$route.params.id + "/re", {
+            fetch("/api/pacientes/" + this.$route.params.id + "/registros", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -251,3 +250,203 @@ export default {
     }}
 }
 </script>
+
+<style scoped>
+#dni-input {
+  width: 40vw;
+}
+img {
+  height: 5vh;
+}
+.lowOpacity {
+  opacity: 0.4;
+}
+#diagnosisDiv,
+#physicalExamsDiv,
+#observationsDiv {
+  width: 100%;
+  min-height: 10vh;
+  margin: 2vh 0vw;
+  background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 0.5em;
+}
+#divsContainer {
+  overflow: auto;
+  height: 60vh;
+}
+#recordsNav {
+  position: fixed;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+}
+.wrapper {
+  overflow: auto;
+  height: 65vh;
+}
+.w-95 {
+  width: 95%;
+}
+input {
+  border: 1px solid black;
+  height: 16vh;
+  width: 70vw;
+}
+label {
+  font-size: x-large;
+}
+textarea {
+  font-size: medium;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+#formulario {
+  margin: 0 auto;
+  padding: 0 2em;
+}
+#overflow {
+  height: 60vh;
+  overflow-y: scroll;
+  margin-bottom: 1.5em;
+  width: 100%;
+  padding: 0 0.5em;
+}
+#formulario .fas {
+  color: white;
+  background-color: rgb(13, 123, 202);
+  font-size: 1.2em;
+  border: 1px rgb(13, 123, 202) solid;
+  padding: 0.3em;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin-right: 0.4em;
+}
+#formulario .fas.disable {
+  background-color: grey;
+  border: 1px grey solid;
+}
+#formulario input {
+  background: none;
+  border: none;
+  border-bottom: 2px solid rgb(13, 123, 202);
+  color: rgb(13, 123, 202);
+  text-align: left;
+  font-size: 1em;
+  font-weight: bold;
+}
+#formulario input::placeholder {
+  color: rgba(16, 123, 199, 0.7);
+}
+#formulario input:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+}
+#formulario select:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+}
+.w-5em {
+  width: 5em;
+}
+
+.markedRequired {
+  font-weight: bold;
+  color: red;
+}
+#formulario input.disable {
+  border-bottom: 2px solid grey;
+  color: grey;
+}
+#formulario input.disable::placeholder {
+  color: grey !important;
+}
+input.invalid {
+  color: #f03333cb !important;
+  background-color: #ffdddd !important;
+  border-bottom: 2px solid #fd4d4d !important;
+}
+#formulario input.invalid::placeholder {
+  color: #f03333cb !important;
+}
+#formulario select.invalid {
+  background: #ffdddd !important;
+}
+
+#preexistantConditions label {
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  align-self: center;
+  font-size: 70%;
+
+  margin-top: 2rem;
+  font-size: larger;
+}
+
+#preexistantConditions label input {
+  width: auto;
+  align-self: center;
+  margin: 0;
+  margin-right: 0.3rem;
+}
+.tab {
+  display: none;
+}
+button {
+  width: 30%;
+  padding: 0.5em 0;
+  margin: 0;
+}
+#stepNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#steps {
+  width: 40%;
+}
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.3;
+}
+.step.active {
+  opacity: 0.7;
+  border: rgba(44, 62, 80, 0.85) solid 3px;
+}
+.step.finish {
+  background-color: #007bff;
+  opacity: 1;
+}
+
+</style>

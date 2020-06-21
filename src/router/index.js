@@ -68,6 +68,7 @@ const routes = [
   },
   {
     path: '/registerre/:id',
+    name: '/RegisterRE',
     // route level code-splitting
     // this generates a separate chunk (register.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

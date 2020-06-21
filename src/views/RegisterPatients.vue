@@ -266,7 +266,7 @@
               id="convivientes"
               type="number"
               class="requiredInput form-control w-50"
-              placeholder="Cant. de conv."
+              placeholder="Cantidad de convivientes."
             />
           </div>
 

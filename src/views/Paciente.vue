@@ -37,7 +37,7 @@
         <HC :paciente="pacienteActual"/>
       </div>
       <div v-else-if="inputs=='RE'">
-        <FM :paciente="pacienteActual"/>
+        <RE :paciente="pacienteActual"/>
       </div>
       <div v-else>
         <Perfil :paciente="pacienteActual"/>
@@ -51,12 +51,12 @@ import {  mapState } from 'vuex';
 import Navbar from '@/components/Navbar.vue';
 import BackBtn from '@/components/BackBtn.vue';
 import HC from '@/components/HC.vue'
-import FM from '@/components/RE.vue'
+import RE from '@/components/RE.vue'
 import Perfil from '@/components/Perfil.vue'
 
 export default {
   name: 'Paciente',
-  components: { Navbar, BackBtn, HC, Perfil },
+  components: { Navbar, BackBtn, HC, Perfil, RE },
   data() {
     return{
       pacienteActual: '',

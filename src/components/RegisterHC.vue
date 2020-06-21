@@ -121,12 +121,7 @@
             <span class="step"></span>
             <span class="step"></span>
           </div>
-          <button
-            type="button"
-            id="nextBtn"
-            class="btn btn-primary"
-            v-on:click="nextPrev(1)"
-          >Siguiente</button>
+          <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="nextPrev(1)" >Siguiente</button>
           <button id="submit" class="submit btn btn-primary" v-on:click="updateForm">Enviar</button>
         </div>
       </div>

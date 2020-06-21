@@ -67,7 +67,7 @@
                     <button @click="deshabilitarUsuario(usuarioPorConfirmar, confirmacion)" >Sí</button>
                     <button @click="esconderVistaConfirmacion">No</button>
                 </template>
-                <!-- BOTON SI  Y NO ENFERMEROS -->
+                <!-- BOTON SI Y NO ENFERMEROS -->
                 <template v-else>
                     <button @click="deshabilitarUsuario(usuarioPorConfirmar, confirmacion)">Sí</button>
                     <button @click="esconderVistaConfirmacion">No</button>

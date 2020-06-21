@@ -1,3 +1,5 @@
+
+
 <template>
   <div>
     <ul>
@@ -8,7 +10,9 @@
         <i class="fas fa-caret-right"></i>
       </li>
     </ul>
-    <router-link :to="'/registerre/'+paciente.id" class="btn btn-large">+Nuevo Registro</router-link>
+    <div v-if="st_authority == 'ENFERMERO'">
+      <router-link :to="'/registerre/'+paciente.id" class="btn btn-large">+Nuevo Registro</router-link>
+    </div>
   </div>
 </template>
 
@@ -16,8 +20,9 @@
 // @ is an alias to /src
 import { mapMutations, mapState } from 'vuex';
 
+
 export default {
-  name: 'FM',
+  name: 'RE',
   props: ['paciente'],
   data() {
     return {
@@ -37,15 +42,22 @@ export default {
         }else{
           return Promise.reject(res)
         }
-      }).then(json => this.registros= json.registros.sort(this.sortByDate))
-      .catch(error => {
-        console.log(error)
-      })
+      }).then(json =>{
+        this.registros= json.registros
+        console.log(this.registros)
+        }
+        )
+          .catch(error => {
+            console.log(error)
+          })
     },
     sortByDate(a, b){
-      return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
-    }
+        return Date.parse(b.registro.ingreso) - Date.parse(a.registro.ingreso);
+      }
   },
+  computed: {
+    ...mapState(['st_authority'])
+  }
 }
 </script>
 <style scoped>

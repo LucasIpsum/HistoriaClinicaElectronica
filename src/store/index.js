@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     st_user: false,
     st_userInfo: {},
-    st_authority: 'MEDICO',
+    st_authority: '',
     st_misPacientes: [],
     st_allPacientes: [],
     st_HCActual: {},
